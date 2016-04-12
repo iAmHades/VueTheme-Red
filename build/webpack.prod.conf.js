@@ -6,6 +6,7 @@ var baseWebpackConfig = require('./webpack.base.conf')
 var cssLoaders = require('./css-loaders')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var AliyunossWebpackPlugin = require('aliyunoss-webpack-plugin')
 
 module.exports = merge(baseWebpackConfig, {
   devtool: config.build.productionSourceMap ? '#source-map' : false,
@@ -39,17 +40,28 @@ module.exports = merge(baseWebpackConfig, {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: process.env.NODE_ENV === 'testing'
-        ? 'index.html'
-        : config.build.index,
+      filename: process.env.NODE_ENV === 'testing' ? 'index.html' : config.build.index,
       template: 'index.html',
       inject: true,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
         removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
+          // more options:
+          // https://github.com/kangax/html-minifier#options-quick-reference
+      }
+    }),
+    new AliyunossWebpackPlugin({
+      buildPath: __dirname + '/../dist',
+      region: '',
+      accessKeyId: '',
+      accessKeySecret: '',
+      bucket: '',
+      deleteAll: true,
+      getObjectHeaders: function(filename) {
+        return {
+          'Cache-Control': 'max-age=2592000'
+        }
       }
     })
   ]

@@ -11,11 +11,12 @@
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
-    "vue": "^1.0.18",
+    "aliyunoss-webpack-plugin": "^0.2.0",
     "babel-runtime": "^5.8.0",
-    "vuex":"0.6.2",
+    "vue": "^1.0.18",
+    "vue-resource": "0.7.0",
     "vue-router": "^0.7.13",
-    "vue-resource": "0.7.0"
+    "vuex": "0.6.2"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
