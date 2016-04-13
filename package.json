@@ -13,6 +13,9 @@
   "dependencies": {
     "aliyunoss-webpack-plugin": "^0.2.0",
     "babel-runtime": "^5.8.0",
+    "css-loader": "^0.23.1",
+    "less": "^2.6.1",
+    "less-loader": "^2.2.3",
     "vue": "^1.0.18",
     "vue-resource": "0.7.0",
     "vue-router": "^0.7.13",

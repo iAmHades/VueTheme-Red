@@ -1,10 +1,6 @@
 <template>
     <div class="view">
-        <div v-if="$loadingRouteData">Loading ...</div>
-        <div v-if="!$loadingRouteData" v-el:test>
-             welcome.. --{{author}}
             
-        </div>
     </div>
 </template>
 

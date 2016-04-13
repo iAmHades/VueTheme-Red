@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="container">
   <!-- main view -->
   <menu></menu>
   <div class="main-container">
@@ -26,10 +26,12 @@
 
 </script>
 
-<style>
-    body{
-        background-color: #f4f4f4;
-    }
+<style lang="less">
+@import './../static/css/variables.less';
+@import './../static/css/layout.less';
+@import './../static/css/utilities.less';
+
+
 
     .expand-transition {
 
