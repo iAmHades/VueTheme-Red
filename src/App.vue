@@ -27,10 +27,6 @@
 </script>
 
 <style lang="less">
-@import './../static/css/variables.less';
-@import './../static/css/layout.less';
-@import './../static/css/utilities.less';
-
 
 
     .expand-transition {
