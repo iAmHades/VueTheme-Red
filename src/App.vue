@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container-fluid">
   <!-- main view -->
   <menu></menu>
   <div class="main-container">
@@ -21,6 +21,12 @@
             return {
 
             }
+        },
+        created(){
+
+        },
+        methods:{
+
         }
     }
 

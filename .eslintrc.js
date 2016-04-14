@@ -5,7 +5,8 @@ module.exports = {
         'html'
     ],
     globals:{
-        'Vue':true
+        'Vue':true,
+        'alert':true
     },
     rules: {
         'arrow-parens': 0,
@@ -23,6 +24,7 @@ module.exports = {
         'space-before-blocks':[2,'always'],
         'eqeqeq': 2,
         'no-trailing-spaces':1,
-        'no-multiple-empty-lines':2
+        'no-multiple-empty-lines':2,
+        'space-before-blocks':0
     }
 }
