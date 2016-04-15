@@ -11,35 +11,39 @@
         </div>
         <div class="navbar-collapse" style="height: 1px;" :class="{collapse:isShow}">
           <ul class="nav navbar-nav navbar-right">
-            <li class="hidden-sm hidden-md"><a href="#">菜单1</a></li>
-            <li><a href="#">菜单2</a></li>
-            <li><a href="#">菜单3</a></li>
-            <li><a href="#">菜单4</a></li>
-            <li><a href="#">菜单5</a></li>
-            <li><a href="#">菜单6</a></li>
-            <li class="hidden-sm"><a href="#">关于</a></li>
+            <li v-for="menu in menus"><a href="#">{{menu.text}}</a></li>
+            <li class="hidden-sm"><a href="#">About</a></li>
           </ul>
         </div>
       </div>
     </div>
 </template>
 <script>
-    module.exports = {
-        data() {
-            return {
-               isShow:true
-            }
-        },
-        created() { 
-           
-        },
-        methods: {
-           showMenu() {
-              this.isShow=!this.isShow
-           }
+ import { getMenus } from './../vuex/actions'
 
-        }
-    }
+ module.exports = {
+   vuex: {
+     getters: {
+       menus: state => state.menu.menus
+     },
+     actions: {
+       getMenus
+     }
+   },
+   data() {
+     return {
+        isShow:true
+     }
+   },
+   created() {
+     this.getMenus()
+   },
+   methods: {
+     showMenu(){
+        this.isShow=!this.isShow
+     }
+   }
+ }
 
 </script>
 <style type="text/css">

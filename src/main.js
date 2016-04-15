@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { sync } from 'vuex-router-sync'
+import store from './vuex/store'
 import App from './App.vue'
 import filters from './filter'
 import err from './views/500.vue'
@@ -40,4 +42,5 @@ router.map({
 // router.beforeEach(function(transition) {
 //   transition.next()
 // })
+sync(store, router)
 router.start(App, '#app')
