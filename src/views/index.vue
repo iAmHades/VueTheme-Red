@@ -1,5 +1,5 @@
 <template>
-    <div class="view">
+    <div class="view" >
             
     </div>
 </template>
@@ -21,3 +21,11 @@
             compiled() {}
     }
 </script>
+
+<style>
+    .view{
+        width: 100%;
+        height:100%;
+        background-color: #ECECEC;
+    }
+</style>

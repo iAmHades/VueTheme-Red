@@ -1,12 +1,12 @@
 <template>
-<div class="container-fluid">
+<!-- <div class="container-fluid"> -->
   <!-- main view -->
   <menu></menu>
-  <div class="main-container">
+  <div class="main-container" >
      <router-view  class="view"  transition="expand" transition-mode="out-in"></router-view>
   </div>
   <foot></foot>
-</div>
+<!-- </div> -->
 </template>
 
 <script>
@@ -83,5 +83,12 @@
         100% {
             opacity: 0;
         }
+    }
+
+    .main-container{
+        padding-top:100px;
+        width: 100%;
+        height:100%;
+        position:absolute;
     }
 </style>
