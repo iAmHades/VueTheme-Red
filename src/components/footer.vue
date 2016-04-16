@@ -42,6 +42,7 @@
 }
 .text-white {
     color: #fff;
+    display: inline-block;
 }
 .bg-left .text-white{
 	padding-left: 30px;
@@ -50,4 +51,11 @@
 .bg-right .text-white{
 	padding-left: 30px;
 }
+
+@media (max-width: 780px) {
+   .text-white{
+      display: block;
+   }
+}
+
 </style>
