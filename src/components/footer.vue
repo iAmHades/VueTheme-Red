@@ -32,7 +32,7 @@
 .bg-right{
 	 background-color: #bf2718 !important;
 	 height: 150px;
-	  padding-top: 70px;
+	 padding-top: 70px;
 }
 .container, .container-fluid {
     margin-right: auto;
@@ -50,12 +50,29 @@
 
 .bg-right .text-white{
 	padding-left: 30px;
+	display: inline-block!important;
+}
+
+@media (max-width: 1080px) {
+   .bg-right{
+   	 text-align: center;
+   }
+
+   .bg-right .text-white{
+	 padding-left: 0;
+   }
 }
 
 @media (max-width: 780px) {
-   .text-white{
+   .bg-left .text-white{
       display: block;
+      padding-left:0!important;
+	  text-align: center;
+	  bottom: 40px;
+      position: relative;
+      padding-bottom: 10px;
    }
+  
 }
 
 </style>
