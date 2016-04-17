@@ -3,13 +3,13 @@
       <div class="container navborder-red">
         <div class="navbar-header">
           <button class="navbar-toggle" type="button" @click="showMenu">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+            <span class="icon-bar" :class="{xbar:isShow}"></span>
+            <span class="icon-bar" :class="{xbar:isShow}"></span>
+            <span class="icon-bar" :class="{xbar:isShow}"></span>
           </button>
           <a class="navbar-brand hidden-sm" href="">VueTheme-Red</a>
         </div>
-        <div v-el:menu class="navbar-collapse" style="height: 1px;" :class="{showbyopacity:isShow}">
+        <div class="navbar-collapse" style="height: 1px;" :class="{showbyopacity:isShow,navbaran:isShow}">
           <ul class="nav navbar-nav navbar-right" :class="{showtranslate:isShow}">
             <li v-for="menu in menus"><a href="#">{{menu.text}}</a></li>
             <li class="hidden-sm"><a href="#">About</a></li>
@@ -41,7 +41,6 @@
    methods: {
      showMenu(){
         this.isShow=!this.isShow
-        // this.$els.menu.style
      }
    }
  }
@@ -69,6 +68,7 @@
 }
 .navborder-red .icon-bar {
   background-color: #888;
+  top:0;
 }
 
 .navbar-nav>li>a{
@@ -111,8 +111,10 @@
 
   .navbar-collapse {
     opacity:0;
-    transition: opacity 800ms cubic-bezier(0.39, 0.575, 0.565, 1) 300ms;
   }  
+  .navbaran{
+    transition: opacity 800ms cubic-bezier(0.39, 0.575, 0.565, 1) 300ms;
+  }
 
   .navbar-collapse .navbar-right{
     transform: translate3d(0px, -40px, 0px);
@@ -120,5 +122,45 @@
   }
   
 }
+.navbar-header .navbar-toggle {
+  width: 40px;
+  height: 40px;
+}
+.navbar-header .navbar-toggle .xbar{
+   position: absolute;
+   right: 10px;
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    opacity: 1;
+    -webkit-transition-delay: 0ms;
+    -moz-transition-delay: 0ms;
+    -o-transition-delay: 0ms;
+    transition-delay: 0ms;
+    -webkit-transition: top, -webkit-transform 200ms cubic-bezier(0, 1, 1, 0.73) 100ms;
+    -moz-transition: top, -moz-transform 200ms cubic-bezier(0, 1, 1, 0.73) 100ms;
+    -o-transition: top, -o-transform 200ms cubic-bezier(0, 1, 1, 0.73) 100ms;
+    transition: top, transform 200ms cubic-bezier(0, 1, 1, 0.73) 100ms;
+}
+.navbar-header .navbar-toggle .xbar:nth-child(1) {
+    top: 16px;
+    -webkit-transform: rotate(45deg) scaleX(1.442);
+    -moz-transform: rotate(45deg) scaleX(1.442);
+    -o-transform: rotate(45deg) scaleX(1.442);
+    transform: rotate(45deg) scaleX(1.442);
+}
 
+.navbar-header .navbar-toggle .xbar:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-header .navbar-toggle .xbar:nth-child(3) {
+    top: 13px;
+    -webkit-transform: rotate(-45deg) scaleX(1.442);
+    -moz-transform: rotate(-45deg) scaleX(1.442);
+    -o-transform: rotate(-45deg) scaleX(1.442);
+    transform: rotate(-45deg) scaleX(1.442);
+}
 </style>
