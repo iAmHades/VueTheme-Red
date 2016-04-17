@@ -25,6 +25,7 @@ module.exports = {
         'eqeqeq': 2,
         'no-trailing-spaces':1,
         'no-multiple-empty-lines':2,
-        'space-before-blocks':0
+        'space-before-blocks':0,
+        'no-return-assign':0
     }
 }

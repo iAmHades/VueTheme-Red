@@ -7,7 +7,6 @@ import filters from './filter'
 import err from './views/500.vue'
 import notfind from './views/404.vue'
 import index from './views/index.vue'
-
 window.Vue = Vue
 Vue.use(Router)
 var router = new Router({

@@ -42,6 +42,18 @@ exports.install = function(Vue, options) {
             get: function() {
                 return dateFormate
             }
+        },
+
+        $listen: {
+            get: function() {
+                return eventListener
+            }
+        },
+
+        $coerceBoolean: {
+            get: function() {
+                return coerceBoolean
+            }
         }
 
     })
@@ -104,6 +116,34 @@ exports.install = function(Vue, options) {
             day = '0' + day
         }
         return year + '-' + month + '-' + day
+    }
+
+    // 时间监听
+    var eventListener = function(target, eventType, callback) {
+        if (target.addEventListener) {
+            target.addEventListener(eventType, callback, false)
+            return {
+                remove() {
+                    target.removeEventListener(eventType, callback, false)
+                }
+            }
+        } else if (target.attachEvent) {
+            target.attachEvent('on' + eventType, callback)
+            return {
+                remove() {
+                    target.detachEvent('on' + eventType, callback)
+                }
+            }
+        }
+    }
+
+    // 判断boolean值
+    var coerceBoolean = function(val) {
+        return (typeof val !== 'string' ? val
+           : val === 'true' ? true
+           : val === 'false' ? false
+           : val === 'null' ? false
+           : val === 'undefined' ? false : val)
     }
 
     // 拦截器
