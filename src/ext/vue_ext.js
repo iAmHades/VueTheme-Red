@@ -118,7 +118,7 @@ exports.install = function(Vue, options) {
         return year + '-' + month + '-' + day
     }
 
-    // 时间监听
+    // 事件监听
     var eventListener = function(target, eventType, callback) {
         if (target.addEventListener) {
             target.addEventListener(eventType, callback, false)

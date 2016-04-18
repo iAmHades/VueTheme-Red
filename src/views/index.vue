@@ -23,16 +23,20 @@
          </div>
         </slider>
       </carousel>
+      <br/>
+      <category></category>
     </div>
 </template>
 
 <script>
     import carousel from './../components/carousel.vue'
     import slider from './../components/slider.vue'
+    import category from './../components/category.vue'
     export default {
         components: {
             carousel,
-            slider
+            slider,
+            category
         },
         data() {
             return {

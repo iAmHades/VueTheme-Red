@@ -65,6 +65,7 @@
 
 .navborder-red {
   border-bottom: 1px red solid;
+  background-color: white;
 }
 .navborder-red .icon-bar {
   background-color: #888;

@@ -36,6 +36,10 @@
 
 <style lang="less">
 
+    .main-container .view{
+      text-align: center;
+    }
+
 
     .expand-transition {
 
