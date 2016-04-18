@@ -18,7 +18,6 @@
 <style type="text/css">
 .footer-container{
 	position: absolute;
-	bottom:0px;
 	width: 100%;
 }
 .bg-left{

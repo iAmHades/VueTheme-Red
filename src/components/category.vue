@@ -1,13 +1,11 @@
 <template>
-  <div class="view">
-      <div class="container">
-            <div class="row">
-              <ul class="filters">
-                <li v-for="c in category" class="active">{{c.key}}</li>
-              </ul>
-            </div>
-          </div>
+<div class="container">
+  <div class="row">
+    <ul class="filters">
+      <li v-for="c in category" class="active">{{c.key}}</li>
+    </ul>
   </div>
+</div>
 </template>
 
 <script>

@@ -25,6 +25,8 @@
       </carousel>
       <br/>
       <category></category>
+      <br/>
+      <imgblog></imgblog>
     </div>
 </template>
 
@@ -32,11 +34,13 @@
     import carousel from './../components/carousel.vue'
     import slider from './../components/slider.vue'
     import category from './../components/category.vue'
+    import imgblog from './../components/imgblog.vue'
     export default {
         components: {
             carousel,
             slider,
-            category
+            category,
+            imgblog
         },
         data() {
             return {
