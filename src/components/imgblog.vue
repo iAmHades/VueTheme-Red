@@ -95,7 +95,6 @@
     margin-bottom: 80px;
 }
 .column-projects .project.col-md-4 {
-    width: 33.33333%;
     overflow: hidden;
 }
 .column-projects .project {
@@ -108,6 +107,13 @@
 .column-projects .project .background-image-holder {
     left: 15px;
 }
+
+@media (max-width: 780px) {
+   .column-projects .project .background-image-holder {
+    left: 0;
+   }
+}
+
 .background-image-holder, .foreground-image-holder {
     position: absolute;
     top: 0px;
