@@ -1,78 +1,67 @@
 <template>
 <div class="container">
-  <div class="projects-container column-projects" style="position: relative; height: 630px;">
+  <div class="projects-container column-projects" v-el:imgblog>
     
     <div class="col-md-4 col-sm-6 project development image-holder" >
-      <div class="background-image-holder" style="background: url(&quot;http://temp.im/300x300&quot;) 50% 0%;">
-        <img class="background-image" alt="Background Image" src="http://temp.im/300x300" style="display: none;">
-      </div>
+      <img class="background-image" alt="Background Image" src="http://temp.im/300x300">
       <div class="hover-state">
-        <div class="align-vertical" style="padding-top: 100.261px;">
+        <div class="align-vertical" >
           <h3 class="text-white"><strong>MS10</strong> UX</h3>
-          <a href="project-single.html" class="btn btn-primary btn-white">See Project</a>
+          <a href="#" class="btn btn-primary btn-white">See Project</a>
         </div>
       </div>
     </div>
     
     <div class="col-md-4 col-sm-6 project branding image-holder" >
-      <div class="background-image-holder" style="background: url(&quot;http://temp.im/300x300&quot;) 50% 0%;">
-        <img class="background-image" alt="Background Image" src="http://temp.im/300x300" style="display: none;">
-      </div>
+      <img class="background-image" alt="Background Image" src="http://temp.im/300x300" >
       <div class="hover-state">
-        <div class="align-vertical" style="padding-top: 100.261px;">
+        <div class="align-vertical" >
           <h3 class="text-white"><strong>Medium</strong> Blog Platform</h3>
-          <a href="project-single.html" class="btn btn-primary btn-white">See Project</a>
+          <a href="#" class="btn btn-primary btn-white">See Project</a>
         </div>
       </div>
     </div>
     
     <div class="col-md-4 col-sm-6 project print image-holder" >
-      <div class="background-image-holder" style="background: url(&quot;http://temp.im/300x300&quot;) 50% 0%;">
-        <img class="background-image" alt="Background Image" src="http://temp.im/300x300" style="display: none;">
-      </div>
+      <img class="background-image" alt="Background Image" src="http://temp.im/300x300" >
       <div class="hover-state">
-        <div class="align-vertical" style="padding-top: 100.261px;">
+        <div class="align-vertical" >
           <h3 class="text-white"><strong>Identity</strong> Mockup</h3>
-          <a href="project-single.html" class="btn btn-primary btn-white">See Project</a>
+          <a href="#" class="btn btn-primary btn-white">See Project</a>
         </div>
       </div>
     </div>
     
     <div class="col-md-4 col-sm-6 project print image-holder" >
-      <div class="background-image-holder" style="background: url(&quot;http://temp.im/300x300&quot;) 50% 0%;">
-        <img class="background-image" alt="Background Image" src="http://temp.im/300x300" style="display: none;">
-      </div>
+      <img class="background-image" alt="Background Image" src="http://temp.im/300x300">
       <div class="hover-state">
-        <div class="align-vertical" style="padding-top: 100.261px;">
+        <div class="align-vertical" >
           <h3 class="text-white"><strong>Aurora</strong> App Icons</h3>
-          <a href="project-single.html" class="btn btn-primary btn-white">See Project</a>
+          <a href="#" class="btn btn-primary btn-white">See Project</a>
         </div>
       </div>
     </div>
     
     <div class="col-md-4 col-sm-6 project branding image-holder" >
-      <div class="background-image-holder" style="background: url(&quot;http://temp.im/300x300&quot;) 50% 0%;">
-        <img class="background-image" alt="Background Image" src="http://temp.im/300x300" style="display: none;">
-      </div>
+      <img class="background-image" alt="Background Image" src="http://temp.im/300x300">
       <div class="hover-state">
-        <div class="align-vertical" style="padding-top: 100.261px;">
+        <div class="align-vertical" >
           <h3 class="text-white"><strong>Sketchbook</strong> Logo Mockup</h3>
-          <a href="project-single.html" class="btn btn-primary btn-white">See Project</a>
+          <a href="#" class="btn btn-primary btn-white">See Project</a>
         </div>
       </div>
     </div>
     
     <div class="col-md-4 col-sm-6 project development image-holder" >
-      <div class="background-image-holder" style="background: url(&quot;http://temp.im/300x300&quot;) 50% 0%;">
-        <img class="background-image" alt="Background Image" src="http://temp.im/300x300" style="display: none;">
-      </div>
+      <img class="background-image" alt="Background Image" src="http://temp.im/300x300">
       <div class="hover-state">
-        <div class="align-vertical" style="padding-top: 100.261px;">
+        <div class="align-vertical" >
           <h3 class="text-white"><strong>Muzik</strong> Home Screen</h3>
-          <a href="project-single.html" class="btn btn-primary btn-white">See Project</a>
+          <a href="#" class="btn btn-primary btn-white">See Project</a>
         </div>
       </div>
     </div>
+
   </div>
 </div>
 </template>
@@ -86,19 +75,23 @@
     computed: {
     },
     ready() {
+      var dom= this.$els.imgblog
+      var divs= dom.getElementsByClassName('hover-state')
+      for (var i= 0; i< divs.length; i++){
+         divs[i].getElementsByClassName('align-vertical')[0].style.paddingTop='0'
+      }
     }
   }
 </script>
 
 <style>
-  .column-projects {
+.column-projects {
     margin-bottom: 80px;
 }
 .column-projects .project.col-md-4 {
     overflow: hidden;
 }
 .column-projects .project {
-    height: 300px;
     margin-bottom: 15px;
 }
 .column-projects .project.col-md-4 .background-image-holder {
@@ -153,7 +146,7 @@ img {
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     transition: all .5s ease;
-    opacity: 0;
+    opacity: 1;
 }
 .hover-state h3 {
     margin-bottom: 24px;
@@ -169,7 +162,6 @@ img {
     padding: 14px 28px 13px 28px;
     line-height: 1;
     border: 2px solid #3498db;
-    font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: bold;
     font-size: 11px;
     text-transform: uppercase;
@@ -179,6 +171,14 @@ img {
   .btn-white {
     border-color: #fff;
     color: #fff;
+}
+
+.project .hover-state:hover{
+  opacity: 1;
+}
+
+.hover-state .align-vertical{
+   padding-top: 120px;
 }
 
 </style>

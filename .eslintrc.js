@@ -6,7 +6,8 @@ module.exports = {
     ],
     globals:{
         'Vue':true,
-        'alert':true
+        'alert':true,
+        '$':true
     },
     rules: {
         'arrow-parens': 0,

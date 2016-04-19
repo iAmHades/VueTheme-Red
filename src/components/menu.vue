@@ -73,7 +73,6 @@
 }
 
 .navbar-nav>li>a{
-    font-family: "Raleway", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: bold;
     font-size: 11px;
     text-transform: uppercase;
