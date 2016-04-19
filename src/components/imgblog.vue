@@ -2,7 +2,7 @@
 <div class="container">
   <div class="projects-container column-projects" style="position: relative; height: 630px;">
     
-    <div class="col-md-4 col-sm-6 project development image-holder" style="position: absolute; left: 0px; top: 0px;">
+    <div class="col-md-4 col-sm-6 project development image-holder" >
       <div class="background-image-holder" style="background: url(&quot;http://temp.im/300x300&quot;) 50% 0%;">
         <img class="background-image" alt="Background Image" src="http://temp.im/300x300" style="display: none;">
       </div>
@@ -14,7 +14,7 @@
       </div>
     </div>
     
-    <div class="col-md-4 col-sm-6 project branding image-holder" style="position: absolute; left: 313px; top: 0px;">
+    <div class="col-md-4 col-sm-6 project branding image-holder" >
       <div class="background-image-holder" style="background: url(&quot;http://temp.im/300x300&quot;) 50% 0%;">
         <img class="background-image" alt="Background Image" src="http://temp.im/300x300" style="display: none;">
       </div>
@@ -26,7 +26,7 @@
       </div>
     </div>
     
-    <div class="col-md-4 col-sm-6 project print image-holder" style="position: absolute; left: 626px; top: 0px;">
+    <div class="col-md-4 col-sm-6 project print image-holder" >
       <div class="background-image-holder" style="background: url(&quot;http://temp.im/300x300&quot;) 50% 0%;">
         <img class="background-image" alt="Background Image" src="http://temp.im/300x300" style="display: none;">
       </div>
@@ -38,7 +38,7 @@
       </div>
     </div>
     
-    <div class="col-md-4 col-sm-6 project print image-holder" style="position: absolute; left: 0px; top: 315px;">
+    <div class="col-md-4 col-sm-6 project print image-holder" >
       <div class="background-image-holder" style="background: url(&quot;http://temp.im/300x300&quot;) 50% 0%;">
         <img class="background-image" alt="Background Image" src="http://temp.im/300x300" style="display: none;">
       </div>
@@ -50,7 +50,7 @@
       </div>
     </div>
     
-    <div class="col-md-4 col-sm-6 project branding image-holder" style="position: absolute; left: 313px; top: 315px;">
+    <div class="col-md-4 col-sm-6 project branding image-holder" >
       <div class="background-image-holder" style="background: url(&quot;http://temp.im/300x300&quot;) 50% 0%;">
         <img class="background-image" alt="Background Image" src="http://temp.im/300x300" style="display: none;">
       </div>
@@ -62,7 +62,7 @@
       </div>
     </div>
     
-    <div class="col-md-4 col-sm-6 project development image-holder" style="position: absolute; left: 626px; top: 315px;">
+    <div class="col-md-4 col-sm-6 project development image-holder" >
       <div class="background-image-holder" style="background: url(&quot;http://temp.im/300x300&quot;) 50% 0%;">
         <img class="background-image" alt="Background Image" src="http://temp.im/300x300" style="display: none;">
       </div>
