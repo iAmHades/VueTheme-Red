@@ -1,84 +1,48 @@
 <template>
 <div class="container">
   <div class="projects-container column-projects" v-el:imgblog>
-    
-    <div class="col-md-4 col-sm-6 project development image-holder" >
-      <img class="background-image" alt="Background Image" src="http://temp.im/300x300">
-      <div class="hover-state">
+    <!-- 图片列表 -->
+    <div class="col-md-4 col-sm-6 project development image-holder" v-for="blog in data">
+      <img class="background-image" alt="Background Image" :src="blog.pic">
+      <div class="hover-state" @mouseenter.stop="in" @mouseout.stop="out">
         <div class="align-vertical" >
-          <h3 class="text-white"><strong>MS10</strong> UX</h3>
-          <a href="#" class="btn btn-primary btn-white">See Project</a>
+          <h3 class="text-white">{{blog.title}}</h3>
+          <a href="#" class="btn btn-primary btn-white">{{blog.url}}</a>
         </div>
       </div>
     </div>
     
-    <div class="col-md-4 col-sm-6 project branding image-holder" >
-      <img class="background-image" alt="Background Image" src="http://temp.im/300x300" >
-      <div class="hover-state">
-        <div class="align-vertical" >
-          <h3 class="text-white"><strong>Medium</strong> Blog Platform</h3>
-          <a href="#" class="btn btn-primary btn-white">See Project</a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-md-4 col-sm-6 project print image-holder" >
-      <img class="background-image" alt="Background Image" src="http://temp.im/300x300" >
-      <div class="hover-state">
-        <div class="align-vertical" >
-          <h3 class="text-white"><strong>Identity</strong> Mockup</h3>
-          <a href="#" class="btn btn-primary btn-white">See Project</a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-md-4 col-sm-6 project print image-holder" >
-      <img class="background-image" alt="Background Image" src="http://temp.im/300x300">
-      <div class="hover-state">
-        <div class="align-vertical" >
-          <h3 class="text-white"><strong>Aurora</strong> App Icons</h3>
-          <a href="#" class="btn btn-primary btn-white">See Project</a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-md-4 col-sm-6 project branding image-holder" >
-      <img class="background-image" alt="Background Image" src="http://temp.im/300x300">
-      <div class="hover-state">
-        <div class="align-vertical" >
-          <h3 class="text-white"><strong>Sketchbook</strong> Logo Mockup</h3>
-          <a href="#" class="btn btn-primary btn-white">See Project</a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-md-4 col-sm-6 project development image-holder" >
-      <img class="background-image" alt="Background Image" src="http://temp.im/300x300">
-      <div class="hover-state">
-        <div class="align-vertical" >
-          <h3 class="text-white"><strong>Muzik</strong> Home Screen</h3>
-          <a href="#" class="btn btn-primary btn-white">See Project</a>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
 </template>
 
 <script>
+ import { getImgBlog } from './../vuex/actions'
   export default {
+    vuex: {
+      getters: {
+        data: state => state.imgblog.imgblog
+      },
+      actions: {
+        getImgBlog
+      }
+    },
     data() {
       return {
       }
     },
-    computed: {
-    },
     ready() {
-      var dom= this.$els.imgblog
-      var divs= dom.getElementsByClassName('hover-state')
-      for (var i= 0; i< divs.length; i++){
-         divs[i].getElementsByClassName('align-vertical')[0].style.paddingTop='0'
+      this.getImgBlog()
+    },
+    methods: { 
+      in (e) {
+        let dom = e.srcElement || e.target
+        dom.getElementsByClassName('align-vertical')[0].style.top = '-100px'
+
+      },
+      out(e) {
+        let dom = e.srcElement || e.target
+        dom.getElementsByClassName('align-vertical')[0].style.top = '150px'
       }
     }
   }
@@ -100,13 +64,11 @@
 .column-projects .project .background-image-holder {
     left: 15px;
 }
-
 @media (max-width: 780px) {
    .column-projects .project .background-image-holder {
     left: 0;
    }
 }
-
 .background-image-holder, .foreground-image-holder {
     position: absolute;
     top: 0px;
@@ -155,7 +117,6 @@ img {
     font-size: 18px;
     margin-bottom: 8px;
 }
-
 .btn-primary {
     border-radius: 25px;
     display: inline-block;
@@ -167,18 +128,20 @@ img {
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #3498db;
-  }
-  .btn-white {
+}
+.btn-white {
     border-color: #fff;
     color: #fff;
 }
-
 .project .hover-state:hover{
   opacity: 1;
 }
-
 .hover-state .align-vertical{
-   padding-top: 120px;
+  top: 100px;
+  position: relative;
+  text-align: center;
 }
-
+.align-vertical .text-white{
+  display: block;
+}
 </style>
