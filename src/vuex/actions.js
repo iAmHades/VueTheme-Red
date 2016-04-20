@@ -2,19 +2,25 @@ import menu from '../service/menu'
 import category from '../service/category'
 import imgblog from '../service/imgblog'
 
-export const getMenus = ({ dispatch, state }, userType) => {
+export const getMenus = ({ dispatch }, userType) => {
   menu.getMenus(
     userType, (menus) => dispatch('getMenus', menus)
   )
 }
 
-export const getCategory = ({ dispatch, state }) => {
+export const getCategory = ({ dispatch }) => {
   category.getCategory(
      (category) => dispatch('getCategory', category)
   )
 }
 
-export const getImgBlog = ({ dispatch, state }) => {
+export const selectCategory = ({ dispatch }, key) => {
+  category.selectCategory(
+     key, (category) => dispatch('selectCategory', category)
+  )
+}
+
+export const getImgBlog = ({ dispatch }) => {
   imgblog.getImgBlog(
      (imgblog) => dispatch('getImgBlog', imgblog)
   )

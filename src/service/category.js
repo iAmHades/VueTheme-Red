@@ -19,7 +19,10 @@ const _category = [{
 }]
 
 export default {
-  getCategory(cb) {
-    setTimeout(() => cb(_category), 100)
-  }
+    getCategory(cb) {
+      setTimeout(() => cb(_category), 100)
+    },
+    selectCategory(key, cb) {
+      cb(key)
+    }
 }

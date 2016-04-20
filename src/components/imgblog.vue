@@ -1,51 +1,63 @@
 <template>
-<div class="container">
-  <div class="projects-container column-projects" v-el:imgblog>
-    <!-- 图片列表 -->
-    <div class="col-md-4 col-sm-6 project development image-holder" v-for="blog in data">
-      <img class="background-image" alt="Background Image" :src="blog.pic">
-      <div class="hover-state" @mouseenter.stop="in" @mouseout.stop="out">
-        <div class="align-vertical" >
-          <h3 class="text-white">{{blog.title}}</h3>
-          <a href="#" class="btn btn-primary btn-white">{{blog.url}}</a>
+<div>
+<!-- 分类 -->
+  <category></category>
+  <div class="container">
+    <button @click="selectCategory">点击我</button>
+    <div class="projects-container column-projects" v-el:imgblog>
+      <!-- 图片列表 -->
+      <div class="col-md-4 col-sm-6 project development image-holder" v-for="blog in data">
+        <img class="background-image" alt="Background Image" :src="blog.pic">
+        <div class="hover-state" @mouseenter="in" @mouseout="out">
+          <div class="align-vertical" >
+            <h3 class="text-white">{{blog.title}}</h3>
+            <a href="#" class="btn btn-primary btn-white">{{blog.url}}</a>
+          </div>
         </div>
       </div>
     </div>
-    
   </div>
 </div>
 </template>
 
 <script>
- import { getImgBlog } from './../vuex/actions'
-  export default {
-    vuex: {
-      getters: {
-        data: state => state.imgblog.imgblog
-      },
-      actions: {
-        getImgBlog
-      }
-    },
-    data() {
-      return {
-      }
-    },
-    ready() {
-      this.getImgBlog()
-    },
-    methods: { 
-      in (e) {
-        let dom = e.srcElement || e.target
-        dom.getElementsByClassName('align-vertical')[0].style.top = '-100px'
+ import category from './category.vue'
+ import {
+   getImgBlog,
+   selectCategory
+ }
+ from './../vuex/actions'
+ export default {
+   components: {
+     category
+   },
+   vuex: {
+     getters: {
+       data: state => state.imgblog.imgblog
+     },
+     actions: {
+       getImgBlog,
+       selectCategory
+     }
+   },
+   data() {
+     return {}
+   },
+   ready() {
+     this.getImgBlog()
+   },
+   methods: { 
+     in (e) {
+       let dom = e.srcElement || e.target
+       dom.getElementsByClassName('align-vertical')[0].style.top = '-100px'
 
-      },
-      out(e) {
-        let dom = e.srcElement || e.target
-        dom.getElementsByClassName('align-vertical')[0].style.top = '150px'
-      }
-    }
-  }
+     },
+     out(e) {
+       let dom = e.srcElement || e.target
+       dom.getElementsByClassName('align-vertical')[0].style.top = '150px'
+     }
+   }
+ }
 </script>
 
 <style>

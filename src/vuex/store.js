@@ -10,12 +10,14 @@ Vue.config.debug = true
 
 const debug = process.env.NODE_ENV !== 'production'
 
+
+
 export default new Vuex.Store({
-  modules: {
-    menu,
-    category,
-    imgblog
-  },
-  strict: debug,
-  middlewares: debug ? [createLogger()] : []
+	modules: {
+		menu,
+		category,
+		imgblog
+	},
+	strict: debug,
+	middlewares: debug ? [createLogger()] : []
 })

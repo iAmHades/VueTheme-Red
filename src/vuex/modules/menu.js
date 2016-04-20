@@ -1,15 +1,15 @@
 const state = {
-  menus: []
+	menus: []
 }
 
 // mutations
 const mutations = {
-  ['getMenus'](state, menus) {
-    state.menus = menus
-  }
+	['getMenus'](state, menus) {
+		state.menus = menus
+	}
 }
 
 export default {
-  state,
-  mutations
+	state,
+	mutations
 }
