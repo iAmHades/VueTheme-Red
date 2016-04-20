@@ -27,6 +27,7 @@ module.exports = {
         'no-trailing-spaces':1,
         'no-multiple-empty-lines':2,
         'space-before-blocks':0,
-        'no-return-assign':0
+        'no-return-assign':0,
+        'no-mixed-spaces-and-tabs':0
     }
 }

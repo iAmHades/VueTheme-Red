@@ -46,7 +46,7 @@
    ready() {
      this.getImgBlog()
    },
-   methods: { 
+   methods: {
      in (e) {
        let dom = e.srcElement || e.target
        dom.getElementsByClassName('align-vertical')[0].style.top = '-100px'

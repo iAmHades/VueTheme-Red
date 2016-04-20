@@ -16,6 +16,7 @@ const mutations = {
 				return value.key === key
 			})
 		}
+		console.info(selected)
 	}
 }
 
