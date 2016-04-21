@@ -33,7 +33,7 @@
    },
    vuex: {
      getters: {
-       data: state => state.imgblog.imgblog
+       data: state => state.imgblog
      },
      actions: {
        getImgBlog,

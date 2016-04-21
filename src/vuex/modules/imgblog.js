@@ -4,7 +4,7 @@ const state = {
 
 // mutations
 const mutations = {
-	['getImgBlog'](state, imgblog) {
+	getImgBlog(state, imgblog) {
 		state.imgblog = imgblog
 	}
 }

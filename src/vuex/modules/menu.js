@@ -4,7 +4,7 @@ const state = {
 
 // mutations
 const mutations = {
-	['getMenus'](state, menus) {
+	getMenus(state, menus) {
 		state.menus = menus
 	}
 }

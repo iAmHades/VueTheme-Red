@@ -4,15 +4,17 @@ const state = {
 
 // mutations
 const mutations = {
-	['getCategory'](state, category) {
+	
+	getCategory(state, category) {
 		state.category = category
-	}, ['selectCategory'](state, key) {
+	}, 
+	selectCategory(state, key) {
 		let selected
 		key = 'DEVELOPMENT'
 		if (key === 'ALL') {
-			selected = state.imgblog.imgblog
+			selected = state.imgblog
 		} else {
-			selected = state.imgblog.imgblog.filter((value) => {
+			selected = state.imgblog.filter((value) => {
 				return value.key === key
 			})
 		}
