@@ -4,10 +4,9 @@ const state = {
 
 // mutations
 const mutations = {
-	
 	getCategory(state, category) {
 		state.category = category
-	}, 
+	},
 	selectCategory(state, key) {
 		let selected
 		key = 'DEVELOPMENT'

@@ -3,7 +3,6 @@
 <!-- 分类 -->
   <category></category>
   <div class="container">
-    <button @click="selectCategory">点击我</button>
     <div class="projects-container column-projects" v-el:imgblog>
       <!-- 图片列表 -->
       <div class="col-md-4 col-sm-6 project development image-holder" v-for="blog in data">
@@ -23,8 +22,7 @@
 <script>
  import category from './category.vue'
  import {
-   getImgBlog,
-   selectCategory
+   getImgBlog
  }
  from './../vuex/actions'
  export default {
@@ -36,8 +34,7 @@
        data: state => state.imgblog
      },
      actions: {
-       getImgBlog,
-       selectCategory
+       getImgBlog
      }
    },
    data() {
