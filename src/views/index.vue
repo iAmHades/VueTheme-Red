@@ -29,9 +29,9 @@
 </template>
 
 <script>
-    import carousel from './../components/carousel.vue'
-    import slider from './../components/slider.vue'
-    import imgblog from './../components/imgblog.vue'
+    import carousel from './../components/carousel.vue';
+    import slider from './../components/slider.vue';
+    import imgblog from './../components/imgblog.vue';
     export default {
         components: {
             carousel,
@@ -41,17 +41,10 @@
         data() {
             return {
                 author: ''
-            }
-        },
-        route: {
-            data(transition) {
-                return {
-                    author: 'hades!'
-                }
-            }
+            };
         },
         compiled() {}
-    }
+    };
 </script>
 
 <style>

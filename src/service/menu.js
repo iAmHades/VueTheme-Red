@@ -1,7 +1,7 @@
 /**
  * Mocking client-server processing
  */
-const _menu = [{
+const menu = [{
   id: 1,
   text: ' Home Pages'
 }, {
@@ -15,22 +15,22 @@ const _menu = [{
   text: 'Components',
   child: [{
       id: 41,
-      text: 'from'
+      text: 'from',
     }, {
       id: 42,
-      text: 'table'
+      text: 'table',
     }, {
       id: 43,
-      text: 'tab'
+      text: 'tab',
     }, {
       id: 43,
-      text: 'modal'
+      text: 'modal',
     }
   ]
-}]
+}];
 
 export default {
   getMenus(userType, cb) {
-    setTimeout(() => cb(_menu), 100)
-  }
-}
+    setTimeout(() => cb(menu), 100);
+  },
+};

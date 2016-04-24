@@ -1,161 +1,161 @@
-exports.install = function(Vue, options) {
-
-    Object.defineProperties(Vue.prototype, {
-
-        $prefixedEvent: {
-            get: function() {
-                return prefixedEvent.bind(this)
-            }
-        },
-
-        $h5setValue: {
-            get: function() {
-                return h5setValue
-            }
-        },
-
-        $h5getValue: {
-            get: function() {
-                return h5getValue
-            }
-        },
-
-        $h5remove: {
-            get: function() {
-                return h5remove
-            }
-        },
-
-        $getCookie: {
-            get: function() {
-                return getCookie
-            }
-        },
-
-        $setHeaders: {
-            get: function() {
-                return setHeaders
-            }
-        },
-
-        $formate: {
-            get: function() {
-                return dateFormate
-            }
-        },
-
-        $listen: {
-            get: function() {
-                return eventListener
-            }
-        },
-
-        $coerceBoolean: {
-            get: function() {
-                return coerceBoolean
-            }
-        }
-
-    })
+exports.install = function install(Vue) {
 
     // localstorage的存储
-    var h5setValue = function(key, value) {
-        window.localStorage.setItem(key, value)
+    function h5setValue(key, value) {
+        window.localStorage.setItem(key, value);
     }
 
     // localstorage的查询
-    var h5getValue = function(key) {
-        return window.localStorage.getItem(key)
+    function h5getValue(key) {
+        return window.localStorage.getItem(key);
     }
 
-    var h5remove = function(key) {
-        window.localStorage.removeItem(key)
+    function h5remove(key) {
+        window.localStorage.removeItem(key);
     }
 
     // 获取cookie的值
-    var getCookie = function(key) {
+    function getCookie(key) {
         if (document.cookie.length > 0) {
-            var c_start = document.cookie.indexOf(key + '=')
-            if (c_start !== -1) {
-                c_start = c_start + key.length + 1
-                var c_end = document.cookie.indexOf('', c_start)
-                if (c_end === -1) c_end = document.cookie.length
-                return unescape(document.cookie.substring(c_start, c_end))
+            let cStart = document.cookie.indexOf('${key}=');
+            if (cStart !== -1) {
+                cStart = cStart + key.length + 1;
+                let cEnd = document.cookie.indexOf('', cStart);
+                if (cEnd === -1) cEnd = document.cookie.length;
+                return unescape(document.cookie.substring(cStart, cEnd));
             }
         }
-        return ''
+        return '';
     }
 
     // request中设置header
-    var setHeaders = function(json) {
-        Object.keys(json).forEach(function(key) {
-            Vue.http.headers.common[key] = json[key]
-        })
+    function setHeaders(json) {
+        Object.keys(json).forEach((key) => {
+            Vue.http.headers.common[key] = json[key];
+        });
     }
 
     // 监听各浏览器动画状态，以便回调 type为：animationstart animationiteration animationend
-    var prefixedEvent = function(element, type, callback) {
-        callback.bind(this)
-        var pfx = ['webkit', 'moz', '']
-        for (var p = 0; p < pfx.length; p++) {
-            if (!pfx[p]) type = type.toLowerCase()
-            element.addEventListener(pfx[p] + type, callback, false)
+    function prefixedEvent(element, type, callback) {
+        callback.bind(this);
+        const pfx = ['webkit', 'moz', ''];
+        for (let p = 0; p < pfx.length; p++) {
+            if (!pfx[p]) type = type.toLowerCase();
+            element.addEventListener(pfx[p] + type, callback, false);
         }
     }
 
     // 为了兼容safari中的日期格式转换,而统一做的在月前加上0
-    var dateFormate = function(date) {
-        var dates = date.split('-')
-        var year = dates[0]
-        var month = dates[1]
-        var day = dates[2]
-        if (parseInt(month) < 10) {
-            month = '0' + month
+    function dateFormate(date) {
+        const dates = date.split('-');
+        let month = dates[1];
+        let day = dates[2];
+        if (parseInt(month, 10) < 10) {
+            month = '0${month}';
         }
-        if (parseInt(day) < 10) {
-            day = '0' + day
+        if (parseInt(day, 10) < 10) {
+            day = '0${day}';
         }
-        return year + '-' + month + '-' + day
+        return '${dates[0]}-${month}-${day}';
     }
 
     // 事件监听
-    var eventListener = function(target, eventType, callback) {
+    function eventListener(target, eventType, callback) {
         if (target.addEventListener) {
-            target.addEventListener(eventType, callback, false)
+            target.addEventListener(eventType, callback, false);
             return {
                 remove() {
-                    target.removeEventListener(eventType, callback, false)
+                    target.removeEventListener(eventType, callback, false);
                 }
-            }
+            };
         } else if (target.attachEvent) {
-            target.attachEvent('on' + eventType, callback)
+            target.attachEvent('on${eventType}', callback);
             return {
                 remove() {
-                    target.detachEvent('on' + eventType, callback)
+                    target.detachEvent('on${eventType}', callback);
                 }
-            }
+            };
         }
     }
 
     // 判断boolean值
-    var coerceBoolean = function(val) {
+    function coerceBoolean(val) {
         return (typeof val !== 'string' ? val
            : val === 'true' ? true
            : val === 'false' ? false
            : val === 'null' ? false
-           : val === 'undefined' ? false : val)
+           : val === 'undefined' ? false : val);
     }
+
+    // 添加vue属性
+    Object.defineProperties(Vue.prototype, {
+
+        $prefixedEvent: {
+            get() {
+                return prefixedEvent.bind(this);
+            }
+        },
+
+        $h5setValue: {
+            get() {
+                return h5setValue;
+            }
+        },
+
+        $h5getValue: {
+            get() {
+                return h5getValue;
+            }
+        },
+
+        $h5remove: {
+            get() {
+                return h5remove;
+            }
+        },
+
+        $getCookie: {
+            get() {
+                return getCookie;
+            }
+        },
+
+        $setHeaders: {
+            get() {
+                return setHeaders;
+            }
+        },
+
+        $formate: {
+            get() {
+                return dateFormate;
+            }
+        },
+
+        $listen: {
+            get() {
+                return eventListener;
+            }
+        },
+
+        $coerceBoolean: {
+            get() {
+                return coerceBoolean;
+            }
+        }
+
+    });
 
     // 拦截器
     Vue.http.interceptors.push({
-        request: function(request) {
+        request(request) {
             // TODO
-            return request
+            return request;
         },
-        response: function(response) {
+        response(response) {
             // TODO
-            return response
+            return response;
         }
-    })
+    });
 
-}
+};

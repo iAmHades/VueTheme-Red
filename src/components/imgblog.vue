@@ -20,11 +20,11 @@
 </template>
 
 <script>
- import category from './category.vue'
+ import category from './category.vue';
  import {
-   getImgBlog
+   getImgBlog,
  }
- from './../vuex/actions'
+ from './../vuex/actions';
  export default {
    components: {
      category
@@ -35,26 +35,25 @@
      },
      actions: {
        getImgBlog
-     }
+     },
    },
    data() {
-     return {}
+     return {};
    },
    ready() {
-     this.getImgBlog()
+     this.getImgBlog();
    },
    methods: {
      in (e) {
-       let dom = e.srcElement || e.target
-       dom.getElementsByClassName('align-vertical')[0].style.top = '-100px'
-
+       const dom = e.srcElement || e.target;
+       dom.getElementsByClassName('align-vertical')[0].style.top = '-100px';
      },
      out(e) {
-       let dom = e.srcElement || e.target
-       dom.getElementsByClassName('align-vertical')[0].style.top = '150px'
+       const dom = e.srcElement || e.target;
+       dom.getElementsByClassName('align-vertical')[0].style.top = '150px';
      }
    }
- }
+ };
 </script>
 
 <style>

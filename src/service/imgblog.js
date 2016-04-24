@@ -1,7 +1,7 @@
 /**
  * Mocking client-server processing
  */
-const _imgblog = [{
+const imgblog = [{
   _id: 'xxx',
   url: 'http://www.baidu.com',
   pic: 'http://temp.im/300x300',
@@ -41,10 +41,10 @@ const _imgblog = [{
   key: 'DESIGN',
   desc: 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY',
   createDate: '2015-05-14'
-}]
+}];
 
 export default {
   getImgBlog(cb) {
-    setTimeout(() => cb(_imgblog), 100)
-  }
-}
+    setTimeout(() => cb(imgblog), 100);
+  },
+};

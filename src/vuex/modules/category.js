@@ -1,27 +1,25 @@
 const state = {
 	category: []
-}
+};
 
 // mutations
 const mutations = {
-	getCategory(state, category) {
-		state.category = category
+	getCategory(allState, category) {
+		allState.category = category;
 	},
-	selectCategory(state, key) {
-		let selected
-		key = 'DEVELOPMENT'
+	selectCategory(allState, key) {
+		let selected;
+		key = 'DEVELOPMENT';
 		if (key === 'ALL') {
-			selected = state.imgblog
+			selected = allState.imgblog;
 		} else {
-			selected = state.imgblog.filter((value) => {
-				return value.key === key
-			})
+			selected = allState.imgblog.filter(value => value.key === key);
 		}
-		console.info(selected)
+		console.info(selected);
 	}
-}
+};
 
 export default {
 	state,
 	mutations
-}
+};

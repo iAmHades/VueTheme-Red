@@ -10,9 +10,9 @@
 </template>
 
 <script>
-    import menu from './components/menu.vue'
-    import foot from './components/footer.vue'
-    import store from './vuex/store'
+    import menu from './components/menu.vue';
+    import foot from './components/footer.vue';
+    import store from './vuex/store';
     module.exports = {
         store,
         components: {
@@ -22,7 +22,7 @@
         data() {
             return {
 
-            }
+            };
         },
         created(){
 
@@ -30,7 +30,7 @@
         methods:{
 
         }
-    }
+    };
 
 </script>
 

@@ -1,15 +1,15 @@
 const state = {
 	imgblog: []
-}
+};
 
 // mutations
 const mutations = {
-	getImgBlog(state, imgblog) {
-		state.imgblog = imgblog
+	getImgBlog(allState, imgblog) {
+		allState.imgblog = imgblog;
 	}
-}
+};
 
 export default {
 	state,
 	mutations
-}
+};

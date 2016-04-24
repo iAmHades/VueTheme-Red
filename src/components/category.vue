@@ -9,26 +9,26 @@
 </template>
 
 <script>
- import { getCategory, selectCategory } from './../vuex/actions'
+ import { getCategory, selectCategory } from './../vuex/actions';
   export default {
    vuex: {
      getters: {
-       category: state => state.category
+       category: state => state.category,
      },
      actions: {
        getCategory,
-       selectCategory
+       selectCategory,
      }
    },
    created() {
-     this.getCategory()
+     this.getCategory();
    },
    methods:{
      select(key){
-       this.selectCategory(key)
+       this.selectCategory(key);
      }
    }
-  }
+  };
 </script>
 
 <style>

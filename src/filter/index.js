@@ -1,8 +1,8 @@
 export default {
-	parsePubDate: function(time) {
-		let year = time.getFullYear()
-		let month = time.getMonth() + 1
-		let day = time.getDate()
-		return '发布于:'+year + '-' + month + '-' + day
+	parsePubDate(time) {
+		const year = time.getFullYear();
+		const month = time.getMonth() + 1;
+		const day = time.getDate();
+		return '发布于:${year}-${month}-${day}';
 	}
-}
+};

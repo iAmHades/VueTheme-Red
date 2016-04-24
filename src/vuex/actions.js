@@ -1,38 +1,35 @@
-import menu from '../service/menu'
-import category from '../service/category'
-import imgblog from '../service/imgblog'
+import menu from '../service/menu';
+import category from '../service/category';
+import imgblog from '../service/imgblog';
 
 export const getMenus = ({
-	dispatch, state
+	dispatch, state,
 }, userType) => {
 	menu.getMenus(
-		userType, (menus) => {
-			debugger
-			return dispatch('getMenus', menus)
-		}
-	)
-}
+		userType, menus => dispatch('getMenus', menus)
+	);
+};
 
 export const getCategory = ({
-	dispatch
+	dispatch,
 }) => {
 	category.getCategory(
-		(category) => dispatch('getCategory', category)
-	)
-}
+		(categoryData) => dispatch('getCategory', categoryData)
+	);
+};
 
 export const selectCategory = ({
-	dispatch
+	dispatch,
 }, key) => {
 	category.selectCategory(
-		key, (category) => dispatch('selectCategory', category)
-	)
-}
+		key, (categoryData) => dispatch('selectCategory', categoryData)
+	);
+};
 
 export const getImgBlog = ({
-	dispatch
+	dispatch,
 }) => {
 	imgblog.getImgBlog(
-		(imgblog) => dispatch('getImgBlog', imgblog)
-	)
-}
+		(imgblogData) => dispatch('getImgBlog', imgblogData)
+	);
+};

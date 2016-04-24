@@ -19,33 +19,31 @@
     </div>
 </template>
 <script>
- import { getMenus } from './../vuex/actions'
+ import { getMenus } from './../vuex/actions';
 
  module.exports = {
    vuex: {
      getters: {
-       menus: state => {
-         return state.menu
-       }
+       menus: state => state.menu
      },
      actions: {
        getMenus
-     }
+     },
    },
    data() {
      return {
         isShow:false
-     }
+     };
    },
    created() {
-     this.getMenus()
+     this.getMenus();
    },
    methods: {
      showMenu(){
-        this.isShow=!this.isShow
+        this.isShow=!this.isShow;
      }
    }
- }
+ };
 
 </script>
 <style type="text/css">

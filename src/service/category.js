@@ -1,7 +1,7 @@
 /**
  * Mocking client-server processing
  */
-const _category = [{
+const category = [{
   key: 'ALL',
   name: 'ALL'
 }, {
@@ -16,13 +16,13 @@ const _category = [{
 }, {
   key: 'DESIGN',
   name: 'DESIGN'
-}]
+}];
 
 export default {
     getCategory(cb) {
-      setTimeout(() => cb(_category), 100)
+      setTimeout(() => cb(category), 100);
     },
     selectCategory(key, cb) {
-      cb(key)
+      cb(key);
     }
-}
+};
