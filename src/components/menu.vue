@@ -24,7 +24,7 @@
  module.exports = {
    vuex: {
      getters: {
-       menus: state => state.menu
+       menus: state => state.menus
      },
      actions: {
        getMenus

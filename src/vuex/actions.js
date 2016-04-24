@@ -3,7 +3,7 @@ import category from '../service/category';
 import imgblog from '../service/imgblog';
 
 export const getMenus = ({
-	dispatch, state,
+	dispatch, state
 }, userType) => {
 	menu.getMenus(
 		userType, menus => dispatch('getMenus', menus)
@@ -11,25 +11,25 @@ export const getMenus = ({
 };
 
 export const getCategory = ({
-	dispatch,
+	dispatch
 }) => {
 	category.getCategory(
-		(categoryData) => dispatch('getCategory', categoryData)
+		categoryData => dispatch('getCategory', categoryData)
 	);
 };
 
 export const selectCategory = ({
-	dispatch,
+	dispatch
 }, key) => {
 	category.selectCategory(
-		key, (categoryData) => dispatch('selectCategory', categoryData)
+		key, categoryData => dispatch('selectCategory', categoryData)
 	);
 };
 
 export const getImgBlog = ({
-	dispatch,
+	dispatch
 }) => {
 	imgblog.getImgBlog(
-		(imgblogData) => dispatch('getImgBlog', imgblogData)
+		imgblogData => dispatch('getImgBlog', imgblogData)
 	);
 };

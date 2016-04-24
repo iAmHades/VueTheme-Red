@@ -13,11 +13,11 @@
   export default {
    vuex: {
      getters: {
-       category: state => state.category,
+       category: state => state.category
      },
      actions: {
        getCategory,
-       selectCategory,
+       selectCategory
      }
    },
    created() {
