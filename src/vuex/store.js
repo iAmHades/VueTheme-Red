@@ -21,10 +21,7 @@ allModules.forEach((module) => {
         if (key === 'mutations'){
             if (!module || !module.mutations) return;
             Object.keys(module.mutations).forEach((name) => {
-                const original = module.mutations[name];
-                mutations[name] = function (applyState, ...args) {
-                    original.apply(undefined, [applyState].concat(args));
-                };
+                mutations[name] = module.mutations[name];
             });
         }
     });

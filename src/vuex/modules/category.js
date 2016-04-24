@@ -8,14 +8,11 @@ const mutations = {
 		allState.category = category;
 	},
 	selectCategory(allState, key) {
-		let selected;
-		key = 'DEVELOPMENT';
 		if (key === 'ALL') {
-			selected = allState.imgblog;
+			allState.imgblog = allState.initImgBlogs;
 		} else {
-			selected = allState.imgblog.filter(value => value.key === key);
+			allState.imgblog = allState.initImgBlogs.filter(value => value.key === key);
 		}
-		console.info(selected);
 	}
 };
 

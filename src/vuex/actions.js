@@ -26,10 +26,10 @@ export const selectCategory = ({
 	);
 };
 
-export const getImgBlog = ({
+export const getInitImgBlogs = ({
 	dispatch
 }) => {
-	imgblog.getImgBlog(
-		imgblogData => dispatch('getImgBlog', imgblogData)
+	imgblog.getInitImgBlogs(
+		imgblogData => dispatch('getInitImgBlogs', imgblogData)
 	);
 };

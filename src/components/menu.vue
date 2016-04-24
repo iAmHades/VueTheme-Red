@@ -1,5 +1,6 @@
 <template>
 <div class="navbar fixedeasein" :class="{'navbar-fixed-top':navIsShow}">
+<!-- <div class="navbar " v-el:navmenu> -->
       <div class="container navborder-red">
         <div class="navbar-header">
           <button class="navbar-toggle" type="button" @click="showMenu">
@@ -69,6 +70,12 @@
   -webkit-transition: all .5s ease;
   -moz-transition: all .5s ease;
   transition: all .5s ease;
+}
+.menu-animate{
+  -webkit-transition: visibility .5s ease;
+  -moz-transition: visibility .5s ease;
+  transition: visibility .5s ease;
+  visibility: visible;
 }
 .navbar-brand{
   font-size: 25px;

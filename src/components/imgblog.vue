@@ -22,7 +22,7 @@
 <script>
  import category from './category.vue';
  import {
-   getImgBlog,
+   getInitImgBlogs,
  }
  from './../vuex/actions';
  export default {
@@ -34,14 +34,14 @@
        data: state => state.imgblog
      },
      actions: {
-       getImgBlog
+       getInitImgBlogs
      },
    },
    data() {
      return {};
    },
    ready() {
-     this.getImgBlog();
+     this.getInitImgBlogs();
    },
    methods: {
      in (e) {

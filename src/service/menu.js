@@ -15,16 +15,16 @@ const menu = [{
   text: 'Components',
   child: [{
       id: 41,
-      text: 'from',
+      text: 'from'
     }, {
       id: 42,
-      text: 'table',
+      text: 'table'
     }, {
       id: 43,
-      text: 'tab',
+      text: 'tab'
     }, {
       id: 43,
-      text: 'modal',
+      text: 'modal'
     }
   ]
 }];
@@ -32,5 +32,5 @@ const menu = [{
 export default {
   getMenus(userType, cb) {
     setTimeout(() => cb(menu), 100);
-  },
+  }
 };

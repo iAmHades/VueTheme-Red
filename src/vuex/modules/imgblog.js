@@ -1,10 +1,12 @@
 const state = {
+	initImgBlogs: [],
 	imgblog: []
 };
 
 // mutations
 const mutations = {
-	getImgBlog(allState, imgblog) {
+	getInitImgBlogs(allState, imgblog) {
+		allState.initImgBlogs = imgblog;
 		allState.imgblog = imgblog;
 	}
 };
