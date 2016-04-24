@@ -50,7 +50,10 @@
      },
      out(e) {
        const dom = e.srcElement || e.target;
-       dom.getElementsByClassName('align-vertical')[0].style.top = '150px';
+       const targetDom=dom.getElementsByClassName('align-vertical')[0];
+       if (targetDom){
+          targetDom.style.top = '150px';
+       }
      }
    }
  };
