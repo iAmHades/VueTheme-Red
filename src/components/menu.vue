@@ -1,5 +1,5 @@
 <template>
-<div class="navbar navbar-fixed-top">
+<div class="navbar fixedeasein" :class="{'navbar-fixed-top':navIsShow}">
       <div class="container navborder-red">
         <div class="navbar-header">
           <button class="navbar-toggle" type="button" @click="showMenu">
@@ -28,29 +28,47 @@
      },
      actions: {
        getMenus
-     },
+     }
    },
    data() {
      return {
-        isShow:false
+       isShow: false,
+       navIsShow: false
      };
    },
    created() {
      this.getMenus();
+     this.scrollFixed();
    },
    methods: {
-     showMenu(){
-        this.isShow=!this.isShow;
+     showMenu() {
+       this.isShow = !this.isShow;
+     },
+     scrollFixed() {
+       let timer;
+       window.onscroll = () => {
+         if (timer) {
+           clearTimeout(timer);
+         }
+         if (this.navIsShow){
+           this.navIsShow=false;
+         }
+         timer = setTimeout(() => {
+           this.navIsShow = true;
+         }, 500);
+       };
      }
    }
  };
-
 </script>
 <style type="text/css">
-
-
 .navbar-fixed-top .navbar-toggle{
   z-index: 1;
+}
+.fixedeasein{
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  transition: all .5s ease;
 }
 .navbar-brand{
   font-size: 25px;
@@ -58,11 +76,9 @@
   color: black;
   font-weight: bold;
 }
-
 .navbar-right{
   background-color: white;
 }
-
 .navborder-red {
   border-bottom: 1px red solid;
   background-color: white;
@@ -71,7 +87,6 @@
   background-color: #888;
   top:0;
 }
-
 .navbar-nav>li>a{
     font-weight: bold;
     font-size: 11px;
@@ -88,39 +103,32 @@
     cursor: pointer;
     width: 100%;
 }
-
 .navbaranimal{
     transform:translateY(100px);
     transition: -webkit-transform 400ms cubic-bezier(0.215, 0.61, 0.355, 1) 0ms;
     background-color: rgb(255, 255, 255);
   }
-
 .showbyopacity{
   opacity:1!important;
 }
-
 .showtranslate{
   transform: translate3d(0px, 0px, 0px)!important;
 }
-
 @media (max-width: 780px) {
   .navbar-nav>li>a{
     padding-bottom: 15px;
     padding-top: 15px;
   }
-
   .navbar-collapse {
     opacity:0;
   }  
   .navbaran{
     transition: opacity 800ms cubic-bezier(0.39, 0.575, 0.565, 1) 300ms;
   }
-
   .navbar-collapse .navbar-right{
     transform: translate3d(0px, -40px, 0px);
     transition: -webkit-transform 500ms cubic-bezier(0, 1, 1, 0.73) 300ms;
   }
-  
 }
 .navbar-header .navbar-toggle {
   width: 40px;
@@ -151,11 +159,9 @@
     -o-transform: rotate(45deg) scaleX(1.442);
     transform: rotate(45deg) scaleX(1.442);
 }
-
 .navbar-header .navbar-toggle .xbar:nth-child(2) {
     opacity: 0;
 }
-
 .navbar-header .navbar-toggle .xbar:nth-child(3) {
     top: 13px;
     -webkit-transform: rotate(-45deg) scaleX(1.442);
