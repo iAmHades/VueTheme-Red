@@ -39,7 +39,7 @@
    },
    created() {
      this.getMenus();
-     this.scrollFixed();
+     // this.scrollFixed();
    },
    methods: {
      showMenu() {
