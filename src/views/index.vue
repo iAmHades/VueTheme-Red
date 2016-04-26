@@ -1,53 +1,53 @@
 <template>
     <div class="view">
-      <carousel>
-        <slider>
-          <img src="http://temp.im/1200x500">
-          <div class="carousel-caption">
-           <h3>Slide #1</h3>
-           <p>sunt in culpa qui officia deserunt mollit a.</p>
-         </div>
-        </slider>
-        <slider>
-          <img src="http://temp.im/1200x500">
-          <div class="carousel-caption">
-           <h3>Slide #2</h3>
-           <p>sunt in culpa qui officia deserunt mollit a.</p>
-         </div>
-        </slider>
-        <slider>
-          <img src="http://temp.im/1200x500">
-          <div class="carousel-caption">
-           <h3>Slide #3</h3>
-           <p>sunt in culpa qui officia deserunt mollit a.</p>
-         </div>
-        </slider>
-      </carousel>
-      <br/>
-      <imgblog></imgblog>
-      <br/>
-      <cards></cards>
+      <imgblog :data="imgblogs" :category="category"></imgblog>
+      <br/><br/>
+      <cards :data="card"></cards>
     </div>
 </template>
 
 <script>
-    import carousel from './../components/carousel.vue';
     import slider from './../components/slider.vue';
     import imgblog from './../components/imgblog.vue';
     import cards from './../components/cards.vue';
+    import {
+      getMenus,
+      getCategory,
+      selectCategory,
+      getInitImgBlogs,
+      getInitCard
+    } from './../vuex/actions';
     export default {
-        components: {
-            carousel,
-            slider,
-            imgblog,
-            cards
+      components: {
+        slider,
+        imgblog,
+        cards
+      },
+      vuex: {
+        getters: {
+          menus: state => state.menus,
+          category: state => state.category,
+          imgblogs: state => state.imgblog,
+          card: state => state.card
         },
-        data() {
-            return {
-                author: ''
-            };
-        },
-        compiled() {}
+        actions: {
+          getMenus,
+          getCategory,
+          selectCategory,
+          getInitImgBlogs,
+          getInitCard
+        }
+      },
+      data() {
+        return {
+         
+        };
+      },
+      ready() {
+        this.getCategory();
+        this.getInitImgBlogs();
+        this.getInitCard();
+      }
     };
 </script>
 
@@ -55,6 +55,5 @@
     .view{
         width: 100%;
         height:100%;
-        background-color: #ECECEC;
     }
 </style>

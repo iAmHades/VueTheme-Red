@@ -1,6 +1,7 @@
 import menu from '../service/menu';
 import category from '../service/category';
 import imgblog from '../service/imgblog';
+import card from '../service/card';
 
 export const getMenus = ({
 	dispatch, state
@@ -17,7 +18,6 @@ export const getLeftMenus = ({
 		userType, menus => dispatch('getLeftMenus', menus)
 	);
 };
-
 
 export const getCategory = ({
 	dispatch
@@ -40,5 +40,13 @@ export const getInitImgBlogs = ({
 }) => {
 	imgblog.getInitImgBlogs(
 		imgblogData => dispatch('getInitImgBlogs', imgblogData)
+	);
+};
+
+export const getInitCard = ({
+	dispatch
+}) => {
+	card.getInitCard(
+		cardData => dispatch('getInitCard', cardData)
 	);
 };

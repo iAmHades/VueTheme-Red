@@ -2,26 +2,20 @@
 <div class="container">
   <div class="row">
     <ul class="filters">
-      <li v-for="c in category" class="active" @click="select(c.key)">{{c.key}}</li>
+      <li v-for="c in data" class="active" @click="select(c.key)">{{c.key}}</li>
     </ul>
   </div>
 </div>
 </template>
 
 <script>
- import { getCategory, selectCategory } from './../vuex/actions';
+  import { selectCategory } from './../vuex/actions';
   export default {
+   props:['data'],
    vuex: {
-     getters: {
-       category: state => state.category
-     },
-     actions: {
-       getCategory,
-       selectCategory
+     actions:{
+      selectCategory
      }
-   },
-   created() {
-     this.getCategory();
    },
    methods:{
      select(key){

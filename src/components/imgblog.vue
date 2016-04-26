@@ -1,7 +1,7 @@
 <template>
 <div>
 <!-- 分类 -->
-  <category></category>
+  <category :data="category"></category>
   <div class="container">
     <div class="projects-container column-projects" v-el:imgblog>
       <!-- 图片列表 -->
@@ -21,28 +21,11 @@
 
 <script>
  import category from './category.vue';
- import {
-   getInitImgBlogs,
- }
- from './../vuex/actions';
  export default {
    components: {
      category
    },
-   vuex: {
-     getters: {
-       data: state => state.imgblog
-     },
-     actions: {
-       getInitImgBlogs
-     },
-   },
-   data() {
-     return {};
-   },
-   ready() {
-     this.getInitImgBlogs();
-   },
+   props: ['data', 'category'],
    methods: {
      in (e) {
        const dom = e.srcElement || e.target;
@@ -50,9 +33,9 @@
      },
      out(e) {
        const dom = e.srcElement || e.target;
-       const targetDom=dom.getElementsByClassName('align-vertical')[0];
-       if (targetDom){
-          targetDom.style.top = '150px';
+       const targetDom = dom.getElementsByClassName('align-vertical')[0];
+       if (targetDom) {
+         targetDom.style.top = '150px';
        }
      }
    }

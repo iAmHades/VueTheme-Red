@@ -3,12 +3,13 @@ import Vuex from 'vuex';
 import menu from './modules/menu';
 import category from './modules/category';
 import imgblog from './modules/imgblog';
+import card from './modules/card';
 import createLogger from 'vuex/logger';
 
 Vue.use(Vuex);
 Vue.config.debug = true;
 const debug = process.env.NODE_ENV !== 'production';
-const allModules = [menu, category, imgblog];
+const allModules = [menu, category, imgblog, card];
 const state = {};
 const mutations = {};
 allModules.forEach((module) => {

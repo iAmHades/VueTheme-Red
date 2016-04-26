@@ -1,52 +1,28 @@
 <template>
 <div class="view">
  <div class="row cardrow">
-  <div class="col-md-3 col-sm-4 col-xs-12 cardinfo">
-  	  <img src="http://temp.im/300x300">
+
+  <div class="col-md-3 col-sm-4 col-xs-12 cardinfo" v-for="card in data">
+  	  <img :src="card.pic">
   	  <div>
-  	  	   <h3>React Native</h3>
-  	  	   <p>测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
+  	  	   <h3>{{card.title}}</h3>
+  	  	   <p>{{card.desc}}</p>
   	  </div>
   </div>
-  <div class="col-md-3 col-sm-4 col-xs-12 cardinfo">
-  	  <img src="http://temp.im/300x300">
-  	   <h3>VueJs</h3>
-  	  	 <p>测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
-  </div>
-  <div class="col-md-3 col-sm-4 col-xs-12 cardinfo">
-  	  <img src="http://temp.im/300x300">
-  	   <h3>ReactJs</h3>
-  	  	  <p>测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
-  </div>
-  <div class="col-md-3 col-sm-4 col-xs-12 cardinfo">
-  	  <img src="http://temp.im/300x300">
-  	   <h3>Angular2.0</h3>
-  	  	   <p>测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
-  </div>
-   <div class="col-md-3 col-sm-4 col-xs-12 cardinfo">
-  	  <img src="http://temp.im/300x300">
-  	   <h3>Angular2.0</h3>
-  	  	   <p>测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
-  </div>
-   <div class="col-md-3 col-sm-4 col-xs-12 cardinfo">
-  	  <img src="http://temp.im/300x300">
-  	   <h3>Angular2.0</h3>
-  	  	   <p>测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
-  </div>
-   <div class="col-md-3 col-sm-4 col-xs-12 cardinfo">
-  	  <img src="http://temp.im/300x300">
-  	   <h3>Angular2.0</h3>
-  	  	   <p>测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
-  </div>
-   <div class="col-md-3 col-sm-4 col-xs-12 cardinfo">
-  	  <img src="http://temp.im/300x300">
-  	   <h3>Angular2.0</h3>
-  	  	   <p>测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</p>
-  </div>
+  
  </div>
 </div>
 </template>
 <script>
+ export default {
+   props: ['data'],
+   methods: {
+     goto(){
+
+     }
+   }
+ };
+
 </script>
 <style type="text/css">
 .cardrow {
@@ -59,5 +35,8 @@
 }
 .row .cardinfo img{
 	width: 100%;
+}
+.row .cardinfo p{
+  word-wrap: break-word;
 }
 </style>

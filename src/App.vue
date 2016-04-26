@@ -1,7 +1,7 @@
 <template>
 <!-- <div class="container-fluid"> -->
   <!-- main view -->
-  <menu></menu>
+  <menu :data="menus"></menu>
   <div class="main-container" >
      <router-view  class="view"  transition="expand" transition-mode="out-in"></router-view>
   </div>
@@ -13,25 +13,27 @@
     import menu from './components/menu.vue';
     import foot from './components/footer.vue';
     import store from './vuex/store';
+    import {
+        getMenus
+    } from './vuex/actions';
     module.exports = {
         store,
         components: {
             menu,
             foot
         },
-        data() {
-            return {
-
-            };
+        vuex: {
+            getters: {
+                menus: state => state.menus
+            },
+            actions: {
+                getMenus
+            }
         },
-        created(){
-
-        },
-        methods:{
-
+        ready() {
+            this.getMenus();
         }
     };
-
 </script>
 
 <style lang="less">
