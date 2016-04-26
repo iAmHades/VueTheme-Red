@@ -10,6 +10,15 @@ export const getMenus = ({
 	);
 };
 
+export const getLeftMenus = ({
+	dispatch, state
+}, userType) => {
+	menu.getLeftMenus(
+		userType, menus => dispatch('getLeftMenus', menus)
+	);
+};
+
+
 export const getCategory = ({
 	dispatch
 }) => {

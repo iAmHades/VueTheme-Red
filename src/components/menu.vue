@@ -12,7 +12,7 @@
         </div>
         <div class="navbar-collapse" style="height: 1px;" :class="{showbyopacity:isShow,navbaran:isShow}">
           <ul class="nav navbar-nav navbar-right" :class="{showtranslate:isShow}">
-            <li v-for="menu in menus"><a href="#">{{menu.text}}</a></li>
+            <li v-for="menu in menus"><a href="/#{{menu.url}}">{{menu.text}}</a></li>
             <li class="hidden-sm"><a href="#">About</a></li>
           </ul>
         </div>

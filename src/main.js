@@ -7,6 +7,7 @@ import filters from './filter';
 import err from './views/500.vue';
 import notfind from './views/404.vue';
 import index from './views/index.vue';
+import admin from './views/admin.vue';
 window.Vue = Vue;
 Vue.use(Router);
 const router = new Router({
@@ -35,6 +36,10 @@ router.map({
 	'/': {
 		name: 'index',
 		component: index
+	},
+	'/admin':{
+		name:'admin',
+		component:admin
 	}
 });
 

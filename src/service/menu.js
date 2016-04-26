@@ -3,34 +3,52 @@
  */
 const menu = [{
   id: 1,
-  text: ' Home Pages'
+  text: ' Home Pages',
+  url: '/'
 }, {
   id: 2,
-  text: 'Blog Pages'
+  text: 'Pages',
 }, {
   id: 3,
-  text: 'Pages'
+  text: 'Admin',
+  url: '/admin'
 }, {
   id: 4,
   text: 'Components',
   child: [{
-      id: 41,
-      text: 'from'
-    }, {
-      id: 42,
-      text: 'table'
-    }, {
-      id: 43,
-      text: 'tab'
-    }, {
-      id: 43,
-      text: 'modal'
-    }
-  ]
+    id: 41,
+    text: 'from'
+  }, {
+    id: 42,
+    text: 'table'
+  }, {
+    id: 43,
+    text: 'tab'
+  }, {
+    id: 43,
+    text: 'modal'
+  }]
+}];
+
+const leftmenu = [{
+  id: 1,
+  text: 'Layout',
+  url: '/'
+}, {
+  id: 2,
+  text: 'From',
+  url: '/'
+}, {
+  id: 3,
+  text: 'Table',
+  url: '/'
 }];
 
 export default {
   getMenus(userType, cb) {
     setTimeout(() => cb(menu), 100);
+  },
+  getLeftMenus(userType, cb) {
+    cb(leftmenu);
   }
 };
