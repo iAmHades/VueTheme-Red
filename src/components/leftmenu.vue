@@ -2,7 +2,7 @@
   <div class="navbar">
       <div class="">
            <ul class="left-menu" >
-             <li v-for="menu in menus">{{menu.text}}</li>
+             <li v-for="menu in menus" @click=""><a href="{{menu.url}}">{{menu.text}}</a></li>
            </ul>
       </div>
         <div class="navbar-header">

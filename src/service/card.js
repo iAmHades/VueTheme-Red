@@ -41,5 +41,5 @@ const cards = [{
 export default {
   getInitCard(cb) {
     setTimeout(() => cb(cards), 100);
-  },
+  }
 };

@@ -33,15 +33,15 @@ const menu = [{
 const leftmenu = [{
   id: 1,
   text: 'Layout',
-  url: '/'
+  url: '#/admin/layout'
 }, {
   id: 2,
   text: 'From',
-  url: '/'
+  url: '#/admin/from'
 }, {
   id: 3,
   text: 'Table',
-  url: '/'
+  url: '#/admin/table'
 }];
 
 export default {

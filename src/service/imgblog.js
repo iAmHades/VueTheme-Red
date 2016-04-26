@@ -46,5 +46,5 @@ const imgblog = [{
 export default {
   getInitImgBlogs(cb) {
     setTimeout(() => cb(imgblog), 100);
-  },
+  }
 };

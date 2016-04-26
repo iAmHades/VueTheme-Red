@@ -8,6 +8,7 @@ import err from './views/500.vue';
 import notfind from './views/404.vue';
 import index from './views/index.vue';
 import admin from './views/admin.vue';
+import table from './views/table.vue';
 window.Vue = Vue;
 Vue.use(Router);
 const router = new Router({
@@ -39,7 +40,12 @@ router.map({
 	},
 	'/admin':{
 		name:'admin',
-		component:admin
+		component:admin,
+		subRoutes: {
+           '/table':{
+           	   component:table
+           }
+		}
 	}
 });
 
