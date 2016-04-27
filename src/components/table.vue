@@ -26,7 +26,7 @@
                         <a>上一页</a>
                     </li>
                     <li v-on:click="clickToPage(index+startnums-1)" v-for="index in shownums" class="paginate_button">
-                        <a id="clickToPage_{{$index}}">{{index+startnums}}</a></li>
+                        <a id="clickToPage_{{$index}}" :class="{paginate_active:activePage==index}">{{index+startnums}}</a></li>
                     <!--<a style="background-color: red" v-if="mark=='1'">{{index+startnums}}</a>-->
                     <!--<a class="lll" v-else>{{index+startnums}}</a></li>-->
                     <li v-on:click="clickToNext()" v-show="isshow" class="paginate_button next ">
@@ -46,7 +46,7 @@
             var isshow = true;
             var shownums = 10;
             var pagesize = this.pagesize ? this.pagesize : 10;
-            var pagesizetotal = this.getpagenationsize(this.total, pagesize);
+            var pagesizetotal = this.getpagenationsize(this.total?this.total:this.data.length, pagesize);
             if (pagesizetotal <= 10) {
                 isshow = false;
                 shownums = pagesizetotal;
@@ -63,7 +63,8 @@
                 pageCurrent: 0,
                 showProAndShopState: this.$parent.showProAndShopState,
                 showProductThead: this.$parent.showProductThead,
-                isTicketDetail: this.$parent.isTicketDetail
+                isTicketDetail: this.$parent.isTicketDetail,
+                activePage:0
             };
         },
         computed: {
@@ -114,6 +115,7 @@
         methods: {
             clickToPage(index) {
                 var arr = [];
+                this.activePage = index - this.startnums + 1;
                 var params = this.$parent.params ? this.$parent.params : {};
                 for (var name in params) {
                     arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(params[name]));
@@ -123,9 +125,8 @@
                     url = url + "&" + arr.join("&");
                 }
                 this.rownumstart = index * (this.pagesize ? this.pagesize : 10);
-                //            alert(this.pagesize)
-                this.rownumend = parseInt((index + 1) * this.pagesize)
-                this.pageCurrent = index
+                this.rownumend = parseInt((index + 1) * this.pagesize);
+                this.pageCurrent = index;
                 var self = this;
                 this.$http.post(url, function(data) {
                     if (data.code == 100) {
@@ -223,5 +224,10 @@
     }
     .thead_th{
         text-align: center;
+    }
+    .paginate_active{
+      border: 1px red solid!important;
+      border-radius: 5px;
+      z-index: 2;
     }
 </style>

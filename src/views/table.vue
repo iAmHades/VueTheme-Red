@@ -33,10 +33,31 @@
                     remarks: 'material design',
                     op: '查看',
                     del: '操作'
+                }, {
+                    _id: '11',
+                    type: '咖啡',
+                    name: '表单',
+                    remarks: 'material design',
+                    op: '查看',
+                    del: '操作'
+                }, {
+                    _id: '22',
+                    type: '表格',
+                    name: '表跟',
+                    remarks: 'material design',
+                    op: '查看',
+                    del: '操作'
+                }, {
+                    _id: '33',
+                    type: '表单',
+                    name: '表单',
+                    remarks: 'material design',
+                    op: '查看',
+                    del: '操作'
                 }],
                 url: '/admin/activity/queryActivit',
                 total: null,
-                pagesize: '15',
+                pagesize: '10',
                 start: '0',
                 columns: {
                     _id: '编号',
