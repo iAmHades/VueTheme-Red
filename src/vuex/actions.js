@@ -19,6 +19,14 @@ export const getLeftMenus = ({
 	);
 };
 
+export const getChildMenus = ({
+	dispatch, state
+}, userType) => {
+	menu.getChildMenus(
+		userType, menus => dispatch('getChildMenus', menus)
+	);
+};
+
 export const getCategory = ({
 	dispatch
 }) => {

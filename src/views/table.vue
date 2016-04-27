@@ -8,7 +8,6 @@
     import table from './../components/table.vue';
     export default {
         created () {
-            
         },
         methods: {
             test() {

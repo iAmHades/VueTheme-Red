@@ -15,21 +15,42 @@ const menu = [{
 }, {
   id: 4,
   text: 'Components',
+  url:'/components',
   child: [{
     id: 41,
-    text: 'from'
+    text: 'form',
+    url: '#/components/form'
   }, {
     id: 42,
-    text: 'table'
+    text: 'table',
+    url: '#/components/table'
   }, {
     id: 43,
-    text: 'tab'
+    text: 'tab',
+    url: '#/components/tab'
   }, {
     id: 43,
-    text: 'modal'
+    text: 'modal',
+    url: '#/components/modal'
   }]
 }];
-
+const childmenu = [{
+  id: 41,
+    text: 'form',
+    url: '#/components/form'
+  }, {
+    id: 42,
+    text: 'table',
+    url: '#/components/table'
+  }, {
+    id: 43,
+    text: 'tab',
+    url: '#/components/tab'
+  }, {
+    id: 43,
+    text: 'modal',
+    url: '#/components/modal'
+}];
 const leftmenu = [{
   id: 1,
   text: 'Layout',
@@ -50,5 +71,8 @@ export default {
   },
   getLeftMenus(userType, cb) {
     cb(leftmenu);
+  },
+  getChildMenus(userType, cb){
+    cb(childmenu);
   }
 };

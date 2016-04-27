@@ -1,6 +1,7 @@
 const state = {
 	menus: [],
-	leftmenus: []
+	leftmenus: [],
+	childmenus:[]
 };
 
 // mutations
@@ -10,6 +11,9 @@ const mutations = {
 	},
 	getLeftMenus(allState, menus) {
 		allState.leftmenus = menus;
+	},
+	getChildMenus(allState, menus){
+		allState.childmenus = menus;
 	}
 };
 

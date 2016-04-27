@@ -9,6 +9,8 @@ import notfind from './views/404.vue';
 import index from './views/index.vue';
 import admin from './views/admin.vue';
 import table from './views/table.vue';
+import components from './views/components.vue';
+import modal from './views/modal.vue';
 window.Vue = Vue;
 Vue.use(Router);
 const router = new Router({
@@ -45,6 +47,15 @@ router.map({
            '/table':{
            	   component:table
            }
+		}
+	},
+	'/components':{
+		name:'components',
+		component:components,
+		subRoutes:{
+			'/modal':{
+				component:modal
+			}
 		}
 	}
 });
