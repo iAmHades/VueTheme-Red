@@ -4,12 +4,12 @@
             <table class="table table-striped table-hover">
                 <thead v-show="showProductThead!=true">
                 <tr>
-                    <th v-for="key in columnsname" nowrap>{{key}}</th>
+                    <th v-for="key in columnsname" class="thead_th">{{key}}</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="data in datas" @click="rowClick($index)">
-                    <td class="grid_td" v-for="key in columnskey" v-gridcell="data[key]" nowrap></td>
+                <tr v-for="record in data" @click="rowClick($index)">
+                    <td class="grid_td" v-for="key in columnskey" v-gridcell="record[key]"></td>
                 </tr>
                 </tbody>
             </table>
@@ -40,7 +40,7 @@
 
 <script type="text/ecmascript-6">
     module.exports = {
-        props: ['datas', 'url', 'total', 'pagesize', 'columns'],
+        props: ['data', 'url', 'total', 'pagesize', 'columns'],
         inherit: true,
         data() {
             var isshow = true;
@@ -105,6 +105,7 @@
             'gridcell': function(html) {
                 var cell = document.createElement('DIV');
                 cell.innerHTML = html;
+                debugger
                 this.vm.$compile(cell);
                 this.el.innerHTML = '';
                 this.el.appendChild(cell);
@@ -126,7 +127,7 @@
                 this.rownumend = parseInt((index + 1) * this.pagesize)
                 this.pageCurrent = index
                 var self = this;
-                Vue.prototype.$httpGet(url, function(data) {
+                this.$http.post(url, function(data) {
                     if (data.code == 100) {
                         if (self.$parent.translateHtml) {
                             if (!self.$parent.isTicketDetail) {
@@ -188,17 +189,30 @@
                 }
                 return [columnsname, columnskey];
             },
+            rowClick(index) {
+                if (this.$parent.rowClick && this.$isFunc(this.$parent.rowClick)) {
+                    this.$parent.rowClick(index);
+                }
+            },
             edit(id) {
-                this.$parent.edit(id);
+                if (this.$parent.edit && this.$isFunc(this.$parent.edit)) {
+                    this.$parent.edit(id);
+                }
             },
             add(id) {
-                this.$parent.give(id);
+                if (this.$parent.add && this.$isFunc(this.$parent.add)) {
+                    this.$parent.add(id);
+                }
             },
             del(id) {
-                this.$parent.del(id);
+                if (this.$parent.del && this.$isFunc(this.$parent.del)) {
+                    this.$parent.del(id);
+                }
             },
             custome(id) {
-                this.$parent.custome(id);
+                if (this.$parent.custome && this.$isFunc(this.$parent.custome)) {
+                    this.$parent.custome(id);
+                }
             }
         }
     }
@@ -206,5 +220,8 @@
 <style type="text/css">
     .dataTables_info{
        margin-top: 20px;
+    }
+    .thead_th{
+        text-align: center;
     }
 </style>

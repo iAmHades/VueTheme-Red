@@ -38,6 +38,7 @@ module.exports = {
         'comma-dangle':0,
         'no-nested-ternary':0,
         'no-unused-vars':0,
-        'import/no-unresolved':0
+        'import/no-unresolved':0,
+        'prefer-template':0
     }
 }

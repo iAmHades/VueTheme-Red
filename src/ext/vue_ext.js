@@ -87,6 +87,15 @@ exports.install = function install(Vue) {
            : val === 'undefined' ? false : val);
     }
 
+    // 判断是否是函数
+    function isFunc(fn) {
+        return fn instanceof Function;
+    }
+
+    // 判断是否是对象
+    function isObject(o) {
+        return Object.prototype.toString.call(o) === '[object Object]';
+    }
     // 添加vue属性
     Object.defineProperties(Vue.prototype, {
 
@@ -142,7 +151,20 @@ exports.install = function install(Vue) {
             get() {
                 return coerceBoolean;
             }
+        },
+
+        $isFunc: {
+            get() {
+                return isFunc;
+            }
+        },
+
+        $isObject: {
+            get() {
+                return isObject;
+            }
         }
+
 
     });
 
