@@ -1,25 +1,19 @@
 <template>
-	<div class="footer-container" >
-			<div class="row">
-				<div class="col-xs-12 col-sm-9 bg-left">
-					<span class="text-white">© 2016 Hades.</span>
-					<span class="text-white"><a href="#">hi@iamhades.com</a></span>
-					<span class="text-white"></span>
-					<span class="text-white">上海中山公园</span>
-				</div>
-				<div class="col-xs-12 col-sm-3 bg-right">
-						<i class="glyphicon glyphicon-envelope text-white"></i>
-						<span class="text-white">Get in touch with us <i class="icon arrow_right"></i></span>
-				</div>
-			</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-9 bg-left">
+			<span class="text-white">© 2016 Hades.</span>
+			<span class="text-white"><a href="#">hi@iamhades.com</a></span>
+			<span class="text-white"></span>
+			<span class="text-white">上海中山公园</span>
+		</div>
+		<div class="col-xs-12 col-sm-3 bg-right">
+			<i class="glyphicon glyphicon-envelope text-white"></i>
+			<span class="text-white">Get in touch with us <i class="icon arrow_right"></i></span>
+		</div>
 	</div>
 </template>
 
 <style type="text/css">
-.footer-container{
-	position: absolute;
-	width: 100%;
-}
 .bg-left{
 	 background-color: #e74c3c !important;
 	 height: 150px;

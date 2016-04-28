@@ -1,15 +1,13 @@
 <template>
-<!-- <div class="container-fluid"> -->
-  <!-- main view -->
-  <menu :data="menus"></menu>
-  <div class="main-container" >
-     <router-view  class="view"  transition="expand" transition-mode="out-in"></router-view>
-  </div>
-  <foot></foot>
-<!-- </div> -->
+ <toplayout>
+   <menu slot="top_menu" :data="menus"></menu>
+   <router-view slot="top_container" class="view" transition="expand" transition-mode="out-in"></router-view>
+   <foot slot="top_footer"></foot>
+ </toplayout>
 </template>
 
 <script>
+    import toplayout from './components/toplayout.vue';
     import menu from './components/menu.vue';
     import foot from './components/footer.vue';
     import store from './vuex/store';
@@ -20,7 +18,8 @@
         store,
         components: {
             menu,
-            foot
+            foot,
+            toplayout
         },
         vuex: {
             getters: {
@@ -37,10 +36,6 @@
 </script>
 
 <style lang="less">
-
-    .main-container .view{
-      text-align: center;
-    }
 
 
     .expand-transition {

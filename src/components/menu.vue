@@ -1,5 +1,5 @@
 <template>
-<div class="navbar fixedeasein" :class="{'navbar-fixed-top':navIsShow}">
+<div class="fixedeasein" :class="{'navbar-fixed-top':navIsShow}">
 <!-- <div class="navbar " v-el:navmenu> -->
       <div class="container navborder-red">
         <div class="navbar-header">
