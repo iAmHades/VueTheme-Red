@@ -2,7 +2,7 @@
   <div class="navbar">
       <div class="">
            <ul class="left-menu" >
-             <li v-for="menu in menus" @click=""><a href="{{menu.url}}">{{menu.text}}</a></li>
+             <li v-for="menu in data"><a href="{{menu.url}}">{{menu.text}}</a></li>
            </ul>
       </div>
         <div class="navbar-header">
@@ -15,25 +15,8 @@
   </div>
 </template>
 <script>
- import { getLeftMenus } from './../vuex/actions';
-
  module.exports = {
-   vuex: {
-     getters: {
-       menus: state => state.leftmenus
-     },
-     actions: {
-       getLeftMenus
-     }
-   },
-   data() {
-     return {
-       isShow: false
-     };
-   },
-   created() {
-     this.getLeftMenus();
-   },
+   props:['data'],
    methods: {
      showMenu() {
        this.isShow = !this.isShow;
