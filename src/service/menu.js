@@ -42,6 +42,10 @@ const leftmenu = [{
   id: 3,
   text: 'Table',
   url: '#/admin/table'
+}, {
+  id: 4,
+  text: 'Modal',
+  url: '#/admin/modal'
 }];
 
 export default {

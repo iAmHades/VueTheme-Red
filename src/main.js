@@ -10,6 +10,7 @@ import index from './views/index.vue';
 import admin from './views/admin.vue';
 import table from './views/table.vue';
 import layout from './views/layout.vue';
+import modal from './views/modal.vue';
 window.Vue = Vue;
 Vue.use(Router);
 const router = new Router({
@@ -48,6 +49,9 @@ router.map({
            },
            '/layout':{
            	   component:layout
+           },
+           '/modal':{
+               component:modal
            }
 		}
 	}
