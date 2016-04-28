@@ -1,14 +1,20 @@
 <template>
 <div>
   <grid :pagesize="pagesize" :data="gridData" :url="url" :columns="columns" :total="total"></grid>
+  <modal :show.sync="showModal">
+     <h3 slot="header">提示消息</h3>
+     <h3 slot="body">确定要删除该记录吗?</h3>
+  </modal>
 </div>
 </template>
 
 <script>
     import grid from './../components/table.vue';
+    import modal from './../components/modal.vue';
     export default {
         components: {
-            grid
+            grid,
+            modal
         },
         data() {
             return {
@@ -66,7 +72,8 @@
                     remarks: '备注',
                     op: '查看',
                     del: '操作'
-                }
+                },
+                showModal:false
             };
         },
         ready(){
@@ -80,11 +87,20 @@
                 });
             },
             edit() {
-                alert('edit');
+                // alert('edit');
+                this.showModal = true;
+            },
+            showmodal(){
+                this.showModal = true;
+            },
+            handleCancel(){
+                alert('您点击了取消');
+                this.showModal = false;
+            },
+            handleSubmit(){
+                alert('您点击了确认');
+                this.showModal = false;
             }
-            // rowClick(index) {
-            //     alert(index);
-            // }
         }
     };
 </script>
