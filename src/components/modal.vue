@@ -26,7 +26,7 @@
                         </a>
                         <a class="btn"
                            @click="handleSubmit">
-                            确实
+                            确定
                         </a>
                     </slot>
                 </div>
