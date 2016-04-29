@@ -7,7 +7,6 @@
 </template>
 
 <script>
-    import slider from './../components/slider.vue';
     import imgblog from './../components/imgblog.vue';
     import cards from './../components/cards.vue';
     import {
@@ -19,7 +18,6 @@
     } from './../vuex/actions';
     export default {
       components: {
-        slider,
         imgblog,
         cards
       },
