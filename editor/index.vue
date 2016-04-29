@@ -3,26 +3,8 @@
 <leftlayout>
    <leftmenu slot="left_menu" :data="menus"></leftmenu>
    <div slot="left_container">
+    <button @click="click">添加组件</button>
     <div class="gridster">
-      <ul>
-        <li data-row="1" data-col="1" data-sizex="2" data-sizey="2"></li>
-        <li data-row="1" data-col="3" data-sizex="1" data-sizey="2"></li>
-        <li data-row="1" data-col="4" data-sizex="1" data-sizey="1"></li>
-        <li data-row="3" data-col="2" data-sizex="3" data-sizey="1"></li>
-        <li data-row="4" data-col="1" data-sizex="1" data-sizey="1"></li>
-        <li data-row="3" data-col="1" data-sizex="1" data-sizey="1"></li>
-        <li data-row="4" data-col="2" data-sizex="1" data-sizey="1"></li>
-        <li data-row="5" data-col="2" data-sizex="1" data-sizey="1"></li>
-        <li data-row="4" data-col="4" data-sizex="1" data-sizey="1"></li>
-        <li data-row="1" data-col="5" data-sizex="1" data-sizey="3"></li>
-        <li data-row="5" data-col="1" data-sizex="1" data-sizey="2"></li>
-        <li data-row="4" data-col="3" data-sizex="1" data-sizey="2"></li>
-        <li data-row="5" data-col="4" data-sizex="1" data-sizey="1"></li>
-        <li data-row="6" data-col="2" data-sizex="3" data-sizey="1"></li>
-        <li data-row="4" data-col="5" data-sizex="1" data-sizey="2"></li>
-        <li data-row="6" data-col="5" data-sizex="1" data-sizey="1"></li>
-        <li data-row="7" data-col="3" data-sizex="1" data-sizey="1"></li>
-      </ul>
     </div>
    </div>
 </leftlayout>
@@ -32,43 +14,68 @@
     import leftlayout from './../src/components/leftlayout.vue';
     import leftmenu from './../src/components/leftmenu.vue';
     export default {
-      components: {
-        leftmenu,
-        leftlayout
-      },
-      data() {
-        return {
-          menus: [{
-            id: 1,
-            text: '模版',
-            url: '#'
-          }, {
-            id: 2,
-            text: '控件',
-            url: '#'
-          }, {
-            id: 3,
-            text: '设置',
-            url: '#'
-          }]
-        };
-      },
-      ready() {
-        debugger;
-        const gridster = $(".gridster ul").gridster({
-          widget_base_dimensions: [100, 55],
-          widget_margins: [5, 5],
-          helper: 'clone',
-          resize: {
-            enabled: true,
-            max_size: [4, 4],
-            min_size: [1, 1]
-          }
-        }).data('gridster');
-      },
+        components: {
+            leftmenu,
+            leftlayout
+        },
+        data() {
+            return {
+                menus: [{
+                    id: 1,
+                    text: '模版',
+                    url: '#'
+                }, {
+                    id: 2,
+                    text: '控件',
+                    url: '#',
+                    child: [{
+                        id: 11,
+                        text: 'input',
+                        url: '#'
+                    }, {
+                        id: 12,
+                        text: 'table',
+                        url: '#'
+                    }, {
+                        id: 13,
+                        text: 'date',
+                        url: '#'
+                    }]
+                }, {
+                    id: 3,
+                    text: '设置',
+                    url: '#'
+                }],
+                gridster: null
+            };
+        },
+        ready() {
+            this.gridster = $('.gridster').gridster({
+                widget_base_dimensions: [100, 55],
+                widget_margins: [5, 5],
+                helper: 'clone',
+                avoid_overlapped_widgets: false,
+                max_cols: 30,
+                resize: {
+                    enabled: true,
+                    max_size: [4, 4],
+                    min_size: [1, 1]
+                }
+            }).data('gridster');
+        },
+        methods: {
+            click() {
+                const row = parseInt(Math.random() * 5, 10);
+                const col = parseInt(Math.random() * 5, 10);
+                this.gridster.add_widget('<div>随机添加的组件</div>', row, col);
+            }
+        }
     };
 </script>
 <style>
+.gridster div{
+    border: 1px black solid;
+}
   
 .gridster * {
   margin:0;

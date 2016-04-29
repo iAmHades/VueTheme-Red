@@ -2,7 +2,13 @@
   <div class="navbar">
       <div class="">
            <ul class="left-menu" >
-             <li v-for="menu in data"><a href="{{menu.url}}">{{menu.text}}</a></li>
+             <li v-for="menu in data">
+                <a v-if="!menu.child" href="{{menu.url}}">{{menu.text}}</a>
+                <div v-else @click="showSubMenu(menu.id)">{{menu.text}}</div>
+                <ul v-if="menu.child" v-show="activeindex==menu.id">
+                  <li v-for="submenu in menu.child">{{submenu.text}}</li>
+                </ul>
+             </li>
            </ul>
       </div>
         <div class="navbar-header">
@@ -16,10 +22,17 @@
 </template>
 <script>
  module.exports = {
-   props:['data'],
+   props: ['data', 'activeindex'],
    methods: {
      showMenu() {
        this.isShow = !this.isShow;
+     },
+     showSubMenu(id) {
+       if (this.activeindex === id) {
+         this.activeindex = 0;
+       } else {
+         this.activeindex = id;
+       }
      }
    }
  };
@@ -29,7 +42,7 @@ ul.left-menu{
   list-style: none;
 }
 ul.left-menu li{
-    height: 40px;
+    min-height: 40px;
     line-height: 40px;
     border-bottom: 1px black solid;
 }

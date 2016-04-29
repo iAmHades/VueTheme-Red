@@ -97,6 +97,12 @@ exports.install = function install(Vue) {
     function isObject(o) {
         return Object.prototype.toString.call(o) === '[object Object]';
     }
+
+    // 获取事件源dom
+    function getSource(e){
+        return e.target||e.srcElement;
+    }
+
     // 添加vue属性
     Object.defineProperties(Vue.prototype, {
 
@@ -163,6 +169,12 @@ exports.install = function install(Vue) {
         $isObject: {
             get() {
                 return isObject;
+            }
+        },
+
+        $getSource: {
+            get() {
+                return getSource;
             }
         }
 
