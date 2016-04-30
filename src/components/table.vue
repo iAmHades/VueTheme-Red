@@ -51,7 +51,7 @@
                 isshow = false;
                 shownums = pagesizetotal;
             }
-            var columnObject = this.translateColumns(this.$parent.columns);
+            var columnObject = this.translateColumns(this.columns);
             return {
                 columnsname: columnObject[0],
                 columnskey: columnObject[1],
