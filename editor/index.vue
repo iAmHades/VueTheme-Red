@@ -16,9 +16,8 @@
   </div>
    <div slot="left_container">
     <button @click="click">添加组件</button>
-    <!-- <partial name="grid"></partial> -->
     <grid v-el:grid v-show="showtable" :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>
-    <div class="gridster">
+    <div v-el:gridster class="gridster" style="width:500px;height:500px;">
     </div>
    </div>
 </leftlayout>
@@ -36,7 +35,7 @@
         },
         data() {
             return {
-                showtable: false,
+                showtable: true,
                 menus: [{
                     id: 1,
                     text: '模版',
@@ -110,7 +109,7 @@
                 }],
                 url: '/xx/xxxx',
                 total: null,
-                pagesize: '10',
+                pagesize: 10,
                 start: '0',
                 columns: {
                     _id: '编号',
@@ -120,56 +119,66 @@
                     op: '查看',
                     del: '操作'
                 },
-                showModal: false
+                showModal: false,
+                translatehtml:() => this.translateHtml
             };
         },
         ready() {
             const self = this;
-            this.gridster = $('.gridster').gridster({
-                widget_base_dimensions: [50, 50],
-                widget_margins: [5, 5],
-                helper: 'clone',
-                avoid_overlapped_widgets: false,
-                max_cols: 30,
-                resize: {
-                    enabled: true,
-                    max_size: [15, 10],
-                    min_size: [1, 1]
-                },
-                draggable: {
-                    start(e, ui) {},
-                    drag(e, ui) {
+            // this.gridster = $('.gridster').gridster({
+            //     widget_base_dimensions: [50, 50],
+            //     widget_margins: [5, 5],
+            //     helper: 'clone',
+            //     avoid_overlapped_widgets: false,
+            //     max_cols: 30,
+            //     resize: {
+            //         enabled: true,
+            //         max_size: [15, 10],
+            //         min_size: [1, 1]
+            //     },
+            //     draggable: {
+            //         start(e, ui) {},
+            //         drag(e, ui) {
 
-                    },
-                    stop(e, ui) {
-                        console.info('draggable stop');
-                        self.$compile(ui.$helper[0]);
-                    }
-                }
-            }).data('gridster');
+            //         },
+            //         stop(e, ui) {
+            //             console.info('draggable stop');
+            //             console.info(ui.$helper[0]);
+            //             debugger;
+            //             self.$compile(ui.$helper[0]);
+            //             self.$nextTick(() => {
+            //                console.info(ui.$helper[0]);
+            //             });
+            //         }
+            //     }
+            // }).data('gridster');
             this.translateHtml(this.griddata);
-            // 对组件添加拖拽功能
-            $('.left-menu ul li').draggable({
-                // revert: true,
-                helper(event) {
-                    self.showtable = true;
-                    return self.$els.grid;
-                    // return '<div>随机添加的组件</div>';
-                },
-                start(event, ui) {
-                },
-                stop(event, ui) {
-                    // self.gridster.add_widget('<grid :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>', 10, 3, null, null, null, null, self);
-                    // self.gridster.add_widget(self.$els.grid, 10, 3);
-                    // const dom=document.createElement('div');
-                    // dom.innerHTML='xxxx';
-                    // self.gridster.add_widget(dom, 10, 3);
-                    self.gridster.add_widget('<partial name="button"></partial>', 10, 1, null, null, null, null, self);
-
-                    // self.gridster.add_widget('<button @click="edit">点击我</button>', 10, 1, null, null, null, null, self);
-
-                }
+            this.$nextTick(() => {
+                $(this.$els.grid).draggable();
             });
+            // 对组件添加拖拽功能
+            // $('.left-menu ul li').draggable({
+            //     // revert: true,
+            //     helper(event) {
+            //         self.showtable = true;
+            //         return self.$els.grid;
+            //         // return '<div>随机添加的组件</div>';
+            //     },
+            //     start(event, ui) {
+            //         console.info(event);
+            //     },
+            //     stop(event, ui) {
+            //         // self.gridster.add_widget('<grid :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>', 10, 3, null, null, null, null, self);
+            //         // self.gridster.add_widget(self.$els.grid, 10, 3);
+            //         // const dom=document.createElement('div');
+            //         // dom.innerHTML='xxxx';
+            //         // self.gridster.add_widget(dom, 10, 3);
+            //         // self.gridster.add_widget('<partial name="button"></partial>', 10, 1, null, null, null, null, self);
+
+            //         // self.gridster.add_widget('<button @click="edit">点击我</button>', 10, 1, null, null, null, null, self);
+            //         self.$els.gridster.appendChild(self.$els.grid);
+            //     }
+            // });
         },
         methods: {
             translateHtml(data) {

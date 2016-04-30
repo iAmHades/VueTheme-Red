@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import grid from './../src/components/table.vue';
+    import grid from './../components/table.vue';
     import modal from './../components/modal.vue';
     export default {
         components: {
