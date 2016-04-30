@@ -1,9 +1,23 @@
 <template>
 <div>
 <leftlayout>
-   <leftmenu slot="left_menu" :data="menus"></leftmenu>
+     <div slot="left_menu"  class="navbar">
+      <div class="">
+           <ul class="left-menu" >
+             <li v-for="menu in menus">
+                <a v-if="!menu.child" href="{{menu.url}}">{{menu.text}}</a>
+                <div v-else @click="showSubMenu(menu.id)">{{menu.text}}</div>
+                <ul v-if="menu.child" v-show="activeindex==menu.id">
+                  <li  v-for="submenu in menu.child">{{submenu.text}}</li>
+                </ul>
+             </li>
+           </ul>
+      </div>
+  </div>
    <div slot="left_container">
     <button @click="click">添加组件</button>
+    <!-- <partial name="grid"></partial> -->
+    <grid v-el:grid v-show="showtable" :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>
     <div class="gridster">
     </div>
    </div>
@@ -12,14 +26,17 @@
 </template>
 <script>
     import leftlayout from './../src/components/leftlayout.vue';
-    import leftmenu from './../src/components/leftmenu.vue';
+    import grid from './../src/components/table.vue';
+    // import leftmenu from './../src/components/leftmenu.vue';
+    // import menu from './../src/components/menu.vue';
     export default {
         components: {
-            leftmenu,
-            leftlayout
+            leftlayout,
+            grid
         },
         data() {
             return {
+                showtable: false,
                 menus: [{
                     id: 1,
                     text: '模版',
@@ -30,15 +47,15 @@
                     url: '#',
                     child: [{
                         id: 11,
-                        text: 'input',
+                        text: '表单',
                         url: '#'
                     }, {
                         id: 12,
-                        text: 'table',
+                        text: 'grid',
                         url: '#'
                     }, {
                         id: 13,
-                        text: 'date',
+                        text: '菜单',
                         url: '#'
                     }]
                 }, {
@@ -46,33 +63,151 @@
                     text: '设置',
                     url: '#'
                 }],
-                gridster: null
+                gridster: null,
+                activeindex: 0,
+                griddata: [{
+                    _id: '11',
+                    type: '咖啡',
+                    name: '表单',
+                    remarks: 'material design',
+                    op: '查看',
+                    del: '操作'
+                }, {
+                    _id: '22',
+                    type: '表格',
+                    name: '表跟',
+                    remarks: 'material design',
+                    op: '查看',
+                    del: '操作'
+                }, {
+                    _id: '33',
+                    type: '表单',
+                    name: '表单',
+                    remarks: 'material design',
+                    op: '查看',
+                    del: '操作'
+                }, {
+                    _id: '11',
+                    type: '咖啡',
+                    name: '表单',
+                    remarks: 'material design',
+                    op: '查看',
+                    del: '操作'
+                }, {
+                    _id: '22',
+                    type: '表格',
+                    name: '表跟',
+                    remarks: 'material design',
+                    op: '查看',
+                    del: '操作'
+                }, {
+                    _id: '33',
+                    type: '表单',
+                    name: '表单',
+                    remarks: 'material design',
+                    op: '查看',
+                    del: '操作'
+                }],
+                url: '/xx/xxxx',
+                total: null,
+                pagesize: '10',
+                start: '0',
+                columns: {
+                    _id: '编号',
+                    type: '组件类型',
+                    name: '组件名字',
+                    remarks: '备注',
+                    op: '查看',
+                    del: '操作'
+                },
+                showModal: false
             };
         },
         ready() {
+            const self = this;
             this.gridster = $('.gridster').gridster({
-                widget_base_dimensions: [100, 55],
+                widget_base_dimensions: [50, 50],
                 widget_margins: [5, 5],
                 helper: 'clone',
                 avoid_overlapped_widgets: false,
                 max_cols: 30,
                 resize: {
                     enabled: true,
-                    max_size: [4, 4],
+                    max_size: [15, 10],
                     min_size: [1, 1]
+                },
+                draggable: {
+                    start(e, ui) {},
+                    drag(e, ui) {
+
+                    },
+                    stop(e, ui) {
+                        console.info('draggable stop');
+                        self.$compile(ui.$helper[0]);
+                    }
                 }
             }).data('gridster');
+            this.translateHtml(this.griddata);
+            // 对组件添加拖拽功能
+            $('.left-menu ul li').draggable({
+                // revert: true,
+                helper(event) {
+                    self.showtable = true;
+                    return self.$els.grid;
+                    // return '<div>随机添加的组件</div>';
+                },
+                start(event, ui) {
+                },
+                stop(event, ui) {
+                    // self.gridster.add_widget('<grid :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>', 10, 3, null, null, null, null, self);
+                    // self.gridster.add_widget(self.$els.grid, 10, 3);
+                    // const dom=document.createElement('div');
+                    // dom.innerHTML='xxxx';
+                    // self.gridster.add_widget(dom, 10, 3);
+                    self.gridster.add_widget('<partial name="button"></partial>', 10, 1, null, null, null, null, self);
+
+                    // self.gridster.add_widget('<button @click="edit">点击我</button>', 10, 1, null, null, null, null, self);
+
+                }
+            });
         },
         methods: {
+            translateHtml(data) {
+                data.forEach((record) => {
+                    record._id = '<a v-link="admin">' + record._id + '</a>';
+                    record.op = '<button @click.stop="edit">查看</button>';
+                });
+            },
+            edit() {
+              alert('edit');
+            },
             click() {
                 const row = parseInt(Math.random() * 5, 10);
                 const col = parseInt(Math.random() * 5, 10);
                 this.gridster.add_widget('<div>随机添加的组件</div>', row, col);
+            },
+            showSubMenu(id) {
+                if (this.activeindex === id) {
+                    this.activeindex = 0;
+                } else {
+                    this.activeindex = id;
+                }
             }
         }
     };
 </script>
 <style>
+/*菜单*/
+ul.left-menu{
+  list-style: none;
+}
+ul.left-menu li{
+    min-height: 40px;
+    line-height: 40px;
+    border-bottom: 1px black solid;
+}
+
+/*gridster*/
 .gridster div{
     border: 1px black solid;
 }
