@@ -1,8 +1,8 @@
 <template>
     <div class="row">
-        <div class="col-xs-12" v-show="showProAndShopState!=true">
+        <div class="col-xs-12">
             <table class="table table-striped table-hover">
-                <thead v-show="showProductThead!=true">
+                <thead>
                 <tr>
                     <th v-for="key in columnsname" class="thead_th">{{key}}</th>
                 </tr>
@@ -40,18 +40,28 @@
 
 <script type="text/ecmascript-6">
     module.exports = {
-        props: ['data', 'url', 'total', 'pagesize', 'columns'],
-        inherit: true,
+        // props: ['data', 'url', 'total', 'pagesize', 'columns', 'params', 'translatehtml'],
+        props:{
+           data:Array,
+           url:String,
+           total:Number,
+           pagesize:Number,
+           columns:Object,
+           params:Object,
+           translatehtml:Function
+        },
         data() {
             var isshow = true;
             var shownums = 10;
             var pagesize = this.pagesize ? this.pagesize : 10;
-            var pagesizetotal = this.getpagenationsize(this.total?this.total:this.data.length, pagesize);
+            var pagesizetotal = this.getpagenationsize(this.total ? this.total : this.data.length, pagesize);
             if (pagesizetotal <= 10) {
                 isshow = false;
                 shownums = pagesizetotal;
             }
+            this.translatehtml(this.data);
             var columnObject = this.translateColumns(this.columns);
+            this.translateData(this.data, columnObject[2]);
             return {
                 columnsname: columnObject[0],
                 columnskey: columnObject[1],
@@ -61,41 +71,11 @@
                 rownumstart: 0,
                 rownumend: 0,
                 pageCurrent: 0,
-                showProAndShopState: this.$parent.showProAndShopState,
-                showProductThead: this.$parent.showProductThead,
-                isTicketDetail: this.$parent.isTicketDetail,
-                activePage:0
+                activePage: 0,
+                funcmap: columnObject[2]
             };
         },
         computed: {
-            columns: {
-                get: function() {
-                    return this.$parent.columns;
-                },
-                set: function(newValue) {
-                    var columnObject = this.translateColumns(newValue);
-                    this.columnsname = columnObject[0];
-                    this.columnskey = columnObject[1];
-                }
-            },
-            total: {
-                get: function() {
-                    return this.$parent.total;
-                },
-                set: function(newValue) {
-                    var pagesize = this.pagesize ? this.pagesize : 10;
-                    var pagesizetotal = this.getpagenationsize(newValue ? newValue : this.total, pagesize);
-                    if (pagesizetotal <= 10) {
-                        this.isshow = false;
-                        this.shownums = pagesizetotal;
-                    } else {
-                        this.shownums = 10;
-                        this.isshow = true;
-                    }
-                    let self = this;
-                    self.pageCurrent = 0;
-                }
-            },
             pageTotal: {
                 get: function() {
                     return this.getpagenationsize(this.total, this.pagesize);
@@ -103,23 +83,63 @@
             }
         },
         directives: {
-            'gridcell': function(html) {
+            gridcell: function(data) {
                 var cell = document.createElement('DIV');
-                cell.innerHTML = html;
+                cell.innerHTML = data.value;
                 this.vm.$compile(cell);
                 this.el.innerHTML = '';
                 this.el.appendChild(cell);
             }
         },
+        watch: {
+            data: (newValue, oldValue) => {
+                this.translateData(newValue, this.funcmap);
+            },
+            columns: {
+                deep: true,
+                handler: (newValue, oldValue) => {
+                    const columnObject = this.translateColumns(newValue);
+                    this.columnsname = columnObject[0];
+                    this.columnskey = columnObject[1];
+                }
+            },
+            total: (newValue, oldValue) => {
+                const pagesize = this.pagesize ? this.pagesize : 10;
+                const pagesizetotal = this.getpagenationsize(newValue ? newValue : this.total, pagesize);
+                if (pagesizetotal <= 10) {
+                    this.isshow = false;
+                    this.shownums = pagesizetotal;
+                } else {
+                    this.shownums = 10;
+                    this.isshow = true;
+                }
+                this.pageCurrent = 0;
+            }
+        },
         methods: {
+            translateData(data, funcmap) {
+                data.forEach((singleData) => {
+                    var record = {}; // func,val
+                    Object.keys(singleData).forEach((key) => {
+                        if (typeof(singleData[key]) !== 'object') {
+                            const value = singleData[key];
+                            singleData[key] = {};
+                            singleData[key].value = value;
+                            if (funcmap[key]) {
+                                singleData[key].func = funcmap[key];
+                            }
+                        }
+                    });
+                });
+            },
             clickToPage(index) {
                 var arr = [];
                 this.activePage = index - this.startnums + 1;
-                var params = this.$parent.params ? this.$parent.params : {};
+                var params = this.params ? this.params : {};
                 for (var name in params) {
                     arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(params[name]));
                 }
-                var url = this.$parent.url + '?start=' + index * (this.pagesize ? this.pagesize : 10) + '&limit=' + this.pagesize;
+                var url = this.url + '?start=' + index * (this.pagesize ? this.pagesize : 10) + '&limit=' + this.pagesize;
                 if (arr.length > 0) {
                     url = url + "&" + arr.join("&");
                 }
@@ -129,19 +149,10 @@
                 var self = this;
                 this.$http.post(url, function(data) {
                     if (data.code == 100) {
-                        if (self.$parent.translateHtml) {
-                            if (!self.$parent.isTicketDetail) {
-                                self.$parent.translateHtml(data.data.records, data.data.start);
-                            } else {
-                                self.$parent.translateHtml(data.data, data.start);
-                            }
+                        if (self.translatehtml) {
+                            self.translatehtml(data.data);
                         }
-                        if (!self.$parent.isTicketDetail) {
-                            self.$parent.gridData = data.data.records;
-                        } else {
-                            self.$parent.gridData = data.data;
-
-                        }
+                        self.gridData = data.data;
                     }
                 });
             },
@@ -180,40 +191,34 @@
                     return parseInt(total / pagesize) + 1;
                 }
             },
+            // columns对象如下；
+            // remarks: '备注',
+            // op: {
+            //    type: 'func',
+            //    text: '查看',
+            //    func: () => this.edit
+            // }
             translateColumns(columnsMap) {
                 var columnsname = [];
                 var columnskey = [];
+                var funcmap = {};
                 for (var key in columnsMap) {
-                    columnsname.push(columnsMap[key]);
+                    let value = columnsMap[key];
+                    if (typeof(value) === 'string') {
+                        columnsname.push(value);
+                    } else {
+                        columnsname.push(value.text);
+                        funcmap[key] = value.func;
+                    }
                     columnskey.push(key);
                 }
-                return [columnsname, columnskey];
+                return [columnsname, columnskey, funcmap];
             },
-            rowClick(index) {
-                if (this.$parent.rowClick && this.$isFunc(this.$parent.rowClick)) {
-                    this.$parent.rowClick(index);
-                }
-            },
-            edit(id) {
-                if (this.$parent.edit && this.$isFunc(this.$parent.edit)) {
-                    this.$parent.edit(id);
-                }
-            },
-            add(id) {
-                if (this.$parent.add && this.$isFunc(this.$parent.add)) {
-                    this.$parent.add(id);
-                }
-            },
-            del(id) {
-                if (this.$parent.del && this.$isFunc(this.$parent.del)) {
-                    this.$parent.del(id);
-                }
-            },
-            custome(id) {
-                if (this.$parent.custome && this.$isFunc(this.$parent.custome)) {
-                    this.$parent.custome(id);
-                }
-            }
+            rowClick(index) {},
+            edit(id) {},
+            add(id) {},
+            del(id) {},
+            custome(id) {}
         }
     }
 </script>
