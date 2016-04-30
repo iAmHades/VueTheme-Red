@@ -39,7 +39,6 @@ module.exports = {
         'no-nested-ternary':0,
         'no-unused-vars':0,
         'import/no-unresolved':0,
-        'prefer-template':0,
-        'max-len':0
+        'prefer-template':0
     }
 }

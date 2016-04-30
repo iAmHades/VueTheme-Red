@@ -21,7 +21,4 @@ router.map({
 	}
 });
 
-Vue.partial('grid', '<grid :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>');
-Vue.partial('button', '<button @click="edit">点击我</button>');
-
 router.start(index, '#app');

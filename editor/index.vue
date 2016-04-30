@@ -16,11 +16,9 @@
   </div>
    <div slot="left_container">
     <button @click="click">添加组件</button>
-    <!-- <partial name="grid"></partial> -->
-  <!--   <grid v-el:grid v-show="showtable" :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid> -->
-     <grid :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total" :translatehtml="translatehtml"></grid>
-  <!--   <div v-el:gridster class="gridster" style="width:500px;height:500px;">
-    </div> -->
+    <grid v-el:grid v-show="showtable" :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>
+    <div v-el:gridster class="gridster" style="width:500px;height:500px;">
+    </div>
    </div>
 </leftlayout>
 </div>
@@ -118,11 +116,7 @@
                     type: '组件类型',
                     name: '组件名字',
                     remarks: '备注',
-                    op: {
-                        type: 'func',
-                        text: '查看',
-                        func: () => this.edit
-                    },
+                    op: '查看',
                     del: '操作'
                 },
                 showModal: false,
@@ -158,10 +152,10 @@
             //         }
             //     }
             // }).data('gridster');
-            // this.translateHtml(this.griddata);
-            // this.$nextTick(() => {
-            //     $(this.$els.grid).draggable();
-            // });
+            this.translateHtml(this.griddata);
+            this.$nextTick(() => {
+                $(this.$els.grid).draggable();
+            });
             // 对组件添加拖拽功能
             // $('.left-menu ul li').draggable({
             //     // revert: true,
@@ -183,13 +177,11 @@
 
             //         // self.gridster.add_widget('<button @click="edit">点击我</button>', 10, 1, null, null, null, null, self);
             //         self.$els.gridster.appendChild(self.$els.grid);
-            //         debugger;
             //     }
             // });
         },
         methods: {
             translateHtml(data) {
-                debugger;
                 data.forEach((record) => {
                     record._id = '<a v-link="admin">' + record._id + '</a>';
                     record.op = '<button @click.stop="edit">查看</button>';
