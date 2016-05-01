@@ -1,7 +1,7 @@
 <template>
 <div>
 <leftlayout>
-     <div slot="left_menu"  class="navbar">
+     <div slot="left_menu" class="navbar">
       <div class="">
            <ul class="left-menu" >
              <li v-for="menu in menus">
@@ -26,6 +26,7 @@
 <script>
     import leftlayout from './../src/components/leftlayout.vue';
     import grid from './../src/components/table.vue';
+    import './util/drag.js';
     // import leftmenu from './../src/components/leftmenu.vue';
     // import menu from './../src/components/menu.vue';
     export default {
@@ -128,32 +129,6 @@
             const self = this;
             this.translateHtml(this.griddata);
             this.$nextTick(() => {
-                this.$els.grid.ondragstart = function(ev) {
-                    self.dragDomWidth = ev.target.offsetWidth;
-                    self.dragDomHeight = ev.target.offsetHeight;
-                    ev.dataTransfer.effectAllowed = 'move';
-                    ev.dataTransfer.setData('text', ev.target.innerHTML);
-                    ev.dataTransfer.setDragImage(self.$els.grid, 0, 0);
-                    return true;
-                };
-                this.$els.grid.ondragend = function(ev) {
-                    ev.dataTransfer.clearData("text");
-                     const shadow = self.$els.gridster.querySelector('.shadow');
-                     self.$els.grid.style.left=shadow.style.left;
-                     self.$els.grid.style.top=shadow.style.top;
-                     self.$els.grid.style.position='absolute';
-                     self.$els.grid.style.width='100%';
-                     shadow.remove();
-                    return false;
-                };
-                this.$els.gridster.ondragover = function(ev) {
-                        const shadow = self.createShadow(self.dragDomWidth, self.dragDomHeight, ev.clientX, ev.clientY);
-                        if(shadow){
-                            self.$els.gridster.appendChild(shadow);
-                        }
-                    ev.preventDefault();
-                    return true;
-                };
             });
         },
         methods: {
@@ -172,32 +147,6 @@
                 } else {
                     this.activeindex = id;
                 }
-            },
-            createShadow(width, height, x, y) {
-                let shadow = this.$els.gridster.querySelector('.shadow');
-                if (shadow) {
-                    shadow.style.top = y + 'px';
-                     // 修正位置
-                    shadow.style.left = (x-230) + 'px';
-                } else {
-                    shadow = document.createElement('DIV');
-                    shadow.style.width = this.dragDomWidth + 'px';
-                    shadow.style.height = this.dragDomHeight + 'px';
-                    shadow.style.top = y + 'px';
-                    // 修正位置
-                    shadow.style.left = (x-230) + 'px';
-                    // shadow.style.backgroundColor = 'red';
-                    shadow.style.border='1px red solid';
-                    shadow.style.position = 'absolute';
-                    shadow.className = 'shadow';
-                    return shadow;
-                }
-            },
-            onDOCMousemove(ev) {
-                ev = ev || window.event;
-                const dx = ev.clientX;
-                const dy = ev.clientY;
-                console.info(dx + ":" + dy);
             }
         }
     };
