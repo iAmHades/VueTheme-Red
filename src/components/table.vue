@@ -1,43 +1,42 @@
 <template>
-    <div class="row" draggable="true">
-        <div class="col-xs-12" v-show="showProAndShopState!=true">
-            <table class="table table-striped table-hover">
-                <thead v-show="showProductThead!=true">
-                <tr>
-                    <th v-for="key in columnsname" class="thead_th">{{key}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="record in data" @click="rowClick($index)">
-                    <td class="grid_td" v-for="key in columnskey" v-gridcell="record[key]"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-xs-12">
-            <div class="col-xs-3">
-                <div class="dataTables_info">
-                    第{{pageCurrent+1}} /{{pageTotal}}页 每页{{pagesize}}条/共{{total?total:0}}条记录
-                </div>
-            </div>
-            <div class="col-xs-8">
+<div class="row" draggable="true">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th v-for="key in columnsname" class="thead_th">{{key}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="record in data" @click="rowClick($index)">
+                <td class="grid_td" v-for="key in columnskey" v-gridcell="record[key]"></td>
+            </tr>
+        </tbody>
+        <tfoot>
+          <tr class="col-xs-3">
+            <td>
+              <div class="dataTables_info">
+                第{{pageCurrent+1}} /{{pageTotal}}页 每页{{pagesize}}条/共{{total?total:0}}条记录
+              </div>
+            </td>  
+          </tr>
+          <tr class="col-xs-8">
+            <td>
                 <ul class="pagination">
                     <li v-on:click="clickToPrev()" v-show="isshow" class="paginate_button previous">
                         <a>上一页</a>
                     </li>
                     <li v-on:click="clickToPage(index+startnums-1)" v-for="index in shownums" class="paginate_button">
                         <a id="clickToPage_{{$index}}" :class="{paginate_active:activePage==index}">{{index+startnums}}</a></li>
-                    <!--<a style="background-color: red" v-if="mark=='1'">{{index+startnums}}</a>-->
-                    <!--<a class="lll" v-else>{{index+startnums}}</a></li>-->
-                    <li v-on:click="clickToNext()" v-show="isshow" class="paginate_button next ">
-                        <a>下一页</a>
+                        <li v-on:click="clickToNext()" v-show="isshow" class="paginate_button next ">
+                            <a>下一页</a>
                     </li>
                 </ul>
-            </div>
-        </div>
+            </td>
+           </tr>
+        </tfoot>
+    </table>
     </div>
 </template>
-
 <script type="text/ecmascript-6">
     module.exports = {
         props: ['data', 'url', 'total', 'pagesize', 'columns'],

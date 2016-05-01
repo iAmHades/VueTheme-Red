@@ -40,6 +40,7 @@ module.exports = {
         'no-unused-vars':0,
         'import/no-unresolved':0,
         'prefer-template':0,
-        'max-len':0
+        'max-len':0,
+        'keyword-spacing':0
     }
 }
