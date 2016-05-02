@@ -1,6 +1,17 @@
-function Draggable(dragEl, dropEl, options) {
+function Draggable(dragEls, dropEl, options) {
+	this.dragEls = [];
 	// 被拖拽元素
-	this.dragEl = dragEl;
+	// 多个
+	if (Array.isArray(dragEls)) {
+		dragEls.forEach((object) => {
+			// 指定左侧菜单ui的类型
+			object.dom.elementType = object.elementType;
+			this.dragEls.push(object.dom);
+		});
+		// 单个
+	} else {
+		this.dragEls.push(dragEls);
+	}
 	// 被拖拽进的区域元素
 	this.dropEl = dropEl;
 	this.defaults = {
@@ -20,6 +31,7 @@ function Draggable(dragEl, dropEl, options) {
 	// 当前dragEl的坐标
 	this.currentX = 0;
 	this.currentY = 0;
+	this.vueInstance = null;
 	// 初始化
 	this.init();
 }
@@ -63,6 +75,24 @@ Draggable.prototype.createShadow = function(x, y) {
 	}
 };
 
+Draggable.prototype.createDragImage = function(type) {
+	const dom = document.createElement("img");
+	switch (type) {
+		case 'from':
+			dom.src = 'http://temp.im/400x600';
+			break;
+		case 'grid':
+			dom.src = 'http://temp.im/700x500';
+			break;
+		case 'menu':
+			dom.src = 'http://temp.im/300x800';
+			break;
+		default:
+			dom.src = 'http://temp.im/300x300';
+	}
+	return dom;
+};
+
 // 纠正X坐标
 Draggable.prototype.computedX = function(x) {
 	return (x - this.fixedLeft);
@@ -94,22 +124,41 @@ Draggable.prototype.dropThrottle = function(fn, delay) {
 // 绑定事件
 // dragstart(drag元素) -> drag(drag元素) -> dragenter(drop元素) -> dragover(drop元素) -> dragleave(drop元素) -> drop(drop元素) -> dragend(drag元素)
 Draggable.prototype.bindEvent = function() {
-	// 拖放事件开始时触发，可以指定拖动的动画
-	this.dragEl.addEventListener('dragstart', (e) => {
-		e.dataTransfer.effectAllowed = this.options.effectAllowed;
-		e.dataTransfer.setData('text', e.target.innerHTML);
-		e.dataTransfer.setDragImage(this.options.dragImage ? this.options.dragImage : e.target, 0, 0);
-		this.options.dragDomWidth = e.target.offsetWidth;
-		this.options.dragDomHeight = e.target.offsetHeight;
-		this.onDragStart(e);
-		return true;
-	});
-	// ondragstart 事件触发后，直到拖放事件结束，会一直触发 ondrag 事件
-	this.dragEl.addEventListener('drag', (e) => {
-		this.dragThrottle(() => {
-			this.onDrag(e);
-		}, 100);
-	});
+	// 被拖拽的元素可以是多个，但是目标只能为一个。
+	for (let i = 0; i < this.dragEls.length; i++) {
+		const dragEl = this.dragEls[i];
+		// function(dragEl) {
+		dragEl.addEventListener('dragstart', (e) => {
+			const dom = this.createDragImage(dragEl.elementType);
+			e.dataTransfer.effectAllowed = this.options.effectAllowed;
+			e.dataTransfer.setData('text', dom.innerHTML);
+			e.dataTransfer.setDragImage(dom, 0, 0);
+			this.options.dragDomWidth = e.target.offsetWidth;
+			this.options.dragDomHeight = e.target.offsetHeight;
+			this.onDragStart(e);
+			return true;
+		});
+		// ondragstart 事件触发后，直到拖放事件结束，会一直触发 ondrag 事件
+		dragEl.addEventListener('drag', (e) => {
+			this.dragThrottle(() => {
+				this.onDrag(e);
+			}, 100);
+		});
+		// 拖拽结束，去掉shadow，同时将拖拽目标移动到新的位置
+		dragEl.addEventListener('dragend', (e) => {
+			e.dataTransfer.clearData('text');
+			const shadow = this.dropEl.querySelector('.' + this.options.shadowClass);
+			if (shadow) {
+				shadow.remove();
+			}
+			this.dragElMove(dragEl);
+			this.onDragEnd(e);
+			return false;
+		});
+		// }(dragEl);
+	}
+
+
 	// 当被拖动元素进入可放置的元素时
 	this.dropEl.addEventListener('dragenter', (e) => {
 		this.onDragEnter(e);
@@ -134,27 +183,52 @@ Draggable.prototype.bindEvent = function() {
 	this.dropEl.addEventListener('drop', (e) => {
 		this.onDrop(e);
 	});
-	// 拖拽结束，去掉shadow，同时将拖拽目标移动到新的位置
-	this.dragEl.addEventListener('dragend', (e) => {
-		e.dataTransfer.clearData('text');
-		console.info(e.clientX+':'+e.clientY);
-		const shadow = this.dropEl.querySelector('.' + this.options.shadowClass);
-		if (shadow) {
-			shadow.remove();
-		}
-		// 父级关系不同，起offeset位置也不同，默认为left_container层级开始计算
-		this.dragEl.style.left = (this.currentX - this.fixedLeft) + 'px';
-		this.dragEl.style.top = shadow.style.top;
-		// this.dragEl.style.left = e.clientX + 'px';
-		// this.dragEl.style.top = e.clientY + 'px';
-		this.dragEl.style.position = 'absolute';
-		this.dragEl.style.width = '100%';
-		this.onDragEnd(e);
-		return false;
-	});
 
 };
 
+Draggable.prototype.dragElMove = function(dragEl) {
+	// 左侧菜单元素，不需要移动位置
+	if (!dragEl.elementType) {
+		// 父级关系不同，起offeset位置也不同，默认为left_container层级开始计算
+		dragEl.style.left = (this.currentX - this.fixedLeft) + 'px';
+		dragEl.style.top = this.currentY + 'px';
+		// dragEl.style.left = e.clientX + 'px';
+		// dragEl.style.top = e.clientY + 'px';
+		dragEl.style.position = 'absolute';
+		dragEl.style.width = '100%';
+		// 而是要构建新的vue组件出来。
+	} else {
+		if (this.vueInstance) {
+			this.dropEl.appendChild(this.createVueDom(dragEl.elementType));
+		}
+	}
+};
+
+// 如果需要vue的编译，则注入
+Draggable.prototype.initVue = function(vueInstance) {
+	this.vueInstance = vueInstance;
+};
+
+Draggable.prototype.createVueDom = function(type) {
+	const div = document.createElement('DIV');
+	const dom = document.createElement('partial');
+	switch (type) {
+		case 'grid':
+			dom.setAttribute('name', 'red-grid');
+			break;
+		case 'from':
+			dom.setAttribute('name', 'red-grid');
+			break;
+		case 'menu':
+			dom.setAttribute('name', 'red-grid');
+			break;
+		default:
+	}
+		debugger;
+		div.appendChild(dom);
+	this.vueInstance.$compile(div);
+	return div;
+};
 
 // 事件钩子
 Draggable.prototype.onDragStart = (e) => {};

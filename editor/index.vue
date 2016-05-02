@@ -3,20 +3,21 @@
 <leftlayout>
      <div slot="left_menu" class="navbar">
       <div class="">
-           <ul class="left-menu" >
+           <ul class="left-menu" v-el:leftmenu>
              <li v-for="menu in menus">
                 <a v-if="!menu.child" href="{{menu.url}}">{{menu.text}}</a>
                 <div v-else @click="showSubMenu(menu.id)">{{menu.text}}</div>
                 <ul v-if="menu.child" v-show="activeindex==menu.id">
-                  <li  v-for="submenu in menu.child">{{submenu.text}}</li>
+                  <li draggable="true" v-for="submenu in menu.child">{{submenu.text}}</li>
                 </ul>
              </li>
            </ul>
       </div>
   </div>
    <div slot="left_container" v-el:gridster>
+     <div id="tdiv" style="display:none;width:100px;height:100px;border:1px black solid;"></div>
    <!--  <grid v-el:grid v-show="showtable" :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid> -->
-    <grid  v-el:grid  :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>
+  <!--   <grid  v-el:grid  :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid> -->
     <!-- <div v-el:gridster class="gridster"> -->
     </div>
    </div>
@@ -129,9 +130,18 @@
             const self = this;
             this.translateHtml(this.griddata);
             this.$nextTick(() => {
-                const draggable= new Draggable(this.$els.grid, this.$els.gridster);
-                draggable.onDragStart=function(){
-                };
+                const lis=this.$els.leftmenu.querySelectorAll('li ul li');
+                const dom=new Draggable([
+                       { dom:lis[0], elementType:'from' },
+                       { dom:lis[1], elementType:'grid' },
+                       { dom:lis[2], elementType:'menu' }
+                     ], this.$els.gridster
+                );
+                dom.initVue(this);
+
+                // const draggable= new Draggable(this.$els.grid, this.$els.gridster);
+                // draggable.onDragStart=function(){
+                // };
             });
         },
         methods: {

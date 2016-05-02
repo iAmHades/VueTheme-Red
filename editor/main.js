@@ -20,5 +20,7 @@ router.map({
 		component: index
 	}
 });
-
+Vue.partial('red-grid', '<grid :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>');
+// Vue.partial('red-from', '<grid :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>');
+// Vue.partial('red-menu', '<grid :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>');
 router.start(index, '#app');
