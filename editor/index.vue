@@ -14,10 +14,10 @@
            </ul>
       </div>
   </div>
-   <div slot="left_container">
+   <div slot="left_container" v-el:gridster>
    <!--  <grid v-el:grid v-show="showtable" :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid> -->
     <grid  v-el:grid  :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>
-    <div v-el:gridster class="gridster">
+    <!-- <div v-el:gridster class="gridster"> -->
     </div>
    </div>
 </leftlayout>
@@ -129,6 +129,9 @@
             const self = this;
             this.translateHtml(this.griddata);
             this.$nextTick(() => {
+                const draggable= new Draggable(this.$els.grid, this.$els.gridster);
+                draggable.onDragStart=function(){
+                };
             });
         },
         methods: {
@@ -173,4 +176,7 @@ ul.left-menu ul{
     height: 900px;
 }
 
+.shadow{
+     border: 1px black solid;
+}
 </style>
