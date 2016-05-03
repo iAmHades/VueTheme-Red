@@ -14,8 +14,7 @@
            </ul>
       </div>
   </div>
-   <div slot="left_container" v-el:gridster>
-     <div id="tdiv" style="display:none;width:100px;height:100px;border:1px black solid;"></div>
+   <div slot="left_container" v-el:gridster style="height:1000px">
    <!--  <grid v-el:grid v-show="showtable" :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid> -->
   <!--   <grid  v-el:grid  :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid> -->
     <!-- <div v-el:gridster class="gridster"> -->
@@ -138,7 +137,6 @@
                      ], this.$els.gridster
                 );
                 dom.initVue(this);
-
                 // const draggable= new Draggable(this.$els.grid, this.$els.gridster);
                 // draggable.onDragStart=function(){
                 // };
@@ -188,5 +186,8 @@ ul.left-menu ul{
 
 .shadow{
      border: 1px black solid;
+     width: 100%;
+     height: 100px;
+     position: absolute;
 }
 </style>

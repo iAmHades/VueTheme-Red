@@ -1,3 +1,9 @@
+/**
+ *  dragEls Object 对象
+ *  dom  需要被拖动的document对象
+ *  elementType 指定拖拽的阴影图像显示类型，默认是不需要设置的，可用来区分是否来源左侧菜单。
+ **/
+
 function Draggable(dragEls, dropEl, options) {
 	this.dragEls = [];
 	// 被拖拽元素
@@ -10,7 +16,9 @@ function Draggable(dragEls, dropEl, options) {
 		});
 		// 单个
 	} else {
-		this.dragEls.push(dragEls);
+		// dragEls.dom.elementType = dragEls.elementType;
+		// dragEls.dom.notCreate = true;
+		this.dragEls.push(dragEls.dom);
 	}
 	// 被拖拽进的区域元素
 	this.dropEl = dropEl;
@@ -56,13 +64,13 @@ Draggable.prototype.createShadow = function(x, y) {
 	let shadow = this.dropEl.querySelector('.' + this.options.shadowClass);
 	this.currentX = this.computedY(x);
 	this.currentY = this.computedY(y);
-	console.info(this.currentX, this.currentY);
 	if (shadow) {
 		shadow.style.top = this.computedY(y) + 'px';
 		// 修正位置
 		shadow.style.left = this.computedX(x) + 'px';
 	} else {
 		shadow = document.createElement('DIV');
+		// 如果有引入样式，则用样式，不用默认的
 		shadow.style.width = this.options.dragDomWidth + 'px';
 		shadow.style.height = this.options.dragDomHeight + 'px';
 		shadow.style.top = this.computedY(y) + 'px';
@@ -80,15 +88,23 @@ Draggable.prototype.createDragImage = function(type) {
 	switch (type) {
 		case 'from':
 			dom.src = 'http://temp.im/400x600';
+			this.options.dragDomWidth = 400;
+			this.options.dragDomHeight = 600;
 			break;
 		case 'grid':
 			dom.src = 'http://temp.im/700x500';
+			this.options.dragDomWidth = 700;
+			this.options.dragDomHeight = 500;
 			break;
 		case 'menu':
 			dom.src = 'http://temp.im/300x800';
+			this.options.dragDomWidth = 300;
+			this.options.dragDomHeight = 800;
 			break;
 		default:
 			dom.src = 'http://temp.im/300x300';
+			this.options.dragDomWidth = 300;
+			this.options.dragDomHeight = 300;
 	}
 	return dom;
 };
@@ -127,16 +143,18 @@ Draggable.prototype.bindEvent = function() {
 	// 被拖拽的元素可以是多个，但是目标只能为一个。
 	for (let i = 0; i < this.dragEls.length; i++) {
 		const dragEl = this.dragEls[i];
-		// function(dragEl) {
 		dragEl.addEventListener('dragstart', (e) => {
+			
 			const dom = this.createDragImage(dragEl.elementType);
+			// 从左侧菜单的source，不需要从源获取宽高
+			if (!dragEl.elementType) {
+				this.options.dragDomWidth = e.target.offsetWidth;
+				this.options.dragDomHeight = e.target.offsetHeight;
+			}
 			e.dataTransfer.effectAllowed = this.options.effectAllowed;
 			e.dataTransfer.setData('text', dom.innerHTML);
 			e.dataTransfer.setDragImage(dom, 0, 0);
-			this.options.dragDomWidth = e.target.offsetWidth;
-			this.options.dragDomHeight = e.target.offsetHeight;
 			this.onDragStart(e);
-			return true;
 		});
 		// ondragstart 事件触发后，直到拖放事件结束，会一直触发 ondrag 事件
 		dragEl.addEventListener('drag', (e) => {
@@ -153,11 +171,8 @@ Draggable.prototype.bindEvent = function() {
 			}
 			this.dragElMove(dragEl);
 			this.onDragEnd(e);
-			return false;
 		});
-		// }(dragEl);
 	}
-
 
 	// 当被拖动元素进入可放置的元素时
 	this.dropEl.addEventListener('dragenter', (e) => {
@@ -173,7 +188,6 @@ Draggable.prototype.bindEvent = function() {
 			this.onDragOver(e);
 		}, 100);
 		e.preventDefault();
-		return true;
 	});
 	// 当被拖动元素离开可放置元素的一瞬间
 	this.dropEl.addEventListener('dragleave', (e) => {
@@ -183,12 +197,11 @@ Draggable.prototype.bindEvent = function() {
 	this.dropEl.addEventListener('drop', (e) => {
 		this.onDrop(e);
 	});
-
 };
 
 Draggable.prototype.dragElMove = function(dragEl) {
 	// 左侧菜单元素，不需要移动位置
-	if (!dragEl.elementType) {
+	if (dragEl.notCreate) {
 		// 父级关系不同，起offeset位置也不同，默认为left_container层级开始计算
 		dragEl.style.left = (this.currentX - this.fixedLeft) + 'px';
 		dragEl.style.top = this.currentY + 'px';
@@ -224,9 +237,13 @@ Draggable.prototype.createVueDom = function(type) {
 			break;
 		default:
 	}
-		debugger;
-		div.appendChild(dom);
+	div.appendChild(dom);
 	this.vueInstance.$compile(div);
+	const vueDomDiv = new Draggable({
+		dom: div,
+		elementType: 'grid'
+	}, this.vueInstance.$els.gridster);
+	vueDomDiv.initVue(this.vueInstance);
 	return div;
 };
 
