@@ -40,6 +40,7 @@ function Draggable(dragEls, dropEl, options) {
 	this.currentX = 0;
 	this.currentY = 0;
 	this.vueInstance = null;
+	this.state = 'init';
 	// 初始化
 	this.init();
 }
@@ -61,50 +62,53 @@ Draggable.prototype.init = function() {
 
 // 被拖拽元素进入指定区域后的背景阴影
 Draggable.prototype.createShadow = function(x, y) {
-	let shadow = this.dropEl.querySelector('.' + this.options.shadowClass);
 	this.currentX = this.computedY(x);
 	this.currentY = this.computedY(y);
-	if (shadow) {
-		shadow.style.top = this.computedY(y) + 'px';
-		// 修正位置
-		shadow.style.left = this.computedX(x) + 'px';
-	} else {
-		shadow = document.createElement('DIV');
-		// 如果有引入样式，则用样式，不用默认的
-		shadow.style.width = this.options.dragDomWidth + 'px';
-		shadow.style.height = this.options.dragDomHeight + 'px';
-		shadow.style.top = this.computedY(y) + 'px';
-		shadow.style.left = this.computedX(x) + 'px';
-		// shadow.style.backgroundColor = 'red';
-		shadow.style.border = '1px red solid';
-		shadow.style.position = 'absolute';
-		shadow.className = this.options.shadowClass;
-		return shadow;
+	if (this.state !== 'dragend') {
+		let shadow = this.dropEl.querySelector('.' + this.options.shadowClass);
+		if (shadow) {
+			shadow.style.top = this.computedY(y) + 'px';
+			// 修正位置
+			shadow.style.left = this.computedX(x) + 'px';
+		} else {
+			shadow = document.createElement('DIV');
+			// 如果有引入样式，则用样式，不用默认的
+			shadow.style.width = this.options.dragDomWidth + 'px';
+			shadow.style.height = this.options.dragDomHeight + 'px';
+			shadow.style.top = this.computedY(y) + 'px';
+			shadow.style.left = this.computedX(x) + 'px';
+			// shadow.style.backgroundColor = 'red';
+			shadow.style.border = '1px red solid';
+			shadow.style.position = 'absolute';
+			shadow.className = this.options.shadowClass;
+			return shadow;
+		}
 	}
 };
 
-Draggable.prototype.createDragImage = function(type) {
+Draggable.prototype.createDragImage = function(type, dragDom) {
+	if (!type) return dragDom;
 	const dom = document.createElement("img");
 	switch (type) {
 		case 'from':
 			dom.src = 'http://temp.im/400x600';
-			this.options.dragDomWidth = 400;
-			this.options.dragDomHeight = 600;
+			dom.style.width = 400 + 'px';
+			dom.style.height = 600 + 'px';
 			break;
 		case 'grid':
 			dom.src = 'http://temp.im/700x500';
-			this.options.dragDomWidth = 700;
-			this.options.dragDomHeight = 500;
+			dom.style.width = 700 + 'px';
+			dom.style.height = 500 + 'px';
 			break;
 		case 'menu':
 			dom.src = 'http://temp.im/300x800';
-			this.options.dragDomWidth = 300;
-			this.options.dragDomHeight = 800;
+			dom.style.width = 300 + 'px';
+			dom.style.height = 800 + 'px';
 			break;
 		default:
 			dom.src = 'http://temp.im/300x300';
-			this.options.dragDomWidth = 300;
-			this.options.dragDomHeight = 300;
+			dom.style.width = 300 + 'px';
+			dom.style.height = 300 + 'px';
 	}
 	return dom;
 };
@@ -144,13 +148,10 @@ Draggable.prototype.bindEvent = function() {
 	for (let i = 0; i < this.dragEls.length; i++) {
 		const dragEl = this.dragEls[i];
 		dragEl.addEventListener('dragstart', (e) => {
-			
-			const dom = this.createDragImage(dragEl.elementType);
-			// 从左侧菜单的source，不需要从源获取宽高
-			if (!dragEl.elementType) {
-				this.options.dragDomWidth = e.target.offsetWidth;
-				this.options.dragDomHeight = e.target.offsetHeight;
-			}
+			this.state = 'dragstart';
+			const type = dragEl.elementType;
+			const dom = this.createDragImage(type, e.target);
+			this.setDragWH(type, dom, e.target);
 			e.dataTransfer.effectAllowed = this.options.effectAllowed;
 			e.dataTransfer.setData('text', dom.innerHTML);
 			e.dataTransfer.setDragImage(dom, 0, 0);
@@ -158,12 +159,15 @@ Draggable.prototype.bindEvent = function() {
 		});
 		// ondragstart 事件触发后，直到拖放事件结束，会一直触发 ondrag 事件
 		dragEl.addEventListener('drag', (e) => {
+			this.state = 'drag';
 			this.dragThrottle(() => {
 				this.onDrag(e);
 			}, 100);
 		});
 		// 拖拽结束，去掉shadow，同时将拖拽目标移动到新的位置
 		dragEl.addEventListener('dragend', (e) => {
+			this.state = 'dragend';
+			clearTimeout(this.dropTimer);
 			e.dataTransfer.clearData('text');
 			const shadow = this.dropEl.querySelector('.' + this.options.shadowClass);
 			if (shadow) {
@@ -176,11 +180,14 @@ Draggable.prototype.bindEvent = function() {
 
 	// 当被拖动元素进入可放置的元素时
 	this.dropEl.addEventListener('dragenter', (e) => {
+		this.state = 'dragenter';
 		this.onDragEnter(e);
 	});
 	// 当被拖拽元素在目标元素上移动时
 	this.dropEl.addEventListener('dragover', (e) => {
+		this.state = 'dragover';
 		this.dropThrottle(() => {
+			console.info(e.clientX + ':' + e.clientY);
 			const shadow = this.createShadow(e.clientX, e.clientY);
 			if (shadow) {
 				this.dropEl.appendChild(shadow);
@@ -191,22 +198,22 @@ Draggable.prototype.bindEvent = function() {
 	});
 	// 当被拖动元素离开可放置元素的一瞬间
 	this.dropEl.addEventListener('dragleave', (e) => {
+		this.state = 'dragleave';
 		this.onDragLeave(e);
 	});
 	// 松开鼠标并且被拖拽元素正好在可放置元素上时
 	this.dropEl.addEventListener('drop', (e) => {
+		this.state = 'drop';
 		this.onDrop(e);
 	});
 };
 
 Draggable.prototype.dragElMove = function(dragEl) {
 	// 左侧菜单元素，不需要移动位置
-	if (dragEl.notCreate) {
+	if (!dragEl.elementType) {
 		// 父级关系不同，起offeset位置也不同，默认为left_container层级开始计算
 		dragEl.style.left = (this.currentX - this.fixedLeft) + 'px';
 		dragEl.style.top = this.currentY + 'px';
-		// dragEl.style.left = e.clientX + 'px';
-		// dragEl.style.top = e.clientY + 'px';
 		dragEl.style.position = 'absolute';
 		dragEl.style.width = '100%';
 		// 而是要构建新的vue组件出来。
@@ -224,6 +231,7 @@ Draggable.prototype.initVue = function(vueInstance) {
 
 Draggable.prototype.createVueDom = function(type) {
 	const div = document.createElement('DIV');
+	div.setAttribute('draggable', 'true');
 	const dom = document.createElement('partial');
 	switch (type) {
 		case 'grid':
@@ -241,10 +249,21 @@ Draggable.prototype.createVueDom = function(type) {
 	this.vueInstance.$compile(div);
 	const vueDomDiv = new Draggable({
 		dom: div,
-		elementType: 'grid'
+		elementType: type
 	}, this.vueInstance.$els.gridster);
 	vueDomDiv.initVue(this.vueInstance);
 	return div;
+};
+
+// 设置被拖动元素的宽高
+Draggable.prototype.setDragWH = function(type, createDom, dragDom) {
+	if (!type) {
+		this.options.dragDomWidth = dragDom.offsetWidth;
+		this.options.dragDomHeight = dragDom.offsetHeight;
+	} else {
+		this.options.dragDomWidth = parseInt(createDom.style.width.replace('px', ''), 10);
+		this.options.dragDomHeight = parseInt(createDom.style.height.replace('px', ''), 10);
+	}
 };
 
 // 事件钩子

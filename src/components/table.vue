@@ -1,5 +1,5 @@
 <template>
-<div class="row" draggable="true">
+<div class="row">
     <table class="table table-striped table-hover">
         <thead>
             <tr>
