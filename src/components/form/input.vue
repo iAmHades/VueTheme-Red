@@ -1,10 +1,7 @@
 <template>
   <div class="input-field col-lg-3">
-    <div class="input-lable-active">
-      <slot v-if="isactive" name="input-lable"></slot>
-    </div>
-    <div class="input-lable">
-      <slot v-if="!isactive" name="input-lable"></slot>
+    <div class="input-lable" v-bind:class="{'active':isactive}">
+      <slot name="input-lable"></slot>
     </div>
     <input v-if="disabled"
            v-model="value"
@@ -68,7 +65,7 @@
       };
     },
     compiled(){
-      if (this.value){
+      if (this.value) {
         this.isactive = true;
       } else {
         this.isactive = false;
@@ -79,7 +76,7 @@
         this.isactive = true;
       },
       deactivateField(){
-        if (this.value){
+        if (this.value && this.value !== null) {
           this.isactive = true;
         } else {
           this.isactive = false;
@@ -96,7 +93,7 @@
   }
 
   .input {
-    top:-26px;
+    top: -26px;
     border: none;
     background: none;
     position: relative;
@@ -116,9 +113,9 @@
     transition: .2s;
   }
 
-  .input-lable-active {
+  .active {
     color: red;
-    transform: translateY(-120%);
+    transform: translateY(-140%);
     font-size: 10px;
     margin-left: -80px;
   }
