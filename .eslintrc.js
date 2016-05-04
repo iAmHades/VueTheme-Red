@@ -7,7 +7,8 @@ module.exports = {
     globals:{
         'Vue':true,
         'alert':true,
-        '$':true
+        '$':true,
+        'Draggable':true
     },
     rules: {
         'arrow-parens': 0,
@@ -39,6 +40,9 @@ module.exports = {
         'no-nested-ternary':0,
         'no-unused-vars':0,
         'import/no-unresolved':0,
-        'prefer-template':0
+        'prefer-template':0,
+        'max-len':0,
+        'keyword-spacing':0,
+        'prefer-rest-params':0
     }
 }

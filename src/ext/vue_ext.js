@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 exports.install = function install(Vue) {
 
     // localstorage的存储
