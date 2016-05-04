@@ -4,7 +4,7 @@
  *  elementType 指定拖拽的阴影图像显示类型，默认是不需要设置的，可用来区分是否来源左侧菜单。
  **/
 
-function Draggable(dragEls, dropEl, options) {
+function Draggable(dragEls, gridster, options) {
 	this.dragEls = [];
 	// 被拖拽元素
 	// 多个
@@ -16,12 +16,10 @@ function Draggable(dragEls, dropEl, options) {
 		});
 		// 单个
 	} else {
-		// dragEls.dom.elementType = dragEls.elementType;
-		// dragEls.dom.notCreate = true;
 		this.dragEls.push(dragEls);
 	}
 	// 被拖拽进的区域元素
-	this.dropEl = dropEl;
+	this.gridster = gridster;
 	this.defaults = {
 		dragImage: '', // 拖拽元素跟随鼠标移动的模型
 		dragText: '',
@@ -30,15 +28,9 @@ function Draggable(dragEls, dropEl, options) {
 		dragDomWidth: 0, // 当前拖拽元素的宽度
 		dragDomHeight: 0 // 当前拖拽元素的高度
 	};
-	this.dragTimer = null;
-	this.dropTimer = null;
 	this.options = this.extend(this.defaults, options);
 	// 父级关系不同，起offeset位置也不同，默认为left_container层级开始计算
-	this.fixedLeft = dropEl.offsetParent.offsetLeft;
-	this.fixedHeight = 0;
 	// 当前dragEl的坐标
-	this.currentX = 0;
-	this.currentY = 0;
 	this.vueInstance = null;
 	this.state = 'init';
 	// 初始化
@@ -54,7 +46,6 @@ Draggable.prototype.bindEvent = function() {
 		const dragEl = this.dragEls[i];
 		this.bindDragEvent(dragEl);
 	}
-	this.bindDropEvent();
 };
 
 // 被拖拽产品
@@ -63,7 +54,6 @@ Draggable.prototype.bindDragEvent = function(dragEl) {
 		this.state = 'dragstart';
 		const type = dragEl.elementType;
 		const dom = this.createDragImage(type, e.target);
-		this.setDragWH(type, dom, e.target);
 		e.dataTransfer.effectAllowed = this.options.effectAllowed;
 		e.dataTransfer.setData('text', dom.innerHTML);
 		e.dataTransfer.setDragImage(dom, 0, 0);
@@ -72,55 +62,14 @@ Draggable.prototype.bindDragEvent = function(dragEl) {
 	// ondragstart 事件触发后，直到拖放事件结束，会一直触发 ondrag 事件
 	dragEl.addEventListener('drag', (e) => {
 		this.state = 'drag';
-		// this.dragThrottle(() => {
-		// 	this.onDrag(e);
-		// }, 100);
 	});
 	// 拖拽结束，去掉shadow，同时将拖拽目标移动到新的位置
 	dragEl.addEventListener('dragend', (e) => {
 		this.state = 'dragend';
-		clearTimeout(this.dropTimer);
 		e.dataTransfer.clearData('text');
-		const shadow = this.dropEl.querySelector('.' + this.options.shadowClass);
-		if (shadow) {
-			shadow.remove();
-		}
-		this.dragElMove(e);
+		const vueDom = this.createVueDom(dragEl.elementType);
+		this.gridster.add_widget(vueDom, 10, 1, null, null, null, null, self);
 		this.onDragEnd(e);
-	});
-};
-
-// 拖拽到的目标
-Draggable.prototype.bindDropEvent = function() {
-	// 当被拖动元素进入可放置的元素时
-	this.dropEl.addEventListener('dragenter', (e) => {
-		this.state = 'dragenter';
-		this.onDragEnter(e);
-	});
-	// 当被拖拽元素在目标元素上移动时
-	this.dropEl.addEventListener('dragover', (e) => {
-		this.state = 'dragover';
-		this.currentX = e.clientX;
-		this.currentY = e.clientY;
-		console.info(this.currentX + ":" + this.currentY);
-		// this.dropThrottle(() => {
-		// 	const shadow = this.createShadow();
-		// 	if (shadow) {
-		// 		this.dropEl.appendChild(shadow);
-		// 	}
-		// 	this.onDragOver(e);
-		// }, 100);
-		e.preventDefault();
-	});
-	// 当被拖动元素离开可放置元素的一瞬间
-	this.dropEl.addEventListener('dragleave', (e) => {
-		this.state = 'dragleave';
-		this.onDragLeave(e);
-	});
-	// 松开鼠标并且被拖拽元素正好在可放置元素上时
-	this.dropEl.addEventListener('drop', (e) => {
-		this.state = 'drop';
-		this.onDrop(e);
 	});
 };
 
@@ -136,32 +85,6 @@ Draggable.prototype.extend = (source, target) => {
 Draggable.prototype.init = function() {
 	// 绑定事件;
 	this.bindEvent();
-};
-
-// 被拖拽元素进入指定区域后的背景阴影
-Draggable.prototype.createShadow = function() {
-	// this.currentX = this.computedY(x);
-	// this.currentY = this.computedY(y);
-	if (this.state !== 'dragend') {
-		let shadow = this.dropEl.querySelector('.' + this.options.shadowClass);
-		if (shadow) {
-			shadow.style.top = this.computedY(this.currentY) + 'px';
-			// 修正位置
-			shadow.style.left = this.computedX(this.currentX) + 'px';
-		} else {
-			shadow = document.createElement('DIV');
-			// 如果有引入样式，则用样式，不用默认的
-			shadow.style.width = this.options.dragDomWidth + 'px';
-			shadow.style.height = this.options.dragDomHeight + 'px';
-			shadow.style.top = this.computedY(this.currentY) + 'px';
-			shadow.style.left = this.computedX(this.currentX) + 'px';
-			// shadow.style.backgroundColor = 'red';
-			shadow.style.border = '1px red solid';
-			shadow.style.position = 'absolute';
-			shadow.className = this.options.shadowClass;
-			return shadow;
-		}
-	}
 };
 
 Draggable.prototype.createDragImage = function(type, dragDom) {
@@ -191,51 +114,6 @@ Draggable.prototype.createDragImage = function(type, dragDom) {
 	return dom;
 };
 
-// 纠正X坐标
-Draggable.prototype.computedX = function(x) {
-	return (x - this.fixedLeft);
-};
-// 纠正Y坐标
-Draggable.prototype.computedY = function(y) {
-	return y;
-};
-
-Draggable.prototype.dragThrottle = function(fn, delay) {
-	if (!this.dragTimer) {
-		this.dragTimer = setTimeout(() => {
-			fn.apply(this);
-			clearTimeout(this.dragTimer);
-			this.dragTimer = null;
-		}, delay);
-	}
-};
-Draggable.prototype.dropThrottle = function(fn, delay) {
-	if (!this.dropTimer) {
-		this.dropTimer = setTimeout(() => {
-			fn.apply(this);
-			clearTimeout(this.dropTimer);
-			this.dropTimer = null;
-		}, delay);
-	}
-};
-
-Draggable.prototype.dragElMove = function(e) {
-	const dragEl = e.target;
-	// 左侧菜单元素，不需要移动位置
-	if (!dragEl.elementType) {
-		// 父级关系不同，起offeset位置也不同，默认为left_container层级开始计算
-		dragEl.style.left = this.computedX(this.currentX) + 'px';
-		dragEl.style.top = this.computedY(this.currentY) + 'px';
-		dragEl.style.position = 'absolute';
-		dragEl.style.width = '100%';
-		// 而是要构建新的vue组件出来。
-	} else {
-		if (this.vueInstance) {
-			this.dropEl.appendChild(this.createVueDom(dragEl.elementType));
-		}
-	}
-};
-
 // 如果需要vue的编译，则注入
 Draggable.prototype.initVue = function(vueInstance) {
 	this.vueInstance = vueInstance;
@@ -260,84 +138,13 @@ Draggable.prototype.createVueDom = function(type) {
 	}
 	div.appendChild(dom);
 	this.vueInstance.$compile(div);
-	this.addDrag(div);
 	return div;
-};
-
-// 设置被拖动元素的宽高
-Draggable.prototype.setDragWH = function(type, createDom, dragDom) {
-	if (!type) {
-		this.options.dragDomWidth = dragDom.offsetWidth;
-		this.options.dragDomHeight = dragDom.offsetHeight;
-	} else {
-		this.options.dragDomWidth = parseInt(createDom.style.width.replace('px', ''), 10);
-		this.options.dragDomHeight = parseInt(createDom.style.height.replace('px', ''), 10);
-	}
 };
 
 // 追加
 Draggable.prototype.addDrag = function(dragDom) {
 	this.bindDragEvent(dragDom);
 };
-
-// 工具类事件
-Draggable.prototype.now = Date.now || function() {
-	return new Date().getTime();
-};
-Draggable.prototype.debounce = function(func, wait, immediate) {
-	let timeout;
-	return function() {
-		const context = this;
-		const args = arguments;
-		const later = function() {
-			timeout = null;
-			if (!immediate) func.apply(context, args);
-		};
-		if (immediate && !timeout) func.apply(context, args);
-		clearTimeout(timeout);
-		timeout = setTimeout(later, wait);
-	};
-};
-Draggable.prototype.throttle = function(func, wait, options) {
-	let context;
-	let result;
-	let timeout = null;
-	let args;
-	// 上次执行时间点
-	let previous = 0;
-	if (!options) options = {};
-	// 延迟执行函数
-	const later = function() {
-		// 若设定了开始边界不执行选项，上次执行时间始终为0
-		previous = options.leading === false ? 0 : this.now();
-		timeout = null;
-		result = func.apply(context, args);
-		if (!timeout) context = args = null;
-	};
-	return function() {
-		const now = this.now();
-		// 首次执行时，如果设定了开始边界不执行选项，将上次执行时间设定为当前时间。
-		if (!previous && options.leading === false) previous = now;
-		// 延迟执行时间间隔
-		const remaining = wait - (now - previous);
-		context = this;
-		args = arguments;
-		// 延迟时间间隔remaining小于等于0，表示上次执行至此所间隔时间已经超过一个时间窗口
-		// remaining大于时间窗口wait，表示客户端系统时间被调整过
-		if (remaining <= 0 || remaining > wait) {
-			clearTimeout(timeout);
-			timeout = null;
-			previous = now;
-			result = func.apply(context, args);
-			if (!timeout) context = args = null;
-			// 如果延迟执行不存在，且没有设定结尾边界不执行选项
-		} else if (!timeout && options.trailing !== false) {
-			timeout = setTimeout(later, remaining);
-		}
-		return result;
-	};
-};
-
 // 事件钩子
 Draggable.prototype.onDragStart = (e) => {};
 Draggable.prototype.onDrag = (e) => {};
