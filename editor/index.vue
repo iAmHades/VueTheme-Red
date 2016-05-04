@@ -1,8 +1,8 @@
 <template>
-<div>
-<leftlayout>
-     <div slot="left_menu" class="navbar">
-      <div class="">
+<div class="container-fluid admin-panel">
+  <div class="row">
+    <div class="col-md-2 leftmenu-borad">
+        <div class="">
            <ul class="left-menu" v-el:leftmenu>
              <li v-for="menu in menus">
                 <a v-if="!menu.child" href="{{menu.url}}">{{menu.text}}</a>
@@ -12,11 +12,13 @@
                 </ul>
              </li>
            </ul>
+       </div>
+    </div>
+    <div class="col-md-10">
+      <div v-el:gridster class="main-container gridster" >
       </div>
+    </div>
   </div>
-   <div slot="left_container" v-el:gridster style="height:1000px">
-   </div>
-</leftlayout>
 </div>
 </template>
 <script>
@@ -199,25 +201,9 @@ ul.left-menu ul{
   list-style: none;
 }
 
-.gridster{
-    border: 1px black solid;
-    position: absolute;
-    top:400px;
-    width: 900px;
-    height: 900px;
-}
-
-.shadow{
-     border: 1px black solid;
-     width: 100%;
-     height: 100px;
-     position: absolute;
-}
-
-
 /*gridster*/
 .gridster div{
-    border: 1px black solid;
+    /*border: 1px black solid;*/
 }
   
 .gridster * {
