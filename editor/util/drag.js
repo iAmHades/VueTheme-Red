@@ -72,9 +72,9 @@ Draggable.prototype.bindDragEvent = function(dragEl) {
 	// ondragstart 事件触发后，直到拖放事件结束，会一直触发 ondrag 事件
 	dragEl.addEventListener('drag', (e) => {
 		this.state = 'drag';
-		this.dragThrottle(() => {
-			this.onDrag(e);
-		}, 100);
+		// this.dragThrottle(() => {
+		// 	this.onDrag(e);
+		// }, 100);
 	});
 	// 拖拽结束，去掉shadow，同时将拖拽目标移动到新的位置
 	dragEl.addEventListener('dragend', (e) => {
@@ -102,13 +102,14 @@ Draggable.prototype.bindDropEvent = function() {
 		this.state = 'dragover';
 		this.currentX = e.clientX;
 		this.currentY = e.clientY;
-		this.dropThrottle(() => {
-			const shadow = this.createShadow();
-			if (shadow) {
-				this.dropEl.appendChild(shadow);
-			}
-			this.onDragOver(e);
-		}, 100);
+		console.info(this.currentX + ":" + this.currentY);
+		// this.dropThrottle(() => {
+		// 	const shadow = this.createShadow();
+		// 	if (shadow) {
+		// 		this.dropEl.appendChild(shadow);
+		// 	}
+		// 	this.onDragOver(e);
+		// }, 100);
 		e.preventDefault();
 	});
 	// 当被拖动元素离开可放置元素的一瞬间
@@ -277,6 +278,64 @@ Draggable.prototype.setDragWH = function(type, createDom, dragDom) {
 // 追加
 Draggable.prototype.addDrag = function(dragDom) {
 	this.bindDragEvent(dragDom);
+};
+
+// 工具类事件
+Draggable.prototype.now = Date.now || function() {
+	return new Date().getTime();
+};
+Draggable.prototype.debounce = function(func, wait, immediate) {
+	let timeout;
+	return function() {
+		const context = this;
+		const args = arguments;
+		const later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		if (immediate && !timeout) func.apply(context, args);
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+	};
+};
+Draggable.prototype.throttle = function(func, wait, options) {
+	let context;
+	let result;
+	let timeout = null;
+	let args;
+	// 上次执行时间点
+	let previous = 0;
+	if (!options) options = {};
+	// 延迟执行函数
+	const later = function() {
+		// 若设定了开始边界不执行选项，上次执行时间始终为0
+		previous = options.leading === false ? 0 : this.now();
+		timeout = null;
+		result = func.apply(context, args);
+		if (!timeout) context = args = null;
+	};
+	return function() {
+		const now = this.now();
+		// 首次执行时，如果设定了开始边界不执行选项，将上次执行时间设定为当前时间。
+		if (!previous && options.leading === false) previous = now;
+		// 延迟执行时间间隔
+		const remaining = wait - (now - previous);
+		context = this;
+		args = arguments;
+		// 延迟时间间隔remaining小于等于0，表示上次执行至此所间隔时间已经超过一个时间窗口
+		// remaining大于时间窗口wait，表示客户端系统时间被调整过
+		if (remaining <= 0 || remaining > wait) {
+			clearTimeout(timeout);
+			timeout = null;
+			previous = now;
+			result = func.apply(context, args);
+			if (!timeout) context = args = null;
+			// 如果延迟执行不存在，且没有设定结尾边界不执行选项
+		} else if (!timeout && options.trailing !== false) {
+			timeout = setTimeout(later, remaining);
+		}
+		return result;
+	};
 };
 
 // 事件钩子
