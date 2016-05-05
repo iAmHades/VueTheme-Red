@@ -3,13 +3,13 @@
   <div class="row">
     <div class="col-md-2 leftmenu-borad">
         <div class="">
-          <button @click="click">添加测试</button>
            <ul class="left-menu" v-el:leftmenu>
              <li v-for="menu in menus">
                 <a v-if="!menu.child" href="{{menu.url}}">{{menu.text}}</a>
                 <div v-else @click="showSubMenu(menu.id)">{{menu.text}}</div>
                 <ul v-if="menu.child" v-show="activeindex==menu.id">
                   <li draggable="true" v-for="submenu in menu.child">{{submenu.text}}</li>
+                  <li><a @click="click">随机添加组件测试</a></li>
                 </ul>
              </li>
            </ul>
