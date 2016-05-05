@@ -3,6 +3,7 @@
   <div class="row">
     <div class="col-md-2 leftmenu-borad">
         <div class="">
+          <button @click="click">添加测试</button>
            <ul class="left-menu" v-el:leftmenu>
              <li v-for="menu in menus">
                 <a v-if="!menu.child" href="{{menu.url}}">{{menu.text}}</a>
@@ -16,6 +17,9 @@
     </div>
     <div class="col-md-10">
       <div v-el:gridster class="main-container gridster" >
+         <ul>
+       
+         </ul>
       </div>
     </div>
   </div>
@@ -127,11 +131,11 @@
             const self = this;
             this.translateHtml(this.griddata);
             this.$nextTick(() => {
-                this.gridster = $(this.$els.gridster).gridster({
+                this.gridster = $('.gridster ul').gridster({
                     widget_base_dimensions: [50, 50],
                     widget_margins: [5, 5],
                     helper: 'clone',
-                    avoid_overlapped_widgets: false,
+                    // avoid_overlapped_widgets: false,
                     max_cols: 30,
                     resize: {
                         enabled: true,
