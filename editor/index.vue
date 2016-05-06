@@ -18,7 +18,7 @@
     <div class="col-md-10">
       <div v-el:gridster class="main-container gridster" >
          <ul>
-       
+        
          </ul>
       </div>
     </div>
@@ -119,7 +119,10 @@
                     type: '组件类型',
                     name: '组件名字',
                     remarks: '备注',
-                    op: '查看',
+                    op: {
+                        text: '查看',
+                        render: (value) => '<button @click.stop="edit">查看</button>'
+                    },
                     del: '操作'
                 },
                 showModal: false,
@@ -129,7 +132,7 @@
         },
         ready() {
             const self = this;
-            this.translateHtml(this.griddata);
+            // this.translateHtml(this.griddata);
             this.$nextTick(() => {
                 this.gridster = $('.gridster ul').gridster({
                     widget_base_dimensions: [50, 50],
@@ -167,14 +170,14 @@
             });
         },
         methods: {
-            translateHtml(data) {
-                data.forEach((record) => {
-                    record._id = '<a v-link="admin">' + record._id + '</a>';
-                    record.op = '<button @click.stop="edit">查看</button>';
-                });
-            },
-            edit() {
-                alert('edit');
+            // translateHtml(data) {
+            //     data.forEach((record) => {
+            //         record._id = '<a v-link="admin">' + record._id + '</a>';
+            //         record.op = '<button @click.stop="edit">查看</button>';
+            //     });
+            // },
+            edit(id) {
+                alert(id);
             },
             click() {
                 const row = parseInt(Math.random() * 5, 10);
