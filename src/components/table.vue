@@ -108,7 +108,6 @@
         },
         methods: {
             renderHtml(values) {
-                debugger;
                values.forEach((value) => {
                     Object.keys(this.columnsrender).forEach((key) => {
                         value[key] = this.columnsrender[key](value[key]);

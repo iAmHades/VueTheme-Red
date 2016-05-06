@@ -27,13 +27,17 @@
 </template>
 <script>
     import leftlayout from './../src/components/leftlayout.vue';
+    import toplayout from './../src/components/toplayout.vue';
     import grid from './../src/components/table.vue';
+    import menu from './../src/components/menu.vue';
+    import leftmenu from './../src/components/leftmenu.vue';
     import './util/drag.js';
-    // import leftmenu from './../src/components/leftmenu.vue';
-    // import menu from './../src/components/menu.vue';
     export default {
         components: {
             leftlayout,
+            toplayout,
+            menu,
+            leftmenu,
             grid
         },
         data() {
@@ -50,14 +54,22 @@
                     child: [{
                         id: 11,
                         text: '表单',
+                        type:'from',
                         url: '#'
                     }, {
                         id: 12,
                         text: 'grid',
+                        type:'grid',
                         url: '#'
                     }, {
                         id: 13,
-                        text: '菜单',
+                        text: '上下布局',
+                        type:'toplayout',
+                        url: '#'
+                    }, {
+                        id: 14,
+                        text: '左右布局',
+                        type:'leftlayout',
                         url: '#'
                     }]
                 }, {
@@ -164,7 +176,10 @@
                     elementType: 'grid'
                 }, {
                     dom: lis[2],
-                    elementType: 'menu'
+                    elementType: 'toplayout'
+                }, {
+                    dom: lis[3],
+                    elementType: 'leftlayout'
                 }], this.gridster);
                 dom.initVue(this);
             });

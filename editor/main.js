@@ -21,6 +21,13 @@ router.map({
 	}
 });
 Vue.partial('red-grid', '<grid :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>');
-// Vue.partial('red-from', '<grid :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>');
-// Vue.partial('red-menu', '<grid :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>');
+Vue.partial('red-leftlayout', '<leftlayout>'+
+                                 '<leftmenu slot="left_menu" :data="menus"></leftmenu>'+
+                                 '<router-view slot="left_container" class="view" transition="expand" transition-mode="out-in"></router-view>'+
+                              '</leftlayout>');
+Vue.partial('red-toplayout', '<toplayout>'+
+                                 '<menu slot="top_menu" :data="menus"></menu>'+
+                                 '<router-view slot="top_container" class="view" transition="expand" transition-mode="out-in"></router-view>'+
+                              '</toplayout>');
+
 router.start(index, '#app');

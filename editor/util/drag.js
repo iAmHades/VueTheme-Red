@@ -129,10 +129,13 @@ Draggable.prototype.createVueDom = function(type) {
 			dom.setAttribute('name', 'red-grid');
 			break;
 		case 'from':
-			dom.setAttribute('name', 'red-grid');
+			dom.setAttribute('name', 'red-from');
 			break;
-		case 'menu':
-			dom.setAttribute('name', 'red-grid');
+		case 'toplayout':
+			dom.setAttribute('name', 'red-toplayout');
+			break;
+		case 'leftlayout':
+			dom.setAttribute('name', 'red-leftlayout');
 			break;
 		default:
 	}
