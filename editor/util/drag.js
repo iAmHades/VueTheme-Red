@@ -68,7 +68,7 @@ Draggable.prototype.bindDragEvent = function(dragEl) {
 		this.state = 'dragend';
 		e.dataTransfer.clearData('text');
 		const vueDom = this.createVueDom(dragEl.elementType);
-		this.gridster.add_widget(vueDom, 20, 10, 1, 1, null, null, self);
+		this.gridster.add_widget(vueDom, 25, 10, 1, 1, null, null, self);
 		this.onDragEnd(e);
 	});
 };
@@ -129,10 +129,13 @@ Draggable.prototype.createVueDom = function(type) {
 			dom.setAttribute('name', 'red-grid');
 			break;
 		case 'from':
-			dom.setAttribute('name', 'red-grid');
+			dom.setAttribute('name', 'red-from');
 			break;
-		case 'menu':
-			dom.setAttribute('name', 'red-grid');
+		case 'toplayout':
+			dom.setAttribute('name', 'red-toplayout');
+			break;
+		case 'leftlayout':
+			dom.setAttribute('name', 'red-leftlayout');
 			break;
 		default:
 	}

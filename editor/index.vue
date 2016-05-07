@@ -18,7 +18,7 @@
     <div class="col-md-10">
       <div v-el:gridster class="main-container gridster" >
          <ul>
-       
+        
          </ul>
       </div>
     </div>
@@ -27,89 +27,27 @@
 </template>
 <script>
     import leftlayout from './../src/components/leftlayout.vue';
+    import toplayout from './../src/components/toplayout.vue';
     import grid from './../src/components/table.vue';
+    import menu from './../src/components/menu.vue';
+    import leftmenu from './../src/components/leftmenu.vue';
     import './util/drag.js';
-    // import leftmenu from './../src/components/leftmenu.vue';
-    // import menu from './../src/components/menu.vue';
+    import { menuData, tableData } from './util/data.js';
     export default {
         components: {
             leftlayout,
+            toplayout,
+            menu,
+            leftmenu,
             grid
         },
         data() {
             return {
                 showtable: true,
-                menus: [{
-                    id: 1,
-                    text: '模版',
-                    url: '#'
-                }, {
-                    id: 2,
-                    text: '控件',
-                    url: '#',
-                    child: [{
-                        id: 11,
-                        text: '表单',
-                        url: '#'
-                    }, {
-                        id: 12,
-                        text: 'grid',
-                        url: '#'
-                    }, {
-                        id: 13,
-                        text: '菜单',
-                        url: '#'
-                    }]
-                }, {
-                    id: 3,
-                    text: '设置',
-                    url: '#'
-                }],
+                menus: menuData,
                 gridster: null,
                 activeindex: 0,
-                griddata: [{
-                    _id: '11',
-                    type: '咖啡',
-                    name: '表单',
-                    remarks: 'material design',
-                    op: '查看',
-                    del: '操作'
-                }, {
-                    _id: '22',
-                    type: '表格',
-                    name: '表跟',
-                    remarks: 'material design',
-                    op: '查看',
-                    del: '操作'
-                }, {
-                    _id: '33',
-                    type: '表单',
-                    name: '表单',
-                    remarks: 'material design',
-                    op: '查看',
-                    del: '操作'
-                }, {
-                    _id: '11',
-                    type: '咖啡',
-                    name: '表单',
-                    remarks: 'material design',
-                    op: '查看',
-                    del: '操作'
-                }, {
-                    _id: '22',
-                    type: '表格',
-                    name: '表跟',
-                    remarks: 'material design',
-                    op: '查看',
-                    del: '操作'
-                }, {
-                    _id: '33',
-                    type: '表单',
-                    name: '表单',
-                    remarks: 'material design',
-                    op: '查看',
-                    del: '操作'
-                }],
+                griddata: tableData,
                 url: '/xx/xxxx',
                 total: null,
                 pagesize: 10,
@@ -119,7 +57,10 @@
                     type: '组件类型',
                     name: '组件名字',
                     remarks: '备注',
-                    op: '查看',
+                    op: {
+                        text: '查看',
+                        render: (value) => '<button @click.stop="edit">查看</button>'
+                    },
                     del: '操作'
                 },
                 showModal: false,
@@ -129,7 +70,7 @@
         },
         ready() {
             const self = this;
-            this.translateHtml(this.griddata);
+            // this.translateHtml(this.griddata);
             this.$nextTick(() => {
                 this.gridster = $('.gridster ul').gridster({
                     widget_base_dimensions: [50, 50],
@@ -161,20 +102,23 @@
                     elementType: 'grid'
                 }, {
                     dom: lis[2],
-                    elementType: 'menu'
+                    elementType: 'toplayout'
+                }, {
+                    dom: lis[3],
+                    elementType: 'leftlayout'
                 }], this.gridster);
                 dom.initVue(this);
             });
         },
         methods: {
-            translateHtml(data) {
-                data.forEach((record) => {
-                    record._id = '<a v-link="admin">' + record._id + '</a>';
-                    record.op = '<button @click.stop="edit">查看</button>';
-                });
-            },
-            edit() {
-                alert('edit');
+            // translateHtml(data) {
+            //     data.forEach((record) => {
+            //         record._id = '<a v-link="admin">' + record._id + '</a>';
+            //         record.op = '<button @click.stop="edit">查看</button>';
+            //     });
+            // },
+            edit(id) {
+                alert(id);
             },
             click() {
                 const row = parseInt(Math.random() * 5, 10);

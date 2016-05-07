@@ -45,7 +45,7 @@
             var isshow = true;
             var shownums = 10;
             var pagesize = this.pagesize ? this.pagesize : 10;
-            var pagesizetotal = this.getpagenationsize(this.total?this.total:this.data.length, pagesize);
+            var pagesizetotal = this.getpagenationsize(this.total ? this.total : this.data.length, pagesize);
             if (pagesizetotal <= 10) {
                 isshow = false;
                 shownums = pagesizetotal;
@@ -54,63 +54,66 @@
             return {
                 columnsname: columnObject[0],
                 columnskey: columnObject[1],
+                columnsrender: columnObject[2],
                 isshow: isshow,
                 startnums: 1,
                 shownums: shownums,
                 rownumstart: 0,
                 rownumend: 0,
                 pageCurrent: 0,
-                showProAndShopState: this.$parent.showProAndShopState,
-                showProductThead: this.$parent.showProductThead,
-                isTicketDetail: this.$parent.isTicketDetail,
-                activePage:0
+                activePage: 0
             };
         },
         computed: {
-            columns: {
-                get: function() {
-                    return this.$parent.columns;
-                },
-                set: function(newValue) {
-                    var columnObject = this.translateColumns(newValue);
-                    this.columnsname = columnObject[0];
-                    this.columnskey = columnObject[1];
-                }
-            },
-            total: {
-                get: function() {
-                    return this.$parent.total;
-                },
-                set: function(newValue) {
-                    var pagesize = this.pagesize ? this.pagesize : 10;
-                    var pagesizetotal = this.getpagenationsize(newValue ? newValue : this.total, pagesize);
-                    if (pagesizetotal <= 10) {
-                        this.isshow = false;
-                        this.shownums = pagesizetotal;
-                    } else {
-                        this.shownums = 10;
-                        this.isshow = true;
-                    }
-                    let self = this;
-                    self.pageCurrent = 0;
-                }
-            },
             pageTotal: {
-                get: function() {
+                get() {
                     return this.getpagenationsize(this.total, this.pagesize);
                 }
             }
         },
+        watch: {
+            data(values) {
+               this.renderHtml(values);
+            },
+            columns(value) {
+                const columnObject = this.translateColumns(value);
+                this.columnsname = columnObject[0];
+                this.columnskey = columnObject[1];
+                this.columnsrender = columnObject[2];
+            },
+            total(value) {
+                let pagesize = this.pagesize ? this.pagesize : 10;
+                let pagesizetotal = this.getpagenationsize(newValue ? newValue : this.total, pagesize);
+                if (pagesizetotal <= 10) {
+                    this.isshow = false;
+                    this.shownums = pagesizetotal;
+                } else {
+                    this.shownums = 10;
+                    this.isshow = true;
+                }
+                this.pageCurrent = 0;
+            }
+        },
         directives: {
-            'gridcell': function(html) {
-                var cell = document.createElement('DIV');
+            gridcell(html) {
+                let cell = document.createElement('DIV');
                 cell.innerHTML = html;
                 this.vm.$compile(cell);
                 this.el.innerHTML = '';
                 this.el.appendChild(cell);
             }
         },
+        compiled(){
+            this.renderHtml(this.data);
+        },
         methods: {
+            renderHtml(values) {
+               values.forEach((value) => {
+                    Object.keys(this.columnsrender).forEach((key) => {
+                        value[key] = this.columnsrender[key](value[key]);
+                    });
+                });
+            },
             clickToPage(index) {
                 var arr = [];
                 this.activePage = index - this.startnums + 1;
@@ -128,19 +131,7 @@
                 var self = this;
                 this.$http.post(url, function(data) {
                     if (data.code == 100) {
-                        if (self.$parent.translateHtml) {
-                            if (!self.$parent.isTicketDetail) {
-                                self.$parent.translateHtml(data.data.records, data.data.start);
-                            } else {
-                                self.$parent.translateHtml(data.data, data.start);
-                            }
-                        }
-                        if (!self.$parent.isTicketDetail) {
-                            self.$parent.gridData = data.data.records;
-                        } else {
-                            self.$parent.gridData = data.data;
-
-                        }
+                        self.$parent.gridData = data.data.records;
                     }
                 });
             },
@@ -182,35 +173,41 @@
             translateColumns(columnsMap) {
                 var columnsname = [];
                 var columnskey = [];
+                var columnsrender = {};
                 for (var key in columnsMap) {
-                    columnsname.push(columnsMap[key]);
+                    if (typeof(columnsMap[key]) === 'string') {
+                        columnsname.push(columnsMap[key]);
+                    } else {
+                        columnsname.push(columnsMap[key].text);
+                        columnsrender[key] = columnsMap[key].render;
+                    }
                     columnskey.push(key);
                 }
-                return [columnsname, columnskey];
+                return [columnsname, columnskey, columnsrender];
             },
             rowClick(index) {
                 if (this.$parent.rowClick && this.$isFunc(this.$parent.rowClick)) {
                     this.$parent.rowClick(index);
                 }
             },
-            edit(id) {
+            edit() {
                 if (this.$parent.edit && this.$isFunc(this.$parent.edit)) {
-                    this.$parent.edit(id);
+                    this.$parent.edit.apply(this, arguments);
                 }
             },
-            add(id) {
+            add() {
                 if (this.$parent.add && this.$isFunc(this.$parent.add)) {
-                    this.$parent.add(id);
+                    this.$parent.add.apply(this, arguments);
                 }
             },
-            del(id) {
+            del() {
                 if (this.$parent.del && this.$isFunc(this.$parent.del)) {
-                    this.$parent.del(id);
+                    this.$parent.del.apply(this, arguments);
                 }
             },
-            custome(id) {
+            custome() {
                 if (this.$parent.custome && this.$isFunc(this.$parent.custome)) {
-                    this.$parent.custome(id);
+                    this.$parent.custome.apply(this, arguments);
                 }
             }
         }
