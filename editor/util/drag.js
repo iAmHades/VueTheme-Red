@@ -9,11 +9,15 @@ function Draggable(dragEls, gridster, options) {
 	// 被拖拽元素
 	// 多个
 	if (Array.isArray(dragEls)) {
-		dragEls.forEach((object) => {
-			// 指定左侧菜单ui的类型
-			object.dom.elementType = object.elementType;
-			this.dragEls.push(object.dom);
-		});
+		if (dragEls.length > 0) {
+			dragEls.forEach((object) => {
+				// 指定左侧菜单ui的类型
+				object.dom.elementType = object.elementType;
+				this.dragEls.push(object.dom);
+			});
+		}else{
+			return;
+		}
 		// 单个
 	} else {
 		this.dragEls.push(dragEls);
