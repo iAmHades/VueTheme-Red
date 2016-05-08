@@ -26,51 +26,60 @@
 </div>
 </template>
 <script>
-    import leftlayout from './../src/components/leftlayout.vue';
-    import toplayout from './../src/components/toplayout.vue';
-    import grid from './../src/components/table.vue';
-    import menu from './../src/components/menu.vue';
-    import leftmenu from './../src/components/leftmenu.vue';
+    import leftlayout from './dragcomp/leftlayout.vue';
+    import toplayout from './dragcomp/toplayout.vue';
+    import grid from './dragcomp/grid.vue';
     import './util/drag.js';
-    import { menuData, tableData } from './util/data.js';
     export default {
         components: {
             leftlayout,
             toplayout,
-            menu,
-            leftmenu,
             grid
         },
         data() {
             return {
-                showtable: true,
-                menus: menuData,
                 gridster: null,
                 activeindex: 0,
-                griddata: tableData,
-                url: '/xx/xxxx',
-                total: null,
-                pagesize: 10,
-                start: '0',
-                columns: {
-                    _id: '编号',
-                    type: '组件类型',
-                    name: '组件名字',
-                    remarks: '备注',
-                    op: {
-                        text: '查看',
-                        render: (value) => '<button @click.stop="edit">查看</button>'
-                    },
-                    del: '操作'
-                },
-                showModal: false,
                 dragDomWidth: 0,
-                dragDomHeight: 0
+                dragDomHeight: 0,
+                menus: [{
+                    id: 1,
+                    text: '模版',
+                    url: '#'
+                }, {
+                    id: 2,
+                    text: '控件',
+                    url: '#',
+                    child: [{
+                        id: 11,
+                        text: '表单',
+                        type: 'from',
+                        url: '#'
+                    }, {
+                        id: 12,
+                        text: 'grid',
+                        type: 'grid',
+                        url: '#'
+                    }, {
+                        id: 13,
+                        text: '上下布局',
+                        type: 'toplayout',
+                        url: '#'
+                    }, {
+                        id: 14,
+                        text: '左右布局',
+                        type: 'leftlayout',
+                        url: '#'
+                    }]
+                }, {
+                    id: 3,
+                    text: '设置',
+                    url: '#'
+                }]
             };
         },
         ready() {
             const self = this;
-            // this.translateHtml(this.griddata);
             this.$nextTick(() => {
                 this.gridster = $('.gridster ul').gridster({
                     widget_base_dimensions: [50, 50],
@@ -94,6 +103,7 @@
                     }
                 }).data('gridster');
                 const lis = this.$els.leftmenu.querySelectorAll('li ul li');
+                debugger;
                 const dom = new Draggable([{
                     dom: lis[0],
                     elementType: 'from'
@@ -111,15 +121,6 @@
             });
         },
         methods: {
-            // translateHtml(data) {
-            //     data.forEach((record) => {
-            //         record._id = '<a v-link="admin">' + record._id + '</a>';
-            //         record.op = '<button @click.stop="edit">查看</button>';
-            //     });
-            // },
-            edit(id) {
-                alert(id);
-            },
             click() {
                 const row = parseInt(Math.random() * 5, 10);
                 const col = parseInt(Math.random() * 5, 10);
