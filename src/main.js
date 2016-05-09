@@ -11,6 +11,7 @@ import admin from './views/admin.vue';
 import table from './views/table.vue';
 import layout from './views/layout.vue';
 import modal from './views/modal.vue';
+import datepicker from './views/datepicker.vue';
 import form from './views/form.vue';
 window.Vue = Vue;
 Vue.use(Router);
@@ -56,6 +57,9 @@ router.map({
            },
            '/form':{
                component:form
+           },
+           '/datepicker':{
+               component:datepicker
            }
 		}
 	}

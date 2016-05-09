@@ -46,6 +46,10 @@ const leftmenu = [{
   id: 4,
   text: 'Modal',
   url: '#/admin/modal'
+}, {
+  id: 5,
+  text: 'Datepicker',
+  url: '#/admin/datepicker'
 }];
 
 export default {

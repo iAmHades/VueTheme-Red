@@ -1,6 +1,6 @@
 <template>
   <div class="input-field col-lg-3">
-    <div class="input-lable" v-bind:class="{'active':isactive}">
+    <div class="input-lable" v-bind:class="{'activeinput':isactive}">
       <slot name="input-lable"></slot>
     </div>
     <input v-if="disabled"
@@ -113,7 +113,7 @@
     transition: .2s;
   }
 
-  .active {
+  .activeinput {
     color: red;
     transform: translateY(-140%);
     font-size: 10px;

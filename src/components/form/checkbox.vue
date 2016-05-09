@@ -4,7 +4,7 @@
            :id="id"
            :name="name"
            type="checkbox"/>
-    <slot name="checkbox-text" class="checkbox-text"></slot>
+    <slot name="checkbox-text" ></slot>
   </div>
 </template>
 <style>
@@ -13,15 +13,12 @@
     height: 30px;
     text-align: left;
   }
-  .checkbox-text{
-    /*float: left;*/
-  }
   input[type=checkbox] {
     -webkit-appearance: none;
     appearance: none;
     width: 16px;
     height: 16px;
-    margin: 0;
+    margin-right: 8px;
     top:-8px;
     cursor: pointer;
     vertical-align: bottom;

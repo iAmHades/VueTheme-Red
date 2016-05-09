@@ -20,6 +20,7 @@
     width: 13px;
     height: 13px;
     margin-bottom: 7px;
+    margin-right: 8px;
     cursor: pointer;
     vertical-align: bottom;
     background: #fff;
