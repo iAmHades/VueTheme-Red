@@ -98,12 +98,11 @@
 
                         },
                         stop(e, ui) {
-                            console.info('draggable stop');
+
                         }
                     }
                 }).data('gridster');
                 const lis = this.$els.leftmenu.querySelectorAll('li ul li');
-                debugger;
                 const dom = new Draggable([{
                     dom: lis[0],
                     elementType: 'from'
