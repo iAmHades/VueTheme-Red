@@ -44,7 +44,7 @@ window.Draggable = Draggable;
 
 // 绑定事件
 // dragstart(drag元素) -> drag(drag元素) -> dragenter(drop元素) -> dragover(drop元素) -> dragleave(drop元素) -> drop(drop元素) -> dragend(drag元素)
-Draggable.prototype.bindEvent = function() {
+Draggable.prototype.bindEvent = function bindEvent() {
 	// 被拖拽的元素可以是多个，但是目标只能为一个。
 	for (let i = 0; i < this.dragEls.length; i++) {
 		const dragEl = this.dragEls[i];
@@ -53,7 +53,7 @@ Draggable.prototype.bindEvent = function() {
 };
 
 // 被拖拽产品
-Draggable.prototype.bindDragEvent = function(dragEl) {
+Draggable.prototype.bindDragEvent = function bindDragEvent(dragEl) {
 	dragEl.addEventListener('dragstart', (e) => {
 		this.state = 'dragstart';
 		const type = dragEl.elementType;
@@ -91,7 +91,7 @@ Draggable.prototype.init = function() {
 	this.bindEvent();
 };
 
-Draggable.prototype.createDragImage = function(type, dragDom) {
+Draggable.prototype.createDragImage = function createDragImage(type, dragDom) {
 	if (!type) return dragDom;
 	const dom = document.createElement("img");
 	switch (type) {
@@ -119,11 +119,11 @@ Draggable.prototype.createDragImage = function(type, dragDom) {
 };
 
 // 如果需要vue的编译，则注入
-Draggable.prototype.initVue = function(vueInstance) {
+Draggable.prototype.initVue = function initVue(vueInstance) {
 	this.vueInstance = vueInstance;
 };
 
-Draggable.prototype.createVueDom = function(type) {
+Draggable.prototype.createVueDom = function createVueDom(type) {
 	const div = document.createElement('DIV');
 	div.setAttribute('draggable', 'true');
 	div.setAttribute('module', type);
@@ -149,7 +149,7 @@ Draggable.prototype.createVueDom = function(type) {
 };
 
 // 追加
-Draggable.prototype.addDrag = function(dragDom) {
+Draggable.prototype.addDrag = function addDrag(dragDom) {
 	this.bindDragEvent(dragDom);
 };
 // 事件钩子
