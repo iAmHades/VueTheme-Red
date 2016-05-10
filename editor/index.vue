@@ -4,14 +4,15 @@
     <div class="col-md-2 leftmenu-borad">
         <div class="">
            <ul class="left-menu" v-el:leftmenu>
-             <li v-for="menu in menus">
-                <a v-if="!menu.child" href="{{menu.url}}">{{menu.text}}</a>
-                <div v-else @click="showSubMenu(menu.id)">{{menu.text}}</div>
-                <ul v-if="menu.child" v-show="activeindex==menu.id">
-                  <li draggable="true" v-for="submenu in menu.child">{{submenu.text}}</li>
+             <li><a>模版</a></li>
+             <li>
+                <div @click="showSubMenu()">控件</div>
+                <ul v-show="isshowcomp">
+                  <li draggable="true" v-for="submenu in menus" @click="dragComponent(submenu.id)">{{submenu.text}}</li>
                   <li><a @click="click">随机添加组件测试</a></li>
                 </ul>
              </li>
+             <li>设置</li>
            </ul>
        </div>
     </div>
@@ -30,6 +31,10 @@
     import toplayout from './dragcomp/toplayout.vue';
     import grid from './dragcomp/grid.vue';
     import './util/drag.js';
+    import {
+        menuData,
+        menuCompData
+    } from './util/data.js';
     export default {
         components: {
             leftlayout,
@@ -42,45 +47,26 @@
                 activeindex: 0,
                 dragDomWidth: 0,
                 dragDomHeight: 0,
-                menus: [{
-                    id: 1,
-                    text: '模版',
-                    url: '#'
-                }, {
-                    id: 2,
-                    text: '控件',
-                    url: '#',
-                    child: [{
-                        id: 11,
-                        text: '表单',
-                        type: 'from',
-                        url: '#'
-                    }, {
-                        id: 12,
-                        text: 'grid',
-                        type: 'grid',
-                        url: '#'
-                    }, {
-                        id: 13,
-                        text: '上下布局',
-                        type: 'toplayout',
-                        url: '#'
-                    }, {
-                        id: 14,
-                        text: '左右布局',
-                        type: 'leftlayout',
-                        url: '#'
-                    }]
-                }, {
-                    id: 3,
-                    text: '设置',
-                    url: '#'
-                }]
+                menus: menuData,
+                isshowcomp: false
             };
         },
         ready() {
             const self = this;
             this.$nextTick(() => {
+                this.initDrag();
+            });
+        },
+        methods: {
+            click() {
+                const row = parseInt(Math.random() * 5, 10);
+                const col = parseInt(Math.random() * 5, 10);
+                this.gridster.add_widget('<div>随机添加的组件</div>', row, col);
+            },
+            showSubMenu() {
+                this.isshowcomp = !this.isshowcomp;
+            },
+            initDrag() {
                 this.gridster = $('.gridster ul').gridster({
                     widget_base_dimensions: [50, 50],
                     widget_margins: [5, 5],
@@ -117,20 +103,16 @@
                     elementType: 'leftlayout'
                 }], this.gridster);
                 dom.initVue(this);
-            });
-        },
-        methods: {
-            click() {
-                const row = parseInt(Math.random() * 5, 10);
-                const col = parseInt(Math.random() * 5, 10);
-                this.gridster.add_widget('<div>随机添加的组件</div>', row, col);
             },
-            showSubMenu(id) {
-                if (this.activeindex === id) {
-                    this.activeindex = 0;
-                } else {
-                    this.activeindex = id;
+            dragComponent(id) {
+                if(id===99){
+                  this.menus = menuData;
+                }else{
+                  this.menus = menuCompData;
                 }
+            },
+            backLayout() {
+                this.menus = menuData;
             }
         }
     };
@@ -178,7 +160,6 @@ ul {
     line-height: 100%;
 }
 
-
 .gridster {
     margin: 0 auto;
     opacity: .8;
@@ -202,7 +183,6 @@ ul {
     border: none!important;
     background: red!important;
 }
-
 
 .gridster {
     position:relative;
@@ -261,7 +241,6 @@ ul {
     -o-transition: all 0s !important;
     transition: all 0s !important;
 }
-
 
 .gs-resize-handle {
     position: absolute;

@@ -94,7 +94,7 @@ Draggable.prototype.init = function() {
 
 Draggable.prototype.createDragImage = function createDragImage(type, dragDom) {
 	if (!type) return dragDom;
-	const dom = document.createElement("img");
+	const dom = document.createElement('img');
 	switch (type) {
 		case 'from':
 			dom.src = 'http://temp.im/400x600';
