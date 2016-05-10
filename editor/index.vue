@@ -89,7 +89,7 @@
                     max_cols: 30,
                     resize: {
                         enabled: true,
-                        max_size: [25, 10],
+                        max_size: [50, 50],
                         min_size: [1, 1]
                     },
                     draggable: {
