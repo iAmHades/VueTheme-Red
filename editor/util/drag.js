@@ -137,12 +137,6 @@ Draggable.prototype.createVueDom = function createVueDom(type) {
 		case 'from':
 			dom.setAttribute('name', 'red-from');
 			break;
-		case 'toplayout':
-			dom.setAttribute('name', 'red-toplayout');
-			break;
-		case 'leftlayout':
-			dom.setAttribute('name', 'red-leftlayout');
-			break;
 		default:
 	}
 	div.appendChild(dom);
@@ -154,15 +148,9 @@ Draggable.prototype.addWidget = function addWidget(vueDom) {
 	const type = vueDom.getAttribute('module');
 	switch (type) {
 		case 'grid':
-			this.gridster.add_widget(vueDom, 30, 10, 1, 1);
+			this.gridster.add_widget(vueDom, 30, 6, 1, 1);
 			break;
 		case 'from':
-			// this.gridster.add_widget(vueDom, 50, 50, 1, 1);
-			break;
-		case 'toplayout':
-			// this.gridster.add_widget(vueDom, 50, 50, 1, 1);
-			break;
-		case 'leftlayout':
 			// this.gridster.add_widget(vueDom, 50, 50, 1, 1);
 			break;
 		default:

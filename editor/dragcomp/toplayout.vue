@@ -1,7 +1,11 @@
 <template>
 <toplayout>
    <menu slot="top_menu" :data="menus"></menu>
-   <router-view slot="top_container" class="view" transition="expand" transition-mode="out-in"></router-view>
+   <div v-el:gridster class="main-container gridster" >
+         <ul>
+        
+         </ul>
+    </div>
 </toplayout>
 </template>
 <script>
@@ -41,6 +45,9 @@
                     }]
                 }]
             };
+        },
+        ready(){
+            console.info('xx');
         }
     };
 </script>

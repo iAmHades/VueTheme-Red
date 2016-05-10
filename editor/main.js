@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import index from './index.vue';
+import leftlayout from './dragcomp/leftlayout.vue';
+import toplayout from './dragcomp/toplayout.vue';
+
 window.Vue = Vue;
 Vue.use(Router);
 const router = new Router({
@@ -17,11 +20,17 @@ Vue.use(require('./../src/ext/vue_ext.js'));
 router.map({
 	'/editor': {
 		name: 'index',
-		component: index
+		component: index,
+	},
+	'/leftlayout': {
+		name: 'leftlayout',
+		component: leftlayout
+	},
+	'/toplayout': {
+		name: 'toplayout',
+		component: toplayout
 	}
 });
-Vue.partial('red-grid', '<grid></grid>');
-Vue.partial('red-leftlayout', '<leftlayout></leftlayout>');
-Vue.partial('red-toplayout', '<toplayout></toplayout>');
+Vue.partial('red-grid', '<draggrid></draggrid	>');
 
 router.start(index, '#app');
