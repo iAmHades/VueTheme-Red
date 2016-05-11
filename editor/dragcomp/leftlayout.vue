@@ -84,7 +84,6 @@
                         }
                     }
                 }).data('gridster');
-                debugger;
                 const lis = document.querySelectorAll('ul.dragtarget li');
                 const dom = new Draggable([{
                     dom: lis[0],

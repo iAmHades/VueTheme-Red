@@ -7,6 +7,7 @@
     "editor":"node editor/build/dev-server.js",
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
+    "build:project": "node editor/ejs/index.js",
     "unit": "karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e"
@@ -78,6 +79,7 @@
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0",
-    "webpack-merge": "^0.8.3"
+    "webpack-merge": "^0.8.3",
+    "ejs": "2.4.1"
   }
 }
