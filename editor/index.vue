@@ -8,7 +8,7 @@
              <li>
                 <div @click="showSubMenu()">控件</div>
                 <ul v-show="isshowcomp" class="dragtarget">
-                  <li draggable="true" v-for="submenu in menus" @click="dragComponent(submenu.id)">{{submenu.text}}</li>
+                  <li :class="{'menu-active':selectedMenu===submenu.id}" draggable="true" v-for="submenu in menus" @click="dragComponent(submenu)">{{submenu.text}}</li>
                 </ul>
              </li>
              <li>设置</li>
@@ -27,51 +27,60 @@
         menuData,
         menuCompData
     } from './util/data.js';
+    import {
+        RenderObject,
+        Page
+    } from './util/RenderObject.js';
     export default {
         data() {
-            return {
-                gridster: null,
-                activeindex: 0,
-                dragDomWidth: 0,
-                dragDomHeight: 0,
-                menus: menuData,
-                isshowcomp: false
-            };
-        },
-        ready() {
-            const self = this;
-        },
-        methods: {
-            click() {
-                const row = parseInt(Math.random() * 5, 10);
-                const col = parseInt(Math.random() * 5, 10);
-                this.gridster.add_widget('<div>随机添加的组件</div>', row, col);
+                return {
+                    gridster: null,
+                    activeindex: 0,
+                    dragDomWidth: 0,
+                    dragDomHeight: 0,
+                    menus: menuData,
+                    isshowcomp: false,
+                    selectedMenu: null
+                };
             },
-            showSubMenu() {
-                this.isshowcomp = !this.isshowcomp;
+            ready() {
             },
-            dragComponent(id) {
-                if (id === 99) {
+            methods: {
+                click() {
+                    const row = parseInt(Math.random() * 5, 10);
+                    const col = parseInt(Math.random() * 5, 10);
+                    this.gridster.add_widget('<div>随机添加的组件</div>', row, col);
+                },
+                showSubMenu() {
+                    this.isshowcomp = !this.isshowcomp;
+                },
+                dragComponent(menu) {
+                    if (menu.type === 'back') {
+                        this.menus = menuData;
+                    } else {
+                        if (menu.type === 'layout') {
+                            let url = '';
+                            switch (menu.id) {
+                                case 21:
+                                    url = '/toplayout';
+                                    break;
+                                case 22:
+                                    url = '/leftlayout';
+                                    break;
+                                default:
+                            }
+                            this.menus = menuCompData;
+                            window.router.go({
+                                path: url
+                            });
+                        }
+                        this.selectedMenu = menu.id;
+                    }
+                },
+                backLayout() {
                     this.menus = menuData;
-                } else {
-                    this.menus = menuCompData;
                 }
-                let url = '';
-                switch (id) {
-                    case 21:
-                        url = '/toplayout';
-                        break;
-                    case 22:
-                        url = '/leftlayout';
-                        break;
-                    default:
-                }
-                window.router.go({ path: url });
-            },
-            backLayout() {
-                this.menus = menuData;
             }
-        }
     };
 </script>
 <style>
@@ -86,6 +95,10 @@ ul.left-menu li{
 }
 ul.left-menu ul{
   list-style: none;
+}
+
+.menu-active {
+  background-color: #D6D3D3;
 }
 
 </style>
