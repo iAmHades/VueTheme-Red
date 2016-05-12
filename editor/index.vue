@@ -23,64 +23,73 @@
 </template>
 <script>
     import './util/drag.js';
+    import store from './vuex/store';
     import {
-        menuData,
-        menuCompData
-    } from './util/data.js';
+        getMenus,
+        getComponentMenus
+    } from './vuex/actions';
     import {
         RenderObject,
         Page
     } from './util/RenderObject.js';
     export default {
-        data() {
-                return {
-                    gridster: null,
-                    activeindex: 0,
-                    dragDomWidth: 0,
-                    dragDomHeight: 0,
-                    menus: menuData,
-                    isshowcomp: false,
-                    selectedMenu: null
-                };
+        store,
+        vuex: {
+            getters: {
+                menus: state => state.menus
             },
-            ready() {
+            actions: {
+                getMenus,
+                getComponentMenus
+            }
+        },
+        data(){
+          return {
+            activeindex:0,
+            gridster: null,
+            dragDomWidth: 0,
+            dragDomHeight: 0,
+            isshowcomp:false,
+            selectedMenu:0
+          };    
+        },
+        ready() {
+           this.getMenus();
+        },
+        methods: {
+            click() {
+                const row = parseInt(Math.random() * 5, 10);
+                const col = parseInt(Math.random() * 5, 10);
+                this.gridster.add_widget('<div>随机添加的组件</div>', row, col);
             },
-            methods: {
-                click() {
-                    const row = parseInt(Math.random() * 5, 10);
-                    const col = parseInt(Math.random() * 5, 10);
-                    this.gridster.add_widget('<div>随机添加的组件</div>', row, col);
-                },
-                showSubMenu() {
-                    this.isshowcomp = !this.isshowcomp;
-                },
-                dragComponent(menu) {
-                    if (menu.type === 'back') {
-                        this.menus = menuData;
-                    } else {
-                        if (menu.type === 'layout') {
-                            let url = '';
-                            switch (menu.id) {
-                                case 21:
-                                    url = '/toplayout';
-                                    break;
-                                case 22:
-                                    url = '/leftlayout';
-                                    break;
-                                default:
-                            }
-                            this.menus = menuCompData;
-                            window.router.go({
-                                path: url
-                            });
+            showSubMenu() {
+                this.isshowcomp = !this.isshowcomp;
+            },
+            dragComponent(menu) {
+                if (menu.type === 'back') {
+                    this.getMenus();
+                } else {
+                    debugger;
+                    if (menu.type === 'layout') {
+                        let url = '';
+                        switch (menu.id) {
+                            case 21:
+                                url = '/toplayout';
+                                break;
+                            case 22:
+                                url = '/leftlayout';
+                                break;
+                            default:
                         }
-                        this.selectedMenu = menu.id;
+                        this.getComponentMenus();
+                        window.router.go({
+                            path: url
+                        });
                     }
-                },
-                backLayout() {
-                    this.menus = menuData;
+                    this.selectedMenu = menu.id;
                 }
             }
+        }
     };
 </script>
 <style>

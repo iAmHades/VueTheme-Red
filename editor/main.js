@@ -3,6 +3,8 @@ import Router from 'vue-router';
 import index from './index.vue';
 import leftlayout from './dragcomp/leftlayout.vue';
 import toplayout from './dragcomp/toplayout.vue';
+import { sync } from 'vuex-router-sync';
+import store from './vuex/store';
 
 window.Vue = Vue;
 Vue.use(Router);
@@ -31,6 +33,8 @@ router.map({
 		component: toplayout
 	}
 });
-Vue.partial('red-grid', '<draggrid></draggrid	>');
+Vue.partial('red-grid', '<draggrid></draggrid>');
 
+
+sync(store, router);
 router.start(index, '#app');
