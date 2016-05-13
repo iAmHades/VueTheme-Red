@@ -40,9 +40,12 @@ export const menuCompData = [{
 
 export default {
   getMenus(cb) {
-    cb(menuData);
-  },
-  getComponentMenus(cb) {
-    cb(menuCompData);
-  }
+      cb(menuData);
+    },
+    getComponentMenus(cb) {
+      cb(menuCompData);
+    },
+    setRenderLayout(type, cb) {
+      cb(type);
+    }
 };

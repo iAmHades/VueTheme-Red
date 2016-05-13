@@ -26,12 +26,9 @@
     import store from './vuex/store';
     import {
         getMenus,
-        getComponentMenus
+        getComponentMenus,
+        setRenderLayout
     } from './vuex/actions';
-    import {
-        RenderObject,
-        Page
-    } from './util/RenderObject.js';
     export default {
         store,
         vuex: {
@@ -40,7 +37,8 @@
             },
             actions: {
                 getMenus,
-                getComponentMenus
+                getComponentMenus,
+                setRenderLayout
             }
         },
         data(){
@@ -69,15 +67,16 @@
                 if (menu.type === 'back') {
                     this.getMenus();
                 } else {
-                    debugger;
                     if (menu.type === 'layout') {
                         let url = '';
                         switch (menu.id) {
                             case 21:
                                 url = '/toplayout';
+                                this.setRenderLayout('top');
                                 break;
                             case 22:
                                 url = '/leftlayout';
+                                 this.setRenderLayout('left');
                                 break;
                             default:
                         }
