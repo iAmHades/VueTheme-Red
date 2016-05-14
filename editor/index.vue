@@ -55,11 +55,6 @@
            this.getMenus();
         },
         methods: {
-            click() {
-                const row = parseInt(Math.random() * 5, 10);
-                const col = parseInt(Math.random() * 5, 10);
-                this.gridster.add_widget('<div>随机添加的组件</div>', row, col);
-            },
             showSubMenu() {
                 this.isshowcomp = !this.isshowcomp;
             },
