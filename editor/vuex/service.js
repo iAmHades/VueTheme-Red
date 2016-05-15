@@ -38,6 +38,20 @@ export const menuCompData = [{
   url: '#'
 }];
 
+export const customeMenuData = [{
+  id: 1,
+  text: '菜单一',
+  url: '#'
+}, {
+  id: 2,
+  text: '菜单二',
+  url: '#'
+}, {
+  id: 3,
+  text: '菜单三',
+  url: '#'
+}];
+
 export default {
   getMenus(cb) {
       cb(menuData);
@@ -47,5 +61,8 @@ export default {
     },
     setRenderLayout(type, cb) {
       cb(type);
+    },
+    updateCustomeMenus(menu, actionType, cb) {
+      cb();
     }
 };

@@ -24,3 +24,11 @@ export const setRenderLayout = ({
 }, type) => {
 	service.setRenderLayout(type, menus => dispatch('setRenderLayout', type));
 };
+
+// ‘custome’前缀的为生成的组件的状态
+export const updateCustomeMenus = ({
+	dispatch,
+	state
+}, editData, actionType) => {
+	service.updateCustomeMenus(editData, actionType, () => dispatch('updateCustomeMenus', editData, actionType));
+};

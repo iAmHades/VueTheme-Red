@@ -3,9 +3,10 @@
   <leftlayout>
     <leftmenu slot="left_menu" :data="menus"></leftmenu>
     <div slot="left_container" class="main-container gridster" >
-         <ul>
-        
-         </ul>
+      <button @click="add">添加菜单</button>
+      <button @click="del">删除菜单</button>
+      <button @click="update">更新菜单</button>
+      <ul></ul>
     </div>
   </leftlayout>
 </div>
@@ -14,28 +15,21 @@
     import leftlayout from './../../src/components/leftlayout.vue';
     import leftmenu from './../../src/components/leftmenu.vue';
     import draggrid from './grid.vue';
+    import store from './../vuex/store.js';
+    import { updateCustomeMenus } from './../vuex/actions.js';
     export default {
         components: {
             leftlayout,
             leftmenu,
             draggrid
         },
-        data() {
-            return {
-                menus: [{
-                    id: 1,
-                    text: '菜单一',
-                    url: '#'
-                }, {
-                    id: 2,
-                    text: '菜单二',
-                    url: '#'
-                }, {
-                    id: 3,
-                    text: '菜单三',
-                    url: '#'
-                }]
-            };
+        vuex: {
+            getters: {
+                menus: state => state.customeMenuData
+            },
+            actions: {
+                updateCustomeMenus
+            }
         },
         ready(){
            this.$nextTick(() => {
@@ -74,6 +68,15 @@
                     elementType: 'grid'
                 }], this.gridster);
                 dom.initVue(this);
+            },
+            add(){
+                this.updateCustomeMenus({ id:8, text:'菜单八', url:'#' }, 'add');
+            },
+            del(){
+                this.updateCustomeMenus({ id:8, text:'菜单八', url:'#' }, 'del');
+            },
+            update(){
+                this.updateCustomeMenus({ id:8, text:'菜单八修改', url:'#' }, 'update');
             }
         }
 
