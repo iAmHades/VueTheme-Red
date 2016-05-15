@@ -1,12 +1,14 @@
 /**
- *  页面信息
+ *  页面信息,其中component为对象,包含名称'name'和组件类型'type'
  **/
 export const Page = function Page(component) {
 	this.components = [];
 	if (Array.isArray(component)) {
 		this.components = this.components.concat(component);
 	} else {
-		this.components.push(component);
+		if (component&& typeof(component) ==='object') {
+			this.components.push(component);
+		}
 	}
 };
 

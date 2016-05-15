@@ -1,13 +1,15 @@
 <template>
 <div>
   <leftlayout>
-    <leftmenu slot="left_menu" :data="menus"></leftmenu>
+    <leftmenu slot="left_menu" :data="renderObject.menus"></leftmenu>
     <div slot="left_container" class="main-container gridster" >
       <button @click="add">添加菜单</button>
       <button @click="del">删除菜单</button>
       <button @click="update">更新菜单</button>
+      <button @click="addRouter">添加路由</button>
       <ul></ul>
     </div>
+
   </leftlayout>
 </div>
 </template>
@@ -16,7 +18,10 @@
     import leftmenu from './../../src/components/leftmenu.vue';
     import draggrid from './grid.vue';
     import store from './../vuex/store.js';
-    import { updateCustomeMenus } from './../vuex/actions.js';
+    import {
+        updateCustomeMenus,
+        updateCustomePages
+    } from './../vuex/actions.js';
     export default {
         components: {
             leftlayout,
@@ -25,18 +30,24 @@
         },
         vuex: {
             getters: {
-                menus: state => state.customeMenuData
+                renderObject: state => state.renderObject
             },
             actions: {
-                updateCustomeMenus
+                updateCustomeMenus,
+                updateCustomePages
             }
         },
-        ready(){
-           this.$nextTick(() => {
+        ready() {
+            this.$nextTick(() => {
                 this.initDrag();
             });
         },
-        methods:{
+        data() {
+            return {
+                selectedmenuid: '123abcef' // 当前选择的菜单
+            };
+        },
+        methods: {
             initDrag() {
                 this.gridster = $('.gridster ul').gridster({
                     widget_base_dimensions: [50, 50],
@@ -68,15 +79,41 @@
                     elementType: 'grid'
                 }], this.gridster);
                 dom.initVue(this);
+                dom.onAddWidgetEnd = (component) => {
+                    const name = component.getAttribute('componentname');
+                    const type = component.getAttribute('module');
+                    // menuid, actionType, componentName, componentType
+                    this.updateCustomePages(this.selectedmenuid, 'add', name, type);
+                };
             },
-            add(){
-                this.updateCustomeMenus({ id:8, text:'菜单八', url:'#' }, 'add');
+            add() {
+                this.updateCustomeMenus({
+                    id: 8,
+                    text: '菜单八',
+                    url: '#'
+                }, 'add');
             },
-            del(){
-                this.updateCustomeMenus({ id:8, text:'菜单八', url:'#' }, 'del');
+            del() {
+                this.updateCustomeMenus({
+                    id: 8,
+                    text: '菜单八',
+                    url: '#'
+                }, 'del');
             },
-            update(){
-                this.updateCustomeMenus({ id:8, text:'菜单八修改', url:'#' }, 'update');
+            update() {
+                this.updateCustomeMenus({
+                    id: 8,
+                    text: '菜单八修改',
+                    url: '#'
+                }, 'update');
+            },
+            addRouter() {
+                window.router.on('/ttt', {
+                        component: {
+                            template: '<div>this is a test</div>'
+                        }
+                });
+
             }
         }
 

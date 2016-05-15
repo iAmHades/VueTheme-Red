@@ -39,15 +39,15 @@ export const menuCompData = [{
 }];
 
 export const customeMenuData = [{
-  id: 1,
+  id: '123abcef',
   text: '菜单一',
   url: '#'
 }, {
-  id: 2,
+  id: '123abceg',
   text: '菜单二',
   url: '#'
 }, {
-  id: 3,
+  id: '123abcej',
   text: '菜单三',
   url: '#'
 }];
@@ -62,7 +62,10 @@ export default {
     setRenderLayout(type, cb) {
       cb(type);
     },
-    updateCustomeMenus(menu, actionType, cb) {
+    updateCustomeMenus(cb) {
+      cb();
+    },
+    updateCustomePages(cb) {
       cb();
     }
 };

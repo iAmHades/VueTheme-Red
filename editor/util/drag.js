@@ -77,7 +77,6 @@ Draggable.prototype.bindDragEvent = function bindDragEvent(dragEl) {
 	});
 };
 
-
 Draggable.prototype.extend = (source, target) => {
 	if (target && Object.prototype.toString.call(target) === '[object Object]') {
 		Object.keys(target).forEach((key) => {
@@ -128,6 +127,7 @@ Draggable.prototype.createVueDom = function createVueDom(type) {
 	const div = document.createElement('DIV');
 	div.setAttribute('draggable', 'true');
 	div.setAttribute('module', type);
+	div.setAttribute('componentname', new Date().getTime());
 	div.style.width = '100%';
 	const dom = document.createElement('partial');
 	switch (type) {
@@ -155,6 +155,7 @@ Draggable.prototype.addWidget = function addWidget(vueDom) {
 			break;
 		default:
 	}
+	this.onAddWidgetEnd(vueDom);
 };
 
 // 追加
@@ -169,3 +170,4 @@ Draggable.prototype.onDragOver = (e) => {};
 Draggable.prototype.onDragLeave = (e) => {};
 Draggable.prototype.onDrop = (e) => {};
 Draggable.prototype.onDragEnd = (e) => {};
+Draggable.prototype.onAddWidgetEnd = (dom) => {};
