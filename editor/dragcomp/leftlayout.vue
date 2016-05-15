@@ -61,10 +61,10 @@
                 }).data('gridster');
                 const lis = document.querySelectorAll('ul.dragtarget li');
                 const dom = new Draggable([{
-                    dom: lis[0],
+                    dom: lis[1],
                     elementType: 'from'
                 }, {
-                    dom: lis[1],
+                    dom: lis[2],
                     elementType: 'grid'
                 }], this.gridster);
                 dom.initVue(this);
