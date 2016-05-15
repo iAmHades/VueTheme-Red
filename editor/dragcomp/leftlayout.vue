@@ -1,12 +1,14 @@
 <template>
-<leftlayout>
+<div>
+  <leftlayout>
     <leftmenu slot="left_menu" :data="menus"></leftmenu>
     <div slot="left_container" class="main-container gridster" >
          <ul>
         
          </ul>
     </div>
-</leftlayout>
+  </leftlayout>
+</div>
 </template>
 <script>
     import leftlayout from './../../src/components/leftlayout.vue';

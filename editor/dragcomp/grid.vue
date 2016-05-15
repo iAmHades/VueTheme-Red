@@ -1,5 +1,7 @@
 <template>
-<grid :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>
+<div>
+  <grid :pagesize="pagesize" :data="griddata" :url="url" :columns="columns" :total="total"></grid>
+</div>
 </template>
 <script>
     import grid from './../../src/components/table.vue';

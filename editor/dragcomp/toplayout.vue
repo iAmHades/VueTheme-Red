@@ -1,12 +1,14 @@
 <template>
-<toplayout>
+<div>
+  <toplayout>
    <menu slot="top_menu" :data="menus"></menu>
    <div v-el:gridster class="main-container gridster" >
          <ul>
         
          </ul>
     </div>
-</toplayout>
+  </toplayout>
+</div>
 </template>
 <script>
     import toplayout from './../../src/components/toplayout.vue';
