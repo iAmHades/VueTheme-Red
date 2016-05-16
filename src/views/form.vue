@@ -37,17 +37,32 @@
       <mdcheckbox :value.sync="checkbox.football" checkbox-value="yellow" :name.sync="checkbox2"><label
         slot="checkbox-text">Football</label></mdcheckbox>
     </div>
+    <div class="col-lg-12">
+      <h2>Select</h2>
+      <mdselect :value.sync="selected" :options="options" :multiple=true :placeholder="choose"></mdselect>
+    </div>
+    <div class="col-lg-12">
+      <h2>Textarea</h2>
+      <mdtextarea :value.sync="textarea">
+        <label slot="input-lable">Textarea</label>
+      </mdtextarea>
+      <span>textarea:{{textarea}}</span>
+    </div>
   </div>
 </template>
 <script>
   import mdinput from './../components/form/input.vue';
   import mdradio from './../components/form/radio.vue';
   import mdcheckbox from './../components/form/checkbox.vue';
+  import mdselect from './../components/form/select.vue';
+  import mdtextarea from './../components/form/textarea.vue';
   export default {
     components: {
       mdinput,
       mdradio,
-      mdcheckbox
+      mdcheckbox,
+      mdselect,
+      mdtextarea
     },
     data() {
       return {
@@ -55,10 +70,14 @@
         lastName: '',
         first: 'FirstName',
         radio: 'green',
+        textarea:'请输入文本内容',
         checkbox: {
           basketball: true,
           football: false
-        }
+        },
+        selected: null,
+        options: ['foo', 'bar', 'baz'],
+        choose:'choosing'
       };
     },
     watch: {

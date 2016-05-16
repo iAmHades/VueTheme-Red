@@ -1,152 +1,377 @@
-/**
-* The default language used by this component.
-*/
-var DEFAULT_LANGUAGE = "en-US";
+<template>
+  <div class="dropdown v-select" :class="dropdownClasses">
+    <div v-el:toggle @mousedown.prevent="toggleDropdown" class="dropdown-toggle clearfix" type="button">
+        <span class="form-control" v-if="!searchable && isValueEmpty">
+          {{ placeholder }}
+        </span>
 
-/**
-* A bootstrap style selection (combobox) control using the select2 plugin.
-*
-* @param options
-*    the array of options of the selection control. It could be an array of
-*    strings, e.g., "['opt1', 'opt2']"; or an array of objects specifying
-*    the text and value of each option, e.g.,
-*    "[{text: 'name1', value: 'val1'}, {text: 'name2', value: 'val2'}]";
-*    or it could be an array of objects specifying the option group, e.g.
-*    "[{label: 'group1', options: [{text: 'name1', value: 'val1'}, {text: 'name2', value: 'val2'}]},
-*      {label: 'group2', options: [{text: 'name3', value: 'val3'}, {text: 'name4', value: 'val4'}]}]".
-* @param model
-*    the model bind to the control, which must be a two way binding variable.
-* @param searchable
-*    the optional flag indicates whether to show the search box. Default value
-*    is false.
-* @param matchValue
-*    the optional flag indicates whether the searching should match both the
-*    texts and values of options. Default value is true.
-* @param language
-*    the optional code of language used by the select2 plugin. If it is not set,
-*    and the [vue-i18n](https://github.com/Haixing-Hu/vue-i18n) plugin is used,
-*    the component will use the language code `$language` provided by the
-*    [vue-i18n](https://github.com/Haixing-Hu/vue-i18n) plugin; otherwise, the
-*    component will use the default value "en-US".
-* @param theme
-*    the optional name of the theme of the select2. Default value is "bootstrap".
-* @author Haixing Hu
-*/
-module.exports = {
-replace: true,
-inherit: false,
-template: "<select class='form-control' v-model='model' options='options' style='width: 100%'></select>",
-props: {
-options: {
-type: Array,
-required: true
-},
-model: {
-required: true,
-twoWay: true
-},
-searchable: {
-type: Boolean,
-required: false,
-default: false
-},
-matchValue: {
-type: Boolean,
-required: false,
-default: true
-},
-language: {
-type: String,
-required: false,
-default: ""
-},
-theme: {
-type: String,
-required: false,
-default: "bootstrap"
-}
-},
-beforeCompile: function() {
-this.isChanging = false;
-this.control = null;
-},
-watch: {
-"options": function(val, oldVal) {
-this.control.trigger('change');
-},
-"model": function(val, oldVal) {
-if (! this.isChanging) {
-this.isChanging = true;
-this.control.val(val).trigger("change");
-this.isChanging = false;
-}
-}
-},
-ready: function() {
-var language = this.language;
-if (language === null || language === "") {
-if (this.$language) {
-language = this.$language;
-} else {
-language = DEFAULT_LANGUAGE;
-}
-}
-var args = {
-theme: this.theme,
-language: this.getLanguageCode(language)
-};
-if (! this.searchable) {
-args.minimumResultsForSearch = Infinity;  // hide the search box
-} else {
-if (this.matchValue) {
-args.matcher = require("./value-text-matcher.js");
-}
-}
-this.control = $(this.$el);
-this.control.select2(args);
-var me = this;
-this.control.on("change", function(e) {
-if (! me.isChanging) {
-me.isChanging = true;
-me.model = me.control.val();
-me.$nextTick(function () {
-me.isChanging = false;
-});
-}
-});
-},
-methods: {
-/**
-* Gets the language code from the "language-country" locale code.
-*
-* The function will strip the language code before the first "-" of a
-* locale code. For example, pass "en-US" will returns "en". But for some
-* special locales, the function reserves the locale code. For example,
-* the "zh-CN" for the simplified Chinese and the "zh-TW" for the
-* traditional Chinese.
-*
-* @param locale
-*    A locale code.
-* @return
-*    the language code of the locale.
-*/
-getLanguageCode: function(locale) {
-if (locale === null || locale.length === 0) {
-return "en";
-}
-if (locale.length <= 2) {
-return locale;
-} else {
-switch (locale) {
-case "pt-BR":
-case "zh-CN":
-case "zh-TW":
-return locale;
-default:
-// reserve only the first two letters language code
-return locale.substr(0, 2);
-}
-}
-}
-}
-};
+        <span class="selected-tag" v-for="option in valueAsArray">
+          {{ getOptionLabel(option) }}
+          <button v-if="multiple" @click="select(option)" type="button" class="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </span>
+
+      <input
+        v-el:search
+        v-show="searchable"
+        v-model="search"
+        @keyup.delete="maybeDeleteValue"
+        @keyup.esc="onEscape"
+        @keyup.up.prevent="typeAheadUp"
+        @keyup.down.prevent="typeAheadDown"
+        @keyup.enter.prevent="typeAheadSelect"
+        @blur="open = false"
+        @focus="open = true"
+        type="search"
+        class="form-control"
+        :placeholder="searchPlaceholder"
+        :style="{ width: isValueEmpty ? '100%' : 'auto' }"
+      >
+
+      <i v-el:open-indicator role="presentation" class="open-indicator"></i>
+    </div>
+
+    <ul v-show="open" v-el:dropdown-menu :transition="transition" :style="{ 'max-height': maxHeight }"
+        class="dropdown-menu animated">
+      <li v-for="option in filteredOptions"
+          :class="{ active: isOptionSelected(option), highlight: $index === typeAheadPointer }"
+          @mouseover="typeAheadPointer = $index">
+        <a @mousedown.prevent="select(option)">
+          {{ getOptionLabel(option) }}
+        </a>
+      </li>
+      <li transition="fade" v-if="!filteredOptions.length" class="divider"></li>
+      <li transition="fade" v-if="!filteredOptions.length" class="text-center">Sorry, no matching options.</li>
+    </ul>
+  </div>
+</template>
+
+
+<script>
+  export default {
+    props: {
+      value: {
+        default: null
+      },
+      options: {
+        type: Array,
+        default() {
+          return [];
+        },
+      },
+      maxHeight: {
+        type: String,
+        default: '400px'
+      },
+      searchable: {
+        type: Boolean,
+        default: true
+      },
+      multiple: {
+        type: Boolean,
+        default: false
+      },
+      placeholder: {
+        type: String,
+        default: ''
+      },
+      transition: {
+        type: String,
+        default: 'expand'
+      },
+      clearSearchOnSelect: {
+        type: Boolean,
+        default: true
+      },
+      label: {
+        type: String,
+        default: 'label'
+      },
+      onChange: Function
+    },
+
+    data() {
+      return {
+        search: '',
+        open: false,
+        typeAheadPointer: -1,
+      };
+    },
+    watch: {
+      value(val, old) {
+        this.onChange && val !== old ? this.onChange(val) : null;
+      },
+      options() {
+        this.$set('value', this.multiple ? [] : null);
+      },
+      multiple(val) {
+        this.$set('value', val ? [] : null);
+      },
+      filteredOptions() {
+        this.typeAheadPointer = 0;
+      },
+    },
+
+    methods: {
+
+      select(option) {
+        if (!this.isOptionSelected(option)) {
+          if (this.multiple) {
+            if (!this.value) {
+              this.$set('value', [option]);
+            } else {
+              this.value.push(option);
+            }
+          } else {
+            this.value = option;
+          }
+        } else {
+          if (this.multiple) {
+            this.value.$remove(option);
+          }
+        }
+        this.onAfterSelect(option);
+      },
+
+      onAfterSelect(option) {
+        if (!this.multiple) {
+          this.open = !this.open;
+          this.$els.search.blur();
+        }
+
+        if (this.clearSearchOnSelect) {
+          this.search = '';
+        }
+      },
+      toggleDropdown(e) {
+        if (e.target === this.$els.openIndicator || e.target === this.$els.search ||
+          e.target === this.$els.toggle || e.target === this.$el) {
+          if (this.open) {
+            this.$els.search.blur();
+          } else {
+            this.open = true;
+            this.$els.search.focus();
+          }
+        }
+      },
+
+      isOptionSelected(option) {
+        if (this.multiple && this.value) {
+          return this.value.indexOf(option) !== -1;
+        }
+        return this.value === option;
+      },
+
+      getOptionValue(option) {
+        if (typeof option === 'object' && option.value) {
+          return option.value;
+        }
+        return option;
+      },
+
+      getOptionLabel(option) {
+        if (typeof option === 'object') {
+          if (this.label && option[this.label]) {
+            return option[this.label];
+          } else if (option.label) {
+            return option.label;
+          }
+        }
+        return option;
+      },
+
+      typeAheadUp() {
+        if (this.typeAheadPointer > 0) this.typeAheadPointer--;
+      },
+
+      typeAheadDown() {
+        if (this.typeAheadPointer < this.filteredOptions.length - 1) this.typeAheadPointer++;
+      },
+
+      typeAheadSelect() {
+        if (this.filteredOptions[this.typeAheadPointer]) {
+          this.select(this.filteredOptions[this.typeAheadPointer]);
+        }
+
+        if (this.clearSearchOnSelect) {
+          this.search = '';
+        }
+      },
+
+      onEscape() {
+        if (!this.search.length) {
+          this.$els.search.blur();
+        } else {
+          this.$set('search', '');
+        }
+      },
+
+      maybeDeleteValue() {
+        if (!this.$els.search.value.length && this.value) {
+          return this.multiple ? this.value.pop() : this.$set('value', null);
+        }
+      }
+    },
+
+    computed: {
+
+      dropdownClasses() {
+        return {
+          open: this.open,
+          searchable: this.searchable
+        };
+      },
+
+      searchPlaceholder() {
+        if (this.isValueEmpty && this.placeholder) {
+          return this.placeholder;
+        }
+      },
+
+      filteredOptions() {
+        return this.$options.filters.filterBy(this.options, this.search);
+      },
+
+      isValueEmpty() {
+        if (this.value) {
+          if (typeof this.value === 'object') {
+            return !Object.keys(this.value).length;
+          }
+          return !this.value.length;
+        }
+
+        return true;
+      },
+
+      valueAsArray() {
+        if (this.multiple) {
+          return this.value;
+        } else if (this.value) {
+          return [this.value];
+        }
+        return [];
+      }
+    }
+
+  };
+</script>
+<style>
+  .v-select.dropdown {
+    position: relative;
+  }
+
+  .v-select .open-indicator {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    display: inline-block;
+    cursor: pointer;
+    pointer-events: all;
+    transition: all 150ms cubic-bezier(1.000, -0.115, 0.975, 0.855);
+    transition-timing-function: cubic-bezier(1.000, -0.115, 0.975, 0.855);
+  }
+
+  .v-select .open-indicator:before {
+    border-color: rgba(60, 60, 60, .5);
+    border-style: solid;
+    border-width: 0.25em 0.25em 0 0;
+    content: '';
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    vertical-align: top;
+    transform: rotate(133deg);
+    transition: all 150ms cubic-bezier(1.000, -0.115, 0.975, 0.855);
+    transition-timing-function: cubic-bezier(1.000, -0.115, 0.975, 0.855);
+  }
+
+  .v-select.open .open-indicator {
+    bottom: 1px;
+  }
+
+  .v-select.open .open-indicator:before {
+    transform: rotate(315deg);
+  }
+
+  .v-select .dropdown-toggle {
+    display: block;
+    padding: 0;
+    background: none;
+    border: 1px solid rgba(60, 60, 60, .26);
+    border-radius: 0px;
+    white-space: normal;
+  }
+
+  .v-select.searchable .dropdown-toggle {
+    cursor: text;
+  }
+
+  .v-select.open .dropdown-toggle {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .v-select > .dropdown-menu {
+    margin: 0;
+    width: 100%;
+    overflow-y: auto;
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .v-select .selected-tag {
+    color: #333;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    height: 26px;
+    margin: 4px 1px 0px 3px;
+    padding: 0 0.25em;
+    float: left;
+    line-height: 1.7em;
+  }
+
+  .v-select .selected-tag .close {
+    float: none;
+    margin-right: 0;
+    font-size: 20px;
+  }
+
+  .v-select input[type=search],
+  .v-select input[type=search]:focus {
+    display: inline-block;
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0 .5em;
+    width: 10em;
+    max-width: 100%;
+    background: none;
+    position: relative;
+    box-shadow: none;
+    float: left;
+    clear: none;
+  }
+
+  .v-select input[type=search]:disabled {
+    cursor: pointer;
+  }
+
+  .v-select li a {
+    cursor: pointer;
+  }
+
+  .v-select .active a {
+    background: rgba(50, 50, 50, .1);
+    color: #333;
+  }
+
+  .v-select .highlight a,
+  .v-select li:hover > a {
+    background: #f0f0f0;
+    color: #333;
+  }
+</style>

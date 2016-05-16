@@ -1,24 +1,19 @@
 <template>
-  <div class="card">
-    <div class="row">
-      <span>Departure Date：</span>
-      <datepicker :time.sync="starttime" :option="option" :limit="limit"></datepicker>
-    </div>
-    <div class="row">
-      <span>Return Date：</span>
-      <datepicker :time.sync="endtime" :option="option"></datepicker>
-    </div>
-    <div class="row">
-      <span>time：</span>
-      <datepicker :time.sync="testTime" :option="timeoption"></datepicker>
+  <div style="text-align: left">
+      <div class="form-group">
+        <span>Return Date：</span>
+        <datepicker :time.sync="endtime" :option="option"></datepicker>
+      </div>
+      <div class="form-group">
+        <span>datetime：</span>
+        <datepicker :time.sync="testTime" :option="timeoption"></datepicker>
+      </div>
+    <div class="form-group">
+      <br> Return Date：{{endtime}}
+      <br> DateTime：{{testTime}}
     </div>
   </div>
-  <div class="test">
-    Departure Date:{{starttime}}
-    <br> Return Date：{{endtime}}
-    <br> test Date：{{testTime}}
-  </div>
-  <input type="time">
+
 </template>
 <script>
   import datepicker from './../components/form/datepicker.vue';
@@ -36,7 +31,7 @@
           week: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
           month: ['January', 'February', 'March', 'April', 'May',
             'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-          format: 'YYYY-MM-DD HH:mm',
+          format: 'YYYY-MM-DD',
           placeholder: 'when?',
           inputStyle: {
             display: 'inline-block',
