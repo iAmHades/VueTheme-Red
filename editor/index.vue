@@ -4,7 +4,7 @@
     <div class="col-md-2 leftmenu-borad">
         <div class="">
            <ul class="left-menu" v-el:leftmenu>
-             <li><a>模版</a></li>
+             <li><a href="#leftlayout" target="_blank">模版</a></li>
              <li>
                 <div @click="showSubMenu()">控件</div>
                 <ul v-show="isshowcomp" class="dragtarget">

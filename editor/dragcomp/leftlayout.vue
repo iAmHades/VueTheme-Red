@@ -1,7 +1,14 @@
 <template>
 <div>
   <leftlayout>
-    <leftmenu slot="left_menu" :data="renderObject.menus"></leftmenu>
+    <div slot="left_menu" class="navbar">
+           <ul class="left-menu" >
+             <li v-for="menu in renderObject.menus" :class="{'menu-active':selectedmenuid===menu.id}">
+                <a @click="goto(menu.id)">{{menu.text}}</a>
+             </li>
+           </ul>
+    </div>
+    <!-- <leftmenu slot="left_menu" :data="renderObject.menus" ></leftmenu> -->
     <div slot="left_container" class="main-container gridster" >
       <button @click="add">添加菜单</button>
       <button @click="del">删除菜单</button>
@@ -109,11 +116,14 @@
             },
             addRouter() {
                 window.router.on('/ttt', {
-                        component: {
-                            template: '<div>this is a test</div>'
-                        }
+                    component: {
+                        template: '<div>this is a test</div>'
+                    }
                 });
-
+            },
+            goto(id) {
+                this.selectedmenuid = id;
+                const page = this.renderObject.pages[id];
             }
         }
 
@@ -129,6 +139,10 @@
 .gridster * {
   margin:0;
   padding:0;
+}
+
+.menu-active {
+    background-color: #D6D3D3;
 }
 
 ul {
