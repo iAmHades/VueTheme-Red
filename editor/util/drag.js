@@ -15,7 +15,7 @@ function Draggable(dragEls, gridster, options) {
 				object.dom.elementType = object.elementType;
 				this.dragEls.push(object.dom);
 			});
-		}else{
+		} else {
 			return;
 		}
 		// 单个
@@ -72,7 +72,7 @@ Draggable.prototype.bindDragEvent = function bindDragEvent(dragEl) {
 		this.state = 'dragend';
 		e.dataTransfer.clearData('text');
 		const vueDom = this.createVueDom(dragEl.elementType);
-		this.gridster.add_widget(vueDom, 25, 10, 1, 1, null, null, self);
+		this.addWidget(vueDom);
 		this.onDragEnd(e);
 	});
 };
@@ -93,7 +93,7 @@ Draggable.prototype.init = function() {
 
 Draggable.prototype.createDragImage = function createDragImage(type, dragDom) {
 	if (!type) return dragDom;
-	const dom = document.createElement("img");
+	const dom = document.createElement('img');
 	switch (type) {
 		case 'from':
 			dom.src = 'http://temp.im/400x600';
@@ -127,6 +127,8 @@ Draggable.prototype.createVueDom = function createVueDom(type) {
 	const div = document.createElement('DIV');
 	div.setAttribute('draggable', 'true');
 	div.setAttribute('module', type);
+	div.setAttribute('componentname', new Date().getTime());
+	div.style.width = '100%';
 	const dom = document.createElement('partial');
 	switch (type) {
 		case 'grid':
@@ -135,17 +137,25 @@ Draggable.prototype.createVueDom = function createVueDom(type) {
 		case 'from':
 			dom.setAttribute('name', 'red-from');
 			break;
-		case 'toplayout':
-			dom.setAttribute('name', 'red-toplayout');
-			break;
-		case 'leftlayout':
-			dom.setAttribute('name', 'red-leftlayout');
-			break;
 		default:
 	}
 	div.appendChild(dom);
 	this.vueInstance.$compile(div);
 	return div;
+};
+
+Draggable.prototype.addWidget = function addWidget(vueDom) {
+	const type = vueDom.getAttribute('module');
+	switch (type) {
+		case 'grid':
+			this.gridster.add_widget(vueDom, 30, 6, 1, 1);
+			break;
+		case 'from':
+			// this.gridster.add_widget(vueDom, 50, 50, 1, 1);
+			break;
+		default:
+	}
+	this.onAddWidgetEnd(vueDom);
 };
 
 // 追加
@@ -160,3 +170,4 @@ Draggable.prototype.onDragOver = (e) => {};
 Draggable.prototype.onDragLeave = (e) => {};
 Draggable.prototype.onDrop = (e) => {};
 Draggable.prototype.onDragEnd = (e) => {};
+Draggable.prototype.onAddWidgetEnd = (dom) => {};

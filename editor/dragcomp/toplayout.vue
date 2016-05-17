@@ -1,8 +1,14 @@
 <template>
-<toplayout>
+<div>
+  <toplayout>
    <menu slot="top_menu" :data="menus"></menu>
-   <router-view slot="top_container" class="view" transition="expand" transition-mode="out-in"></router-view>
-</toplayout>
+   <div v-el:gridster class="main-container gridster" >
+         <ul>
+        
+         </ul>
+    </div>
+  </toplayout>
+</div>
 </template>
 <script>
     import toplayout from './../../src/components/toplayout.vue';
@@ -41,6 +47,9 @@
                     }]
                 }]
             };
+        },
+        ready(){
+            console.info('xx');
         }
     };
 </script>

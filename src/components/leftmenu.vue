@@ -3,10 +3,10 @@
       <div class="">
            <ul class="left-menu" >
              <li v-for="menu in data">
-                <a v-if="!menu.child" href="{{menu.url}}">{{menu.text}}</a>
+                <a v-if="!menu.child" @click="goto(menu.url)">{{menu.text}}</a>
                 <div v-else @click="showSubMenu(menu.id)">{{menu.text}}</div>
                 <ul v-if="menu.child" v-show="activeindex==menu.id">
-                  <li v-for="submenu in menu.child">{{submenu.text}}</li>
+                  <li v-for="submenu in menu.child"><a @click="goto(submenu.url)">{{submenu.text}}</a></li>
                 </ul>
              </li>
            </ul>
@@ -33,10 +33,19 @@
        } else {
          this.activeindex = id;
        }
+     },
+     goto(urlObject) {
+       if (typeof(urlObject) === 'string') {
+         window.router.go({
+           path: urlObject
+         });
+       } else {
+         window.router.go(urlObject);
+       }
      }
    }
  };
-</script>
+ </script>
 <style type="text/css">
 ul.left-menu{
   list-style: none;
