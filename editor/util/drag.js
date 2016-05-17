@@ -124,6 +124,7 @@ Draggable.prototype.initVue = function initVue(vueInstance) {
 };
 
 Draggable.prototype.createVueDom = function createVueDom(type) {
+	const start = new Date().getTime();
 	const div = document.createElement('DIV');
 	div.setAttribute('draggable', 'true');
 	div.setAttribute('module', type);
@@ -141,6 +142,8 @@ Draggable.prototype.createVueDom = function createVueDom(type) {
 	}
 	div.appendChild(dom);
 	this.vueInstance.$compile(div);
+	const end = new Date().getTime();
+	console.info('created speed time:' + (end - start));
 	return div;
 };
 

@@ -9,13 +9,16 @@
            </ul>
     </div>
     <!-- <leftmenu slot="left_menu" :data="renderObject.menus" ></leftmenu> -->
-    <div slot="left_container" class="main-container gridster" >
-      <button @click="add">添加菜单</button>
-      <button @click="del">删除菜单</button>
+    <div slot="left_container">
+       <div class="gridster">
+          <ul></ul>
+       </div>   
+         <button @click="click">添加菜单</button>
+      <button @click="destryedDrag">删除菜单</button>
       <button @click="update">更新菜单</button>
       <button @click="addRouter">添加路由</button>
-      <ul></ul>
     </div>
+
 
   </leftlayout>
 </div>
@@ -29,6 +32,10 @@
         updateCustomeMenus,
         updateCustomePages
     } from './../vuex/actions.js';
+    import {
+        parseHtmlToComponent,
+        compiledComponentToHtml
+    } from './../util/view.js';
     export default {
         components: {
             leftlayout,
@@ -46,16 +53,27 @@
         },
         ready() {
             this.$nextTick(() => {
-                this.initDrag();
+                this.compiledDrag();
             });
         },
         data() {
             return {
-                selectedmenuid: '123abcef' // 当前选择的菜单
+                selectedmenuid: '123abcef', // 当前选择的菜单,
+                gridster: null,
+                draggable: null
             };
         },
         methods: {
-            initDrag() {
+            click() {
+                const start = new Date().getTime();
+                const row = parseInt(Math.random() * 5, 10);
+                const col = parseInt(Math.random() * 5, 10);
+                const vueDom = this.draggable.createVueDom('grid');
+                this.gridster.add_widget(vueDom, 30, 6, 1, 1);
+                const end = new Date().getTime();
+                console.info('addWidget speed time:' + (end - start));
+            },
+            compiledDrag() {
                 this.gridster = $('.gridster ul').gridster({
                     widget_base_dimensions: [50, 50],
                     widget_margins: [5, 5],
@@ -78,20 +96,23 @@
                     }
                 }).data('gridster');
                 const lis = document.querySelectorAll('ul.dragtarget li');
-                const dom = new Draggable([{
+                this.draggable = new Draggable([{
                     dom: lis[1],
                     elementType: 'from'
                 }, {
                     dom: lis[2],
                     elementType: 'grid'
                 }], this.gridster);
-                dom.initVue(this);
-                dom.onAddWidgetEnd = (component) => {
+                this.draggable.initVue(this);
+                this.draggable.onAddWidgetEnd = (component) => {
                     const name = component.getAttribute('componentname');
                     const type = component.getAttribute('module');
                     // menuid, actionType, componentName, componentType
                     this.updateCustomePages(this.selectedmenuid, 'add', name, type);
                 };
+            },
+            destryedDrag() {
+                this.gridster.remove_all_widgets();
             },
             add() {
                 this.updateCustomeMenus({
@@ -122,11 +143,31 @@
                 });
             },
             goto(id) {
+                // 切换前
+                const oldpage = this.renderObject.pages[this.selectedmenuid];
+                const components = parseHtmlToComponent(document.querySelector('.gridster ul'));
+                this.updateCustomePages(this.selectedmenuid, 'updateall', null, null, components);
                 this.selectedmenuid = id;
-                const page = this.renderObject.pages[id];
+                // 删除
+                debugger;
+                this.destryedDrag();
+                // 切换后
+                const newpage = this.renderObject.pages[id];
+                // compiledComponentToHtml(newpage.components, this.draggable, this.gridster);
+                for (let i = 0; i < newpage.components.length; i++) {
+                    const vueDom = this.draggable.createVueDom(newpage.components[i].type);
+                    // this.gridster.add_widget(vueDom, newpage.components[i].width, newpage.components[i].height, 1, 1);
+                    const width = newpage.components[i].width;
+                    const height = newpage.components[i].height;
+                    console.info(width+":"+height);
+                    const start = new Date().getTime();
+                    this.gridster.add_widget(vueDom, width, height, 1, 1);
+                    const end = new Date().getTime();
+                    console.info('addWidget speed time:' + (end - start));
+                }
+
             }
         }
-
     };
 </script>
 <style>

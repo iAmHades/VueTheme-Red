@@ -36,6 +36,6 @@ export const updateCustomeMenus = ({
 export const updateCustomePages = ({
 	dispatch,
 	state
-}, menuid, actionType, componentName, componentType) => {
-	service.updateCustomePages(() => dispatch('updateCustomePages', menuid, actionType, componentName, componentType));
+}, menuid, actionType, componentName, componentType, componentsArray) => {
+	service.updateCustomePages(() => dispatch('updateCustomePages', menuid, actionType, componentName, componentType, componentsArray));
 };

@@ -66,7 +66,7 @@ const mutations = {
     },
     // 自定义页面中，对里面组件的编辑
     // menuid 菜单id， actionType 操作类型，componentName 页面中唯一的组件名称， componentType 组件类型
-    updateCustomePages(allState, menuid, actionType, componentName, componentType) {
+    updateCustomePages(allState, menuid, actionType, componentName, componentType, componentsArray) {
         const components = allState.renderObject.pages[menuid];
         switch (actionType) {
             case 'del':
@@ -81,8 +81,15 @@ const mutations = {
             case 'add':
                 allState.renderObject.pages[menuid].addComponent({
                     name: componentName,
-                    type: componentType
+                    type: componentType,
+                    x: null,
+                    y: null,
+                    width: null,
+                    height: null
                 });
+                break;
+            case 'updateall':
+                allState.renderObject.pages[menuid].components = componentsArray;
                 break;
             default:
         }

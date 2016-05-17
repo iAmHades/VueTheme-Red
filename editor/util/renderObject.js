@@ -1,12 +1,21 @@
 /**
  *  页面信息,其中component为对象,包含名称'name'和组件类型'type'
  **/
+function Component() {
+	this.name = '';  // 组件内部名称
+	this.type = '';  // 组件类型，分：grid,form
+	this.x = '';     // x坐标
+	this.y = '';     // y坐标
+	this.width = ''; // 宽度
+	this.height = '';// 高度
+}
+
 export const Page = function Page(component) {
 	this.components = [];
 	if (Array.isArray(component)) {
 		this.components = this.components.concat(component);
 	} else {
-		if (component&& typeof(component) ==='object') {
+		if (component && typeof(component) === 'object') {
 			this.components.push(component);
 		}
 	}
