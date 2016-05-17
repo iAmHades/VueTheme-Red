@@ -26,10 +26,6 @@
         updateCustomeMenus,
         updateCustomePages
     } from './../vuex/actions.js';
-    import {
-        parseHtmlToComponent,
-        compiledComponentToHtml
-    } from './../util/view.js';
     export default {
         components: {
             leftlayout,
@@ -47,7 +43,7 @@
         },
         ready() {
             this.$nextTick(() => {
-                this.compiledDrag();
+                this.initDrag();
             });
         },
         data() {
@@ -58,14 +54,11 @@
             };
         },
         methods: {
-            addWidget(type, width, height) {
-                const row = parseInt(Math.random() * 5, 10);
-                const col = parseInt(Math.random() * 5, 10);
-                console.info(type);
+            addWidget(type, width, height, x, y) {
                 const vueDom = this.draggable.createVueDom(type);
-                this.gridster.add_widget(vueDom, 30, 6, 1, 1);
+                this.gridster.add_widget(vueDom, parseInt(width, 10), parseInt(height, 10), parseInt(x, 10), parseInt(y, 10));
             },
-            compiledDrag() {
+            initDrag() {
                 this.gridster = $('.gridster ul').gridster({
                     widget_base_dimensions: [50, 50],
                     widget_margins: [5, 5],
@@ -106,10 +99,25 @@
             destryedDrag() {
                 this.gridster.remove_all_widgets();
             },
+            parseHtmlToComponent(dom) {
+                const comps = dom.children;
+                const components = [];
+                for (let i = 0; i < comps.length; i++) {
+                    components.push({
+                        name: comps[i].getAttribute('componentname'),
+                        type: comps[i].getAttribute('module'),
+                        x: comps[i].getAttribute('data-col'),
+                        y: comps[i].getAttribute('data-row'),
+                        width: comps[i].getAttribute('data-sizex'),
+                        height: comps[i].getAttribute('data-sizey')
+                    });
+                }
+                return components;
+            },
             goto(id) {
                 // 切换前
                 const oldpage = this.renderObject.pages[this.selectedmenuid];
-                const components = parseHtmlToComponent(document.querySelector('.gridster ul'));
+                const components = this.parseHtmlToComponent(document.querySelector('.gridster ul'));
                 this.updateCustomePages(this.selectedmenuid, 'updateall', null, null, components);
                 this.selectedmenuid = id;
                 // 删除
@@ -119,7 +127,9 @@
                 for (let i = 0; i < newpage.components.length; i++) {
                     const width = newpage.components[i].width;
                     const height = newpage.components[i].height;
-                    this.addWidget(newpage.components[i].type, width, height);
+                    const x = newpage.components[i].x;
+                    const y = newpage.components[i].y;
+                    this.addWidget(newpage.components[i].type, width, height, x, y);
                 }
 
             }
