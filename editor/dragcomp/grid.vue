@@ -73,7 +73,7 @@
         },
         methods: {
             edit(id) {
-                
+                alert('edit');
             }
         }
 

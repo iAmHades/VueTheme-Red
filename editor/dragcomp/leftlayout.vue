@@ -13,13 +13,7 @@
        <div class="gridster">
           <ul></ul>
        </div>   
-         <button @click="click">添加菜单</button>
-      <button @click="destryedDrag">删除菜单</button>
-      <button @click="update">更新菜单</button>
-      <button @click="addRouter">添加路由</button>
     </div>
-
-
   </leftlayout>
 </div>
 </template>
@@ -64,14 +58,12 @@
             };
         },
         methods: {
-            click() {
-                const start = new Date().getTime();
+            addWidget(type, width, height) {
                 const row = parseInt(Math.random() * 5, 10);
                 const col = parseInt(Math.random() * 5, 10);
-                const vueDom = this.draggable.createVueDom('grid');
+                console.info(type);
+                const vueDom = this.draggable.createVueDom(type);
                 this.gridster.add_widget(vueDom, 30, 6, 1, 1);
-                const end = new Date().getTime();
-                console.info('addWidget speed time:' + (end - start));
             },
             compiledDrag() {
                 this.gridster = $('.gridster ul').gridster({
@@ -114,34 +106,6 @@
             destryedDrag() {
                 this.gridster.remove_all_widgets();
             },
-            add() {
-                this.updateCustomeMenus({
-                    id: 8,
-                    text: '菜单八',
-                    url: '#'
-                }, 'add');
-            },
-            del() {
-                this.updateCustomeMenus({
-                    id: 8,
-                    text: '菜单八',
-                    url: '#'
-                }, 'del');
-            },
-            update() {
-                this.updateCustomeMenus({
-                    id: 8,
-                    text: '菜单八修改',
-                    url: '#'
-                }, 'update');
-            },
-            addRouter() {
-                window.router.on('/ttt', {
-                    component: {
-                        template: '<div>this is a test</div>'
-                    }
-                });
-            },
             goto(id) {
                 // 切换前
                 const oldpage = this.renderObject.pages[this.selectedmenuid];
@@ -149,21 +113,13 @@
                 this.updateCustomePages(this.selectedmenuid, 'updateall', null, null, components);
                 this.selectedmenuid = id;
                 // 删除
-                debugger;
                 this.destryedDrag();
                 // 切换后
                 const newpage = this.renderObject.pages[id];
-                // compiledComponentToHtml(newpage.components, this.draggable, this.gridster);
                 for (let i = 0; i < newpage.components.length; i++) {
-                    const vueDom = this.draggable.createVueDom(newpage.components[i].type);
-                    // this.gridster.add_widget(vueDom, newpage.components[i].width, newpage.components[i].height, 1, 1);
                     const width = newpage.components[i].width;
                     const height = newpage.components[i].height;
-                    console.info(width+":"+height);
-                    const start = new Date().getTime();
-                    this.gridster.add_widget(vueDom, width, height, 1, 1);
-                    const end = new Date().getTime();
-                    console.info('addWidget speed time:' + (end - start));
+                    this.addWidget(newpage.components[i].type, width, height);
                 }
 
             }
