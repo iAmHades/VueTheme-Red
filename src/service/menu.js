@@ -28,6 +28,10 @@ const menu = [{
     id: 43,
     text: 'modal'
   }]
+}, {
+  id: 5,
+  text: 'Menu',
+  url: '/custommenu'
 }];
 
 const leftmenu = [{
@@ -51,6 +55,37 @@ const leftmenu = [{
   text: 'Datepicker',
   url: '#/admin/datepicker'
 }];
+const custommenu =[{
+  id:1,
+  text:'服装',
+  childItem:[{
+    id:11,
+    text:'男装'
+  }, {
+    id:12,
+    text:'女装'
+  }]
+}, {
+  id:2,
+  text:'鞋子',
+  childItem:[{
+    id:21,
+    text:'男鞋'
+  }, {
+    id:22,
+    text:'女鞋'
+  }]
+}, {
+  id:3,
+  text:'数码',
+  childItem:[{
+    id:31,
+    text:'笔记本'
+  }, {
+    id:32,
+    text:'一体机'
+  }]
+}];
 
 export default {
   getMenus(userType, cb) {
@@ -58,5 +93,8 @@ export default {
   },
   getLeftMenus(userType, cb) {
     cb(leftmenu);
-  }
+  },
+  getCustomMenus(userType, cb) {
+    setTimeout(() => cb(custommenu), 100);
+  },
 };

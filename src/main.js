@@ -13,6 +13,7 @@ import layout from './views/layout.vue';
 import modal from './views/modal.vue';
 import datepicker from './views/datepicker.vue';
 import form from './views/form.vue';
+import custommenu from './views/custommenu.vue';
 window.Vue = Vue;
 Vue.use(Router);
 const router = new Router({
@@ -62,7 +63,11 @@ router.map({
                component:datepicker
            }
 		}
-	}
+	},
+  '/custommenu': {
+    name:'custommenu',
+    component:custommenu
+  }
 });
 
 // router.beforeEach(function(transition) {

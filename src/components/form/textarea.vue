@@ -85,38 +85,3 @@
     }
   };
 </script>
-<style type="text/css">
-  .input-field {
-    float: left;
-    height: 100px;
-    margin-top: 10px;
-  }
-
-  .input {
-    top: -26px;
-    border: none;
-    background: none;
-    position: relative;
-    border-bottom: 1px solid red;
-
-  }
-
-  .input:focus {
-    outline: none;
-    border-bottom: 2px solid red;
-  }
-
-  .input-lable {
-    color: #9e9e9e;
-    font-size: 14px;
-    margin-left: -80px;
-    transition: .2s;
-  }
-
-  .activeinput {
-    color: red;
-    transform: translateY(-140%);
-    font-size: 10px;
-    margin-left: -80px;
-  }
-</style>
