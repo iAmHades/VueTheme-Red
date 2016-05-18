@@ -8,9 +8,8 @@
              <li>
                 <div @click="showSubMenu()">控件</div>
                 <ul v-show="isshowcomp" class="dragtarget">
-                  <li :class="{'menu-active':selectedMenu===submenu.id}" draggable="true" v-for="submenu in menus" @click="dragComponent(submenu)">{{submenu.text}}</li>
+                  <li :class="{'menu-active':selectedMenu===menu.id}" draggable="true" v-for="menu in menus"  @click="dragComponent(menu)">{{menu.text}}</li>
                 </ul>
-             </li>
              <li>设置</li>
            </ul>
        </div>

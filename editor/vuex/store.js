@@ -7,7 +7,7 @@ import {
 } from '../util/RenderObject.js';
 import {
     customeMenuData
-} from './service.js';
+} from './../util/data.js';
 Vue.use(Vuex);
 Vue.config.debug = true;
 const debug = process.env.NODE_ENV !== 'production';

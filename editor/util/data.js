@@ -29,11 +29,46 @@ export const menuCompData = [{
 	text: '表单',
 	type: 'component',
 	key: 'from',
-	url: '#'
+	url: '#',
+	submenu:[{
+		id: 311,
+		text: 'text',
+		type: 'text',
+		key: 'from'
+	}, {
+		id: 312,
+		text: 'textarea',
+		type: 'textarea',
+		key: 'from'
+	}, {
+		id: 313,
+		text: 'date',
+		type: 'date',
+		key: 'from'
+	}, {
+		id: 314,
+		text: 'select',
+		type: 'select',
+		key: 'from'
+	}]
 }, {
 	id: 32,
 	text: '表格',
 	type: 'component',
 	key: 'grid',
+	url: '#'
+}];
+
+export const customeMenuData = [{
+	id: '123abcef',
+	text: '菜单一',
+	url: '#'
+}, {
+	id: '123abceg',
+	text: '菜单二',
+	url: '#'
+}, {
+	id: '123abcej',
+	text: '菜单三',
 	url: '#'
 }];
