@@ -30,7 +30,7 @@ export const menuCompData = [{
 	type: 'component',
 	key: 'from',
 	url: '#',
-	submenu:[{
+	submenu: [{
 		id: 311,
 		text: 'text',
 		type: 'text',
@@ -49,6 +49,16 @@ export const menuCompData = [{
 		id: 314,
 		text: 'select',
 		type: 'select',
+		key: 'from'
+	}, {
+		id: 315,
+		text: 'count',
+		type: 'count',
+		key: 'from'
+	}, {
+		id: 316,
+		text: 'img',
+		type: 'img',
 		key: 'from'
 	}]
 }, {
