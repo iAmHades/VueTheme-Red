@@ -24,14 +24,14 @@
     </div>
     <!--checkbox-->
     <div class="col-lg-12">
+      <h2>CheckBox</h2>
       <div style="text-align: left">
-        <h2>CheckBox</h2>
+        
         <p>Your hobbies: {</p>
         <p>"basketball":{{checkbox.basketball}}</p>
         <p>"football":{{checkbox.football}}</p>
         <p>}</p>
       </div>
-
       <mdcheckbox :value.sync="checkbox.basketball" checkbox-value="green" :name.sync="checkbox1"><label
         slot="checkbox-text">Basketball</label></mdcheckbox>
       <mdcheckbox :value.sync="checkbox.football" checkbox-value="yellow" :name.sync="checkbox2"><label
@@ -53,16 +53,20 @@
       <mdtextarea :value.sync="textarea">
         <label slot="input-lable">Textarea</label>
       </mdtextarea>
-      <span>textarea:{{textarea}}</span>
     </div>
     <!-- Counter -->
     <div class="col-lg-12">
       <h2>Counter</h2>
-      <mdcounter :counter.sync="counter" :type.sync="vertial">
-      </mdcounter>
       <mdcounter :counter.sync="counter" >
       </mdcounter>
+      <mdcounter :counter.sync="counter" :type.sync="vertial">
+      </mdcounter>
       <span>current Number:{{counter}}</span>
+    </div>
+
+
+    <div class="col-lg-12">
+      <mdsearch ></mdsearch>
     </div>
   </div>
 </template>
@@ -73,6 +77,7 @@
   import mdselect from './../components/form/select.vue';
   import mdtextarea from './../components/form/textarea.vue';
   import mdcounter from './../components/form/counter.vue';
+  import mdsearch from './../components/form/search.vue';
   export default {
     components: {
       mdinput,
@@ -80,7 +85,8 @@
       mdcheckbox,
       mdselect,
       mdtextarea,
-      mdcounter
+      mdcounter,
+      mdsearch
     },
     data() {
       return {
@@ -101,9 +107,6 @@
       };
     },
     watch: {
-//      radio(){
-//        alert(this.radio);
-//      }
     },
     compiled(){
     }
