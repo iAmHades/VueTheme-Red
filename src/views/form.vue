@@ -37,16 +37,32 @@
       <mdcheckbox :value.sync="checkbox.football" checkbox-value="yellow" :name.sync="checkbox2"><label
         slot="checkbox-text">Football</label></mdcheckbox>
     </div>
+
+    <!-- Select -->
     <div class="col-lg-12">
       <h2>Select</h2>
+      <div class="col-lg-3">
       <mdselect :value.sync="selected" :options="options" :multiple=true :placeholder="choose"></mdselect>
+      </div>
     </div>
+
+
+    <!-- Textarea -->
     <div class="col-lg-12">
       <h2>Textarea</h2>
       <mdtextarea :value.sync="textarea">
         <label slot="input-lable">Textarea</label>
       </mdtextarea>
       <span>textarea:{{textarea}}</span>
+    </div>
+    <!-- Counter -->
+    <div class="col-lg-12">
+      <h2>Counter</h2>
+      <mdcounter :counter.sync="counter" :type.sync="vertial">
+      </mdcounter>
+      <mdcounter :counter.sync="counter" >
+      </mdcounter>
+      <span>current Number:{{counter}}</span>
     </div>
   </div>
 </template>
@@ -56,13 +72,15 @@
   import mdcheckbox from './../components/form/checkbox.vue';
   import mdselect from './../components/form/select.vue';
   import mdtextarea from './../components/form/textarea.vue';
+  import mdcounter from './../components/form/counter.vue';
   export default {
     components: {
       mdinput,
       mdradio,
       mdcheckbox,
       mdselect,
-      mdtextarea
+      mdtextarea,
+      mdcounter
     },
     data() {
       return {
@@ -77,7 +95,9 @@
         },
         selected: null,
         options: ['foo', 'bar', 'baz'],
-        choose:'choosing'
+        choose:'choosing',
+        counter:1,
+        vertial:'vertial'
       };
     },
     watch: {

@@ -1,7 +1,7 @@
 <template>
 <div>
 <leftlayout>
-   <custommenu slot="left_menu" :data="menus"></custommenu>
+   <custommenu slot="left_menu" :data="menus" :bottomnav="bottomnav"></custommenu>
    <router-view slot="left_container" class="view" transition="expand" transition-mode="out-in"></router-view>
 </leftlayout>
 </div>
@@ -25,7 +25,11 @@
       },
       data() {
         return {
-          isShow: false
+          isShow: false,
+          bottomnav:{
+            url:'http://www.baidu.com',
+            text:'协购产品专区'
+          }
         };
       },
       created() {

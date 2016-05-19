@@ -55,39 +55,221 @@ const leftmenu = [{
   text: 'Datepicker',
   url: '#/admin/datepicker'
 }];
-const custommenu =[{
-  id:1,
-  text:'服装',
-  childItem:[{
-    id:11,
-    text:'男装'
+const custommenu = [{
+  id: 1,
+  text: '服装',
+  childItem: [{
+    id: 11,
+    text: '男装',
+    subItems: [{
+      id: 111,
+      text: '西装'
+    }]
   }, {
-    id:12,
-    text:'女装'
+    id: 12,
+    text: '女装',
+    subItems: [{
+      id: 111,
+      text: '西装'
+    }]
   }]
 }, {
-  id:2,
-  text:'鞋子',
-  childItem:[{
-    id:21,
-    text:'男鞋'
+  id: 1,
+  text: '烟酒',
+  childItem: [{
+    id: 11,
+    text: '名烟',
+    subItems: [{
+      id: 111,
+      text: '黑兰州'
+    }]
   }, {
-    id:22,
-    text:'女鞋'
+    id: 12,
+    text: '名酒',
+    subItems: [{
+      id: 111,
+      text: '女儿红'
+    }, {
+      id: 111,
+      text: '竹叶青'
+    }, {
+      id: 111,
+      text: '女儿红'
+    }, {
+      id: 111,
+      text: '竹叶青'
+    }, {
+      id: 111,
+      text: '女儿红'
+    }, {
+      id: 111,
+      text: '竹叶青'
+    }, {
+      id: 111,
+      text: '女儿红'
+    }, {
+      id: 111,
+      text: '竹叶青'
+    }]
   }]
 }, {
-  id:3,
-  text:'数码',
-  childItem:[{
-    id:31,
-    text:'笔记本'
+  id: 1,
+  text: '箱包',
+  childItem: [{
+    id: 11,
+    text: '旅行箱',
+    subItems: [{
+      id: 111,
+      text: '万向轮'
+    }, {
+      id: 111,
+      text: '登机箱'
+    }]
   }, {
-    id:32,
-    text:'一体机'
+    id: 12,
+    text: '双肩包',
+    subItems: [{
+      id: 121,
+      text: '小米双肩包'
+    }, {
+      id: 121,
+      text: '瑞士军刀'
+    }]
+  }]
+}, {
+  id: 1,
+  text: '家电',
+  childItem: [{
+    id: 11,
+    text: '彩电',
+    subItems: [{
+      id: 111,
+      text: 'TCL'
+    }]
+  }, {
+    id: 11,
+    text: '洗衣机',
+    subItems: [{
+      id: 111,
+      text: '海尔'
+    }]
+  }, {
+    id: 12,
+    text: '冰箱',
+    subItems: [{
+      id: 111,
+      text: '雪雪'
+    }]
+  }]
+}, {
+  id: 2,
+  text: '鞋子',
+  childItem: [{
+    id: 21,
+    text: '男鞋',
+    subItems: [{
+      id: 111,
+      text: '西装'
+    }]
+  }, {
+    id: 22,
+    text: '女鞋',
+    subItems: [{
+      id: 111,
+      text: '西装'
+    }]
+  }]
+}, {
+  id: 3,
+  text: '数码',
+  childItem: [{
+    id: 31,
+    text: '笔记本',
+    subItems: [{
+      id: 111,
+      text: '西装'
+    }, {
+      id: 111,
+      text: '西装'
+    }]
+  }, {
+    id: 32,
+    text: '一体机',
+    subItems: [{
+      id: 111,
+      text: '西装'
+    }]
+  }]
+}, {
+  id: 3,
+  text: '娱乐',
+  childItem: [{
+    id: 31,
+    text: '电影',
+    subItems: [{
+      id: 111,
+      text: '电影院'
+    }, {
+      id: 111,
+      text: '电影票'
+    }]
+  }, {
+    id: 32,
+    text: '游戏',
+    subItems: [{
+      id: 111,
+      text: 'LOL'
+    }, {
+      id: 111,
+      text: 'WOW'
+    }, {
+      id: 111,
+      text: 'DNF'
+    }, {
+      id: 111,
+      text: 'CF'
+    }]
+  }]
+}, {
+  id: 3,
+  text: '珠宝',
+  childItem: [{
+    id: 31,
+    text: '项链',
+    subItems: [{
+      id: 111,
+      text: '珍珠'
+    }, {
+      id: 111,
+      text: '玛瑙'
+    }]
+  }, {
+    id: 32,
+    text: '戒指',
+    subItems: [{
+      id: 111,
+      text: '扳指'
+    }, {
+      id: 111,
+      text: '指环'
+    }, {
+      id: 111,
+      text: '对戒'
+    }, {
+      id: 111,
+      text: '扳指'
+    }, {
+      id: 111,
+      text: '指环'
+    }, {
+      id: 111,
+      text: '对戒'
+    }]
   }]
 }];
 
-export default {
+export
+default {
   getMenus(userType, cb) {
     setTimeout(() => cb(menu), 100);
   },

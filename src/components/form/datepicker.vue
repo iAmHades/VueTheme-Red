@@ -1,3 +1,9 @@
+<!--
+    日期组件
+    Taoxin    2016-05-18
+    @params   
+-->
+
 <template>
   <div class="cov-vue-date">
     <div class="datepickbox">

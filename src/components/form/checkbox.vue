@@ -1,3 +1,9 @@
+<!--
+    checkbox组件
+    Taoxin    2016-05-01
+    @params   value
+-->
+
 <template>
   <div class="md-checkbox">
     <input v-model="value"
