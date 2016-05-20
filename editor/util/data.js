@@ -57,8 +57,8 @@ export const menuCompData = [{
 		key: 'from'
 	}, {
 		id: 316,
-		text: 'img',
-		type: 'img',
+		text: 'valide code',
+		type: 'valide',
 		key: 'from'
 	}]
 }, {
@@ -66,6 +66,18 @@ export const menuCompData = [{
 	text: '表格',
 	type: 'component',
 	key: 'grid',
+	url: '#'
+}, {
+	id: 33,
+	text: '轮播',
+	type: 'component',
+	key: 'img',
+	url: '#'
+}, {
+	id: 34,
+	text: '进度条',
+	type: 'progress',
+	key: 'progress',
 	url: '#'
 }];
 
