@@ -65,8 +65,12 @@
     </div>
 
 
-    <div class="col-lg-12">
+    <!-- <div class="col-lg-12">
       <mdsearch ></mdsearch>
+    </div> -->
+    <div class="col-lg-12">
+
+    <mdverifycode>222</mdverifycode>
     </div>
   </div>
 </template>
@@ -78,6 +82,7 @@
   import mdtextarea from './../components/form/textarea.vue';
   import mdcounter from './../components/form/counter.vue';
   import mdsearch from './../components/form/search.vue';
+  import mdverifycode from './../components/verifyCode.vue';
   export default {
     components: {
       mdinput,
@@ -86,7 +91,8 @@
       mdselect,
       mdtextarea,
       mdcounter,
-      mdsearch
+      mdsearch,
+      mdverifycode
     },
     data() {
       return {
