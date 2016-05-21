@@ -75,6 +75,12 @@ export const menuCompData = [{
 	url: '#'
 }, {
 	id: 34,
+	text: '图片展示',
+	type: 'component',
+	key: 'imgs',
+	url: '#'
+}, {
+	id: 35,
 	text: '进度条',
 	type: 'progress',
 	key: 'progress',
