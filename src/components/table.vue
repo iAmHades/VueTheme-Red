@@ -83,7 +83,7 @@
             },
             total(value) {
                 let pagesize = this.pagesize ? this.pagesize : 10;
-                let pagesizetotal = this.getpagenationsize(newValue ? newValue : this.total, pagesize);
+                let pagesizetotal = this.getpagenationsize(value ? value : this.total, pagesize);
                 if (pagesizetotal <= 10) {
                     this.isshow = false;
                     this.shownums = pagesizetotal;
