@@ -3,7 +3,7 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th v-for="key in columnsname" class="thead_th">{{key}}</th>
+                <th v-for="key in columnsname" class="thead_th" :style="{width:columnswidth[key]}">{{key}}</th>
             </tr>
         </thead>
         <tbody>
@@ -12,15 +12,15 @@
             </tr>
         </tbody>
         <tfoot>
-          <tr class="col-xs-3">
-            <td>
+          <tr >
+            <td style="width:100px;">
               <div class="dataTables_info">
                 第{{pageCurrent+1}} /{{pageTotal}}页 每页{{pagesize}}条/共{{total?total:0}}条记录
               </div>
             </td>  
           </tr>
-          <tr class="col-xs-8">
-            <td>
+          <tr>
+            <td style="width:500px;">
                 <ul class="pagination">
                     <li v-on:click="clickToPrev()" v-show="isshow" class="paginate_button previous">
                         <a>上一页</a>
@@ -35,7 +35,7 @@
            </tr>
         </tfoot>
     </table>
-    </div>
+</div>
 </template>
 <script type="text/ecmascript-6">
     module.exports = {
@@ -55,6 +55,7 @@
                 columnsname: columnObject[0],
                 columnskey: columnObject[1],
                 columnsrender: columnObject[2],
+                columnswidth: columnObject[3],
                 isshow: isshow,
                 startnums: 1,
                 shownums: shownums,
@@ -80,6 +81,7 @@
                 this.columnsname = columnObject[0];
                 this.columnskey = columnObject[1];
                 this.columnsrender = columnObject[2];
+                this.columnswidth = columnObject[3];
             },
             total(value) {
                 let pagesize = this.pagesize ? this.pagesize : 10;
@@ -110,7 +112,9 @@
             renderHtml(values) {
                values.forEach((value) => {
                     Object.keys(this.columnsrender).forEach((key) => {
-                        value[key] = this.columnsrender[key](value[key]);
+                        if(this.columnsrender[key]){
+                          value[key] = this.columnsrender[key](value[key]);
+                        }
                     });
                 });
             },
@@ -174,16 +178,19 @@
                 var columnsname = [];
                 var columnskey = [];
                 var columnsrender = {};
+                var columnswidth={};
                 for (var key in columnsMap) {
                     if (typeof(columnsMap[key]) === 'string') {
                         columnsname.push(columnsMap[key]);
+                        columnswidth[key]='100px';
                     } else {
                         columnsname.push(columnsMap[key].text);
                         columnsrender[key] = columnsMap[key].render;
+                        columnswidth[columnsMap[key].text]=columnsMap[key].width;
                     }
                     columnskey.push(key);
                 }
-                return [columnsname, columnskey, columnsrender];
+                return [columnsname, columnskey, columnsrender, columnswidth];
             },
             rowClick(index) {
                 if (this.$parent.rowClick && this.$isFunc(this.$parent.rowClick)) {
