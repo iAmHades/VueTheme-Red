@@ -56,7 +56,7 @@
             isshowcomp:false,
             isshowform:false,
             selectedMenu:0
-          };    
+          };
         },
         ready() {
            this.getMenus();
@@ -93,7 +93,7 @@
                 }
             },
             clickForm(menu){
-                this.selectedMenu = menu.id; 
+                this.selectedMenu = menu.id;
             },
             clickFormDiv(menu){
                 if(menu.submenu){

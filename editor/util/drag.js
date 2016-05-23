@@ -86,7 +86,7 @@ Draggable.prototype.extend = (source, target) => {
 	return source;
 };
 
-Draggable.prototype.init = function() {
+Draggable.prototype.init = function init() {
 	// 绑定事件;
 	this.bindEvent();
 };
