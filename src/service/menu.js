@@ -54,6 +54,14 @@ const leftmenu = [{
   id: 5,
   text: 'Datepicker',
   url: '#/admin/datepicker'
+}, {
+    id: 6,
+    text: 'Dropdown',
+    url: '#/admin/dropdown'
+}, {
+  id:7,
+  text: 'Upload',
+  url: '#/admin/upload'
 }];
 const custommenu = [{
   id: 1,

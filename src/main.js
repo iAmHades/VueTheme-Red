@@ -14,6 +14,8 @@ import modal from './views/modal.vue';
 import datepicker from './views/datepicker.vue';
 import form from './views/form.vue';
 import custommenu from './views/custommenu.vue';
+import dropdown from './views/dropdown.vue';
+import upload from './views/upload.vue';
 window.Vue = Vue;
 Vue.use(Router);
 const router = new Router({
@@ -61,6 +63,12 @@ router.map({
            },
            '/datepicker':{
                component:datepicker
+           },
+           '/dropdown':{
+               component:dropdown
+           },
+           '/upload':{
+              component:upload
            }
 		}
 	},

@@ -26,7 +26,7 @@
     <div class="col-lg-12">
       <h2>CheckBox</h2>
       <div style="text-align: left">
-        
+
         <p>Your hobbies: {</p>
         <p>"basketball":{{checkbox.basketball}}</p>
         <p>"football":{{checkbox.football}}</p>
@@ -65,12 +65,12 @@
     </div>
 
 
-    <!-- <div class="col-lg-12">
+    <div class="col-lg-12">
       <mdsearch ></mdsearch>
-    </div> -->
+    </div>
     <div class="col-lg-12">
 
-    <mdverifycode>222</mdverifycode>
+    <mdverifycode></mdverifycode>
     </div>
   </div>
 </template>
