@@ -29,11 +29,74 @@ export const menuCompData = [{
 	text: '表单',
 	type: 'component',
 	key: 'from',
-	url: '#'
+	url: '#',
+	submenu: [{
+		id: 311,
+		text: 'text',
+		type: 'text',
+		key: 'from'
+	}, {
+		id: 312,
+		text: 'textarea',
+		type: 'textarea',
+		key: 'from'
+	}, {
+		id: 313,
+		text: 'date',
+		type: 'date',
+		key: 'from'
+	}, {
+		id: 314,
+		text: 'select',
+		type: 'select',
+		key: 'from'
+	}, {
+		id: 315,
+		text: 'count',
+		type: 'count',
+		key: 'from'
+	}, {
+		id: 316,
+		text: 'valide code',
+		type: 'valide',
+		key: 'from'
+	}]
 }, {
 	id: 32,
 	text: '表格',
 	type: 'component',
 	key: 'grid',
+	url: '#'
+}, {
+	id: 33,
+	text: '轮播',
+	type: 'component',
+	key: 'img',
+	url: '#'
+}, {
+	id: 34,
+	text: '图片展示',
+	type: 'component',
+	key: 'imgs',
+	url: '#'
+}, {
+	id: 35,
+	text: '进度条',
+	type: 'progress',
+	key: 'progress',
+	url: '#'
+}];
+
+export const customeMenuData = [{
+	id: '123abcef',
+	text: '菜单一',
+	url: '#'
+}, {
+	id: '123abceg',
+	text: '菜单二',
+	url: '#'
+}, {
+	id: '123abcej',
+	text: '菜单三',
 	url: '#'
 }];

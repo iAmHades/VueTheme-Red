@@ -8,9 +8,15 @@
              <li>
                 <div @click="showSubMenu()">控件</div>
                 <ul v-show="isshowcomp" class="dragtarget">
-                  <li :class="{'menu-active':selectedMenu===submenu.id}" draggable="true" v-for="submenu in menus" @click="dragComponent(submenu)">{{submenu.text}}</li>
+                  <li :class="{'menu-active':selectedMenu===menu.id}" draggable="true" v-for="menu in menus"  @click="dragComponent(menu)">
+                      <div @click="clickFormDiv(menu)">{{menu.text}}</div>
+                      <ul v-if="menu.submenu" class="dragtarget" v-show="isshowform" >
+                          <li :class="{'menu-active':selectedMenu===smenu.id}" draggable="true" v-for="smenu in menu.submenu"  @click="clickForm(smenu)">
+                            <div>{{smenu.text}}</div>
+                          </li>
+                      </ul>
+                  </li>
                 </ul>
-             </li>
              <li>设置</li>
            </ul>
        </div>
@@ -48,8 +54,9 @@
             dragDomWidth: 0,
             dragDomHeight: 0,
             isshowcomp:false,
+            isshowform:false,
             selectedMenu:0
-          };    
+          };
         },
         ready() {
            this.getMenus();
@@ -80,7 +87,17 @@
                             path: url
                         });
                     }
-                    this.selectedMenu = menu.id;
+                    if(!menu.submenu){
+                      this.selectedMenu = menu.id;
+                    }
+                }
+            },
+            clickForm(menu){
+                this.selectedMenu = menu.id;
+            },
+            clickFormDiv(menu){
+                if(menu.submenu){
+                    this.isshowform = !this.isshowform;
                 }
             }
         }
