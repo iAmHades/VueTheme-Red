@@ -66,26 +66,25 @@
                 pagesize: '10',
                 start: '0',
                 columns: {
-                    _id: '编号',
+                    _id: {
+                        text:'编号',
+                        width:'10%'
+                    },
                     type: '组件类型',
                     name: '组件名字',
                     remarks: '备注',
-                    op: '查看',
-                    del: '操作'
+                    op: {
+                       text:'查看',
+                       render: (value) => '<button @click.stop="edit">查看</button>'
+                    }
                 },
                 showModal:false
             };
         },
         ready(){
-           this.translateHtml(this.gridData);
+          
         },
         methods: {
-            translateHtml(data){
-                data.forEach((record) => {
-                  record._id = '<a v-link="admin">'+record._id+'</a>';
-                  record.op = '<button @click.stop="edit">查看</button>';
-                });
-            },
             edit() {
                 // alert('edit');
                 this.showModal = true;
