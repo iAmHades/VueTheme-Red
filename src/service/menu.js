@@ -8,6 +8,7 @@ const menu = [{
 }, {
   id: 2,
   text: 'Pages',
+  url:'#'
 }, {
   id: 3,
   text: 'Admin',
@@ -15,6 +16,7 @@ const menu = [{
 }, {
   id: 4,
   text: 'Components',
+  url:'#',
   child: [{
     id: 41,
     text: 'from'
