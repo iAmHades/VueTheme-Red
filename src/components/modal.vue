@@ -9,7 +9,6 @@
                     <slot name="header">
                         default header
                     </slot>
-
                 </div>
 
                 <div class="modal-body">
