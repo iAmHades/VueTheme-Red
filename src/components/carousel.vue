@@ -95,7 +95,6 @@
         };
         // 手指抬起时 对比位置 进行处理
         const touchEnd = (event) => {
-          console.log(moveX);
           if (moveX !== 0){
             if ((moveX-startX) > 30){
               self.nex(2);
