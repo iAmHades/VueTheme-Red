@@ -20,6 +20,7 @@ export const getLeftMenus = ({
 	);
 };
 
+
 export const getCategory = ({
 	dispatch
 }) => {
@@ -50,4 +51,12 @@ export const getInitCard = ({
 	card.getInitCard(
 		cardData => dispatch('getInitCard', cardData)
 	);
+};
+
+export const getCustomMenus = ({
+  dispatch, state
+  }, userType) => {
+  menu.getCustomMenus(
+    userType, menus => dispatch('getCustomMenus', menus)
+  );
 };

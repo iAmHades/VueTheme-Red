@@ -9,7 +9,8 @@ module.exports = {
         'alert':true,
         '$':true,
         'Draggable':true,
-        'VerifyCode':true
+        'VerifyCode':true,
+        'Qiniu':true,
     },
     rules: {
         'arrow-parens': 0,
