@@ -60,8 +60,8 @@ const leftmenu = [{
   url:'#/admin/tao'
 }, {
   id:7,
-  text:'ProgressBa',
-  url:'#/admin/progressBa'
+  text:'Progress',
+  url:'#/admin/progress'
 }, {
   id:8,
   text:'Switchs',

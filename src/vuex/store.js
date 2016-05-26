@@ -12,7 +12,6 @@ Vue.config.debug = true;
 
 const debug = process.env.NODE_ENV !== 'production';
 const allModules = [menu, category, imgblog, card, thumbnail, tao];
-console.log('allModules', allModules);
 const state = {};
 const mutations = {};
 allModules.forEach((module) => {

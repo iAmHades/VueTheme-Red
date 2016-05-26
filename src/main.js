@@ -14,7 +14,7 @@ import modal from './views/modal.vue';
 import carousel from './views/carousel.vue';
 import thumbnail from './views/thumbnail.vue';
 import tao from './views/tao.vue';
-import progressBa from './views/progressBa.vue';
+import progress from './views/progress.vue';
 import switchs from './views/switchs.vue';
 import scrollmonitor from './views/scrollmonitor.vue';
 import lazyLoad from './views/lazyLoad.vue';
@@ -73,8 +73,8 @@ router.map({
            '/tao':{
            	 component:tao
            },
-           '/progressBa':{
-           	 component:progressBa
+           '/progress':{
+           	 component:progress
            },
            '/switchs':{
            	 component:switchs
