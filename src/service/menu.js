@@ -47,35 +47,35 @@ const leftmenu = [{
 }, {
   id: 4,
   text: 'Modal',
-  url: '#/admin/modal'
+  url: '/admin/modal'
 }, {
   id: 5,
   text: 'Carousel',
-  url: '#/admin/carousel'
+  url: '/admin/carousel'
 }, {
   id: 6,
   text: 'Thumbnail',
-  url: '#/admin/thumbnail'
+  url: '/admin/thumbnail'
 }, {
   id: 6,
   text: 'Tao',
-  url: '#/admin/tao'
+  url: '/admin/tao'
 }, {
   id: 7,
   text: 'Progress',
-  url: '#/admin/progress'
+  url: '/admin/progress'
 }, {
   id: 8,
   text: 'Switchs',
-  url: '#/admin/switchs'
+  url: '/admin/switchs'
 }, {
   id: 9,
   text: "ScrollMonitor",
-  url: '#/admin/scrollmonitor'
+  url: '/admin/scrollmonitor'
 }, {
   id: 10,
   text: "lazyLoad",
-  url: "#/admin/lazyLoad"
+  url: "/admin/lazyLoad"
 }];
 
 export default {
