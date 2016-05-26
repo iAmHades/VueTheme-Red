@@ -7,12 +7,19 @@ Taoxin 2016-05-20
     <input id="inputCode" type="text" class="verify-input form-control"/>
 
     <span id="code" class="verify-span"></span>
-    <button @click="verify">222</button>
+    <!-- <button @click="verify">222</button> -->
   </div>
 </template>
 
 <script>
   module.exports = {
+    props:{
+      verifyresult:{
+        type:Boolean,
+        required: true,
+        twoWay:true
+      }
+    },
     ready(){
       const inp = document.getElementById('inputCode');
       const code = document.getElementById('code');
@@ -21,17 +28,17 @@ Taoxin 2016-05-20
       const c = new VerifyCode({
         inputArea: inp,
         codeArea: code,
-        bgColor:'#ffffff',
-        randomBg : false,
+        bgColor:'',
+        randomBg : true,
         click2refresh: true,
         false2refresh: true,
         validateEven: 'blur',
         validateFn(result){
-          if (result) {
-            alert('验证成功');
-          } else {
-            alert('验证失败');
-          }
+            this.verifyresult = result;
+            alert(this.verifyresult);
+            // if (!result) {
+            //   alert('验证码输入有误');
+            // }
         }
       });
     },

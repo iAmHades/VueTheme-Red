@@ -8,7 +8,7 @@ Taoxin  2016-05-19
         <li v-for="menu in data"><a >{{menu.text}}</a>
             <ul class="subs" v-if="menu.childItem">
             <li  v-for="child in menu.childItem">
-                 <a v-for="sub in child.subItems" href="http://www.baidu.com" target="_blank">{{sub.text}}</a>
+                 <a href="http://www.baidu.com" target="_blank">{{child.text}}</a>
             </li>
           </ul>
         </li>
@@ -70,12 +70,13 @@ Taoxin  2016-05-19
     padding:5px 20px;
     text-decoration:none;
     transition:0.5s;
+    width: 100px;
 }
 
 .dropdown-nav li:hover > a {
-    background:#8CCA33;
+    /*background:#8CCA33;*/
     border-color:#6E67A6;
-    color:#fff;
+    color:red;
 }
 
 .dropdown-nav li:hover ul.subs {
@@ -123,7 +124,7 @@ Taoxin  2016-05-19
 }
 
 .dropdown-nav ul li a:hover {
-    background:#8CCA33;
+    /*background:#8CCA33;*/
     background-image: -webkit-gradient(linear, 0% 0%, 0% 95%, from(rgba(255, 255, 255, 0.5)), to(rgba(255, 255, 255, 0)));
     background-image: -moz-linear-gradient(-90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
     background-image: -o-linear-gradient(-90deg,rgba(255,255,255,0.5),rgba(255,255,25,0));
