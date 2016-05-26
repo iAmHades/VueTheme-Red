@@ -1,3 +1,4 @@
+<template>
     <div class="slick-trackT">
      <div class="last" v-on:click="nex(2)">
        <div>
