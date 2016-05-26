@@ -42,8 +42,8 @@ const leftmenu = [{
   url: '/admin/layout'
 }, {
   id: 2,
-  text: 'From',
-  url: '/admin/from'
+  text: 'Form',
+  url: '/admin/form'
 }, {
   id: 3,
   text: 'Table',

@@ -7,14 +7,14 @@ Taoxin   2016-05-19
         <div class="dropdown-search-bar">
         <nav role="navigation">
         <ul class="nav nav-tabs">
-          <li role="presentation" class="active"><a tabindex="-1" data-toggle="tab">Home</a></li>
-          <li role="presentation"><a tabindex="-1" data-toggle="tab">Profile</a></li>
-          <li role="presentation"><a tabindex="-1" data-toggle="tab">Messages</a></li>
+          <li role="presentation" class="active"><a tabindex="-1" data-toggle="tab">店铺</a></li>
+          <li role="presentation"><a tabindex="-1" data-toggle="tab">商品</a></li>
+          <!-- <li role="presentation"><a tabindex="-1" data-toggle="tab">shang j</a></li> -->
         </ul>
         </nav>
     </div>
-    <input class="form-control input-search-bar" />
-    <button class="btn-search-bar">搜索</button>
+    <input class="form-control input-search-bar" placeholder="🔍" v-model="value"/>
+    <button class="btn-search-bar" @click="search">搜索</button>
     </div>
  </template>
 <script>
@@ -29,31 +29,6 @@ Taoxin   2016-05-19
         type: String,
         required: false,
         twoWay: false
-      },
-      disabled: {
-        type: Boolean,
-        required: false,
-        twoWay: false
-      },
-      type: {
-        type: String,
-        required: false,
-        twoWay: false
-      },
-      lazy: {
-        type: Boolean,
-        required: false,
-        twoWay: false
-      },
-      number: {
-        type: Boolean,
-        required: false,
-        twoWay: false
-      },
-      debounce: {
-        type: Number,
-        required: false,
-        twoWay: false
       }
     },
     data() {
@@ -64,6 +39,11 @@ Taoxin   2016-05-19
     compiled(){
     },
     methods: {
+      search(){
+        if (this.value){
+          this.$parent.search();
+        }
+      }
     }
   };
 </script>
@@ -76,6 +56,7 @@ Taoxin   2016-05-19
  }
  .dropdown-search-bar{
     float: left;
+    width: 400px;
  }
  .btn-search-bar{
     float: left;
@@ -94,5 +75,17 @@ Taoxin   2016-05-19
     outline: none;
     background-color: #eee;
 }
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 4px 15px;
+}
+.nav-tabs>li {
+    float: left;
+    margin-bottom: 0px;
+    height: 28px;
+}
+
+
  </style>
 
