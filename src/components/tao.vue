@@ -71,7 +71,7 @@
 		methods:{
 			onmouseover(i){
 				this.src = this.tao[i].img;
-				this.exhibition = i;		
+				this.exhibition = i;
 			},
 			taoQclick(){
 				this.isCa = true;
@@ -82,14 +82,14 @@
 			taoOnmouseover(event){
 				// 鼠标移动至大图事件
 				this.isMask = true;
-				const dom = document.querySelector("#img");
-				const domQ = document.querySelector("#imgQ");
+				const dom = document.querySelector('#img');
+				const domQ = document.querySelector('#imgQ');
 				this.rectLeft = dom.getBoundingClientRect().left;
 				this.rectTop = dom.getBoundingClientRect().top;
 				this.rectRight = dom.getBoundingClientRect().right;
 				this.rectBottom = dom.getBoundingClientRect().bottom;
-				this.setLeft = dom.offsetLeft; 
-				this.setTop = dom.offsetTop; 
+				this.setLeft = dom.offsetLeft;
+				this.setTop = dom.offsetTop;
 				this.zoomlevel = this.realzoomlevel;
 				this.setWidth = dom.offsetWidth;
 				if (this.zoomlevel > this.setWidth){
@@ -99,11 +99,11 @@
 				if (this.zoomlevel > this.setHeight){
 					this.zoomlevel = this.setHeight;
 				}
-				document.querySelector('.taoQw').style.width = this.zoomlevel + "px";
-				document.querySelector('.taoQw').style.height = this.zoomlevel + "px";
+				document.querySelector('.taoQw').style.width = this.zoomlevel + 'px';
+				document.querySelector('.taoQw').style.height = this.zoomlevel + 'px';
 				this.half = this.zoomlevel/2;
 				this.multiple = dom.offsetWidth/this.zoomlevel;
-				domQ.style.width = 385*this.multiple+"px";
+				domQ.style.width = 385*this.multiple+'px';
 				this.fsetWidth = 385*this.multiple;
 				this.fsetHeight = (this.setHeight/this.setWidth)*(385*this.multiple);
 			},
@@ -113,9 +113,9 @@
 				self.isMask = true;
 				const pageX = event.pageX; // 鼠标位置（x）
 				const pageY =event.pageY; // 鼠标位置（x）
-				const dom = document.querySelector("#img"); // 图片
-				// 处理 遮罩层
-				let x = 0; // 遮罩层的位置X 
+				const dom = document.querySelector('#img'); // 图片
+								// 处理 遮罩层
+				let x = 0; // 遮罩层的位置X
 				let y = 0; // 遮罩层的位置Y
 				if ((pageX + this.half) >= self.rectRight){
 					x = self.rectRight - self.rectLeft + self.setLeft - this.zoomlevel;
@@ -131,7 +131,7 @@
 				} else {
 					y = pageY - this.rectTop + this.setTop - this.half;
 				}
-				const domY = document.querySelector("#isMask"); // 遮罩层
+				const domY = document.querySelector('#isMask'); // 遮罩层
 				domY.style.webkitTransform = 'translate('+x+'px,'+y+'px)';
 				const styX = (self.setLeft - x) *this.multiple;
 				const styY = (self.setTop - y) *this.multiple;
@@ -144,7 +144,7 @@
 				console.log('styX', styX);
 				console.log('styY', styY);
 				console.log('sddX', sddX);
-				document.querySelector("#imgQ").style.webkitTransform = 'translate('+sddX+'px, '+sddY+'px)';
+				document.querySelector('#imgQ').style.webkitTransform = 'translate('+sddX+'px, '+sddY+'px)';
 			},
 			taoMouseout(){
 				this.isMask = false;

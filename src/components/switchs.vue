@@ -31,14 +31,14 @@
 			if (this.display > len){
 				this.display = len;
 			}
-			for (let i=0; i < len; i++){				
+			for (let i=0; i < len; i++){
 				this.title[i].onclick = () => {
 					this.sle(i);
 				};
 				this.classNames.push(this.title[i].className);
 			}
-			this.title[this.display].className = this.classNames[this.display] + " "+this.customclass;
-			this.content[this.display].style.display = "block";
+			this.title[this.display].className = this.classNames[this.display] + ' '+this.customclass;
+			this.content[this.display].style.display = 'block';
 		},
 		methods:{
 			sle(i){
@@ -48,9 +48,9 @@
 		watch:{
 			display(a, b){
 				this.title[b].className = this.classNames[b];
-				this.title[a].className = this.classNames[a] + " "+this.customclass;
-				this.content[b].style.display = "none";
-				this.content[a].style.display = "block";
+				this.title[a].className = this.classNames[a] + ' '+this.customclass;
+				this.content[b].style.display = 'none';
+				this.content[a].style.display = 'block';
 			}
 		}
 

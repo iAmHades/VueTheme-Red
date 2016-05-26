@@ -30,10 +30,7 @@
 				const top = {};
 				top['topw'+self.s] = document.documentElement.clientHeight;
 				top['topq'+self.s] = document.querySelector('img').getBoundingClientRect().top;
-				console.log('topw'+self.s, top['topw'+self.s]);
-				console.log('topq'+self.s, top['topq'+self.s]);
 				if (top['topq'+self.s] < (20+top['topw'+self.s])){
-					console.log('.aa');
 					this.srcq = this.src;
 				}
 			}

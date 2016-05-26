@@ -25,7 +25,7 @@
 		},
 		data(){
 			return {
-				daq:"1"
+				daq:'1'
 			};
 		},
 		ready(){
@@ -38,10 +38,9 @@
 			const img = document.querySelectorAll('img');
 				const len = img.length;
 			for (let i = 0; i<len; i++){
-				img[i].setAttribute('src', "http://temp.im/288x288/FF9500/000");
+				img[i].setAttribute('src', 'http://temp.im/288x288/FF9500/000');
 			}
 			this.loa();
-			
 		},
 		methods:{
 			load(topqdom, topw){
@@ -50,8 +49,8 @@
 					if (topq < (20+topw) && topq > -offse){
 						console.log('topw', topw);
 						console.log('topq', topq);
-						const src1 = topqdom.getAttribute("src1");
-						const src2 = topqdom.getAttribute("src2");
+						const src1 = topqdom.getAttribute('src1');
+						const src2 = topqdom.getAttribute('src2');
 						topqdom.setAttribute('src', src1);
 					}
 				},

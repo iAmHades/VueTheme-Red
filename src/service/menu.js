@@ -74,12 +74,12 @@ const leftmenu = [{
   url: '/admin/switchs'
 }, {
   id: 9,
-  text: "ScrollMonitor",
+  text: 'ScrollMonitor',
   url: '/admin/scrollmonitor'
 }, {
   id: 10,
-  text: "lazyLoad",
-  url: "/admin/lazyLoad"
+  text: 'lazyLoad',
+  url: '/admin/lazyLoad'
 }, {
   text: 'Datepicker',
   url: '/admin/datepicker'
@@ -303,6 +303,14 @@ const custommenu = [{
       text: '对戒'
     }]
   }]
+}, {
+  id:9,
+  text:'ScrollMonitor',
+  url:'/admin/scrollmonitor'
+}, {
+  id:10,
+  text:'lazyLoad',
+  url:'/admin/lazyLoad'
 }];
 
 export default {
