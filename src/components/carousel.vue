@@ -1,4 +1,3 @@
-<template>
     <div class="slick-trackT">
      <div class="last" v-on:click="nex(2)">
        <div>
@@ -53,7 +52,7 @@
         const len = z.length;
         f.style.width=len.toString()+'00%';
         for (let i = 0; i<len; i++){
-          if (switchType === "1"){
+          if (switchType === '1'){
             z[i].style.width=(100/len)+'%';
            } else {
             z[i].style.width='0';
@@ -88,7 +87,7 @@
           moveX = touch.pageX;
           const trackW = document.querySelector('.slick-trackT').clientWidth;
           let tr = 0;
-          if (switchType === "1"){
+          if (switchType === '1'){
             tr = -(self.exhibition*trackW)+(moveX-startX);
           }
           f.style.webkitTransform = 'translate('+tr+'px,0px)';
@@ -115,19 +114,18 @@
         // 自动切换
 
         let sI = 0;
-        if (self.autoplay === "1"){
+        if (self.autoplay === '1'){
           sI = setInterval(() => {
             self.nex(1);
           }, 3000);
         }
-        
         f.onmouseover = () => {
-          if (self.autoplay === "1"){
+          if (self.autoplay === '1'){
             window.clearInterval(sI);
           }
         };
         f.onmouseout = () => {
-          if (self.autoplay === "1"){
+          if (self.autoplay === '1'){
             sI = setInterval(() => {
                     self.nex(1);
               }, 3000);
@@ -163,11 +161,11 @@
                 self.slick.style.webkitTransform = 'translate('+tr+'%,0px)';
                 break;
               default:
-                  self.slot[a].className = "xiaoshi";
+                  self.slot[a].className = 'xiaoshi';
                   setTimeout(() => {
                     self.slot[a].style.width = 0;
                     self.slot[self.exhibition].style.width = (100/self.slotLength)+'%';
-                    self.slot[self.exhibition].className = "xianshi";
+                    self.slot[self.exhibition].className = 'xianshi';
                   }, 490);
             }
         },
@@ -184,12 +182,12 @@
                 if (this.afterChange){
                   this.afterChange();
                 }
-                self.slot[a].className = "xiaoshi";
+                self.slot[a].className = 'xiaoshi';
                 setTimeout(() => {
                     self.slot[a].style.width = 0;
                     self.slot[self.exhibition].style.width = (100/self.slotLength)+'%';
-                    self.slot[self.exhibition].className = "xianshi";
-                }, 490);        
+                    self.slot[self.exhibition].className = 'xianshi';
+                }, 490);
             }
         }
       }

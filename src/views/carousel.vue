@@ -29,7 +29,6 @@
 		 	onchange(){
 		 		alert(1);
 		 	},
-		 	
 		}
 	};
 </script>

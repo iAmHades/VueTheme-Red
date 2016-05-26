@@ -68,12 +68,12 @@ const leftmenu = [{
   url:'#/admin/switchs'
 }, {
   id:9,
-  text:"ScrollMonitor",
-  url:'#/admin/scrollmonitor'
+  text:'ScrollMonitor',
+  url:'/admin/scrollmonitor'
 }, {
   id:10,
-  text:"lazyLoad",
-  url:"#/admin/lazyLoad"
+  text:'lazyLoad',
+  url:'/admin/lazyLoad'
 }];
 
 export default {
