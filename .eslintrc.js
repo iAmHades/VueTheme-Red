@@ -8,7 +8,8 @@ module.exports = {
         'Vue':true,
         'alert':true,
         '$':true,
-        'Draggable':true
+        'Draggable':true,
+        'VerifyCode':true
     },
     rules: {
         'arrow-parens': 0,

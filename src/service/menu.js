@@ -8,7 +8,7 @@ const menu = [{
 }, {
   id: 2,
   text: 'Pages',
-  url:'#'
+  url: '#'
 }, {
   id: 3,
   text: 'Admin',
@@ -16,7 +16,7 @@ const menu = [{
 }, {
   id: 4,
   text: 'Components',
-  url:'#',
+  url: '#',
   child: [{
     id: 41,
     text: 'from'
@@ -47,14 +47,42 @@ const leftmenu = [{
 }, {
   id: 4,
   text: 'Modal',
-  url: '/admin/modal'
+  url: '#/admin/modal'
+}, {
+  id: 5,
+  text: 'Carousel',
+  url: '#/admin/carousel'
+}, {
+  id: 6,
+  text: 'Thumbnail',
+  url: '#/admin/thumbnail'
+}, {
+  id: 6,
+  text: 'Tao',
+  url: '#/admin/tao'
+}, {
+  id: 7,
+  text: 'Progress',
+  url: '#/admin/progress'
+}, {
+  id: 8,
+  text: 'Switchs',
+  url: '#/admin/switchs'
+}, {
+  id: 9,
+  text: "ScrollMonitor",
+  url: '#/admin/scrollmonitor'
+}, {
+  id: 10,
+  text: "lazyLoad",
+  url: "#/admin/lazyLoad"
 }];
 
 export default {
   getMenus(userType, cb) {
-    setTimeout(() => cb(menu), 100);
-  },
-  getLeftMenus(userType, cb) {
-    cb(leftmenu);
-  }
+      setTimeout(() => cb(menu), 100);
+    },
+    getLeftMenus(userType, cb) {
+      cb(leftmenu);
+    }
 };

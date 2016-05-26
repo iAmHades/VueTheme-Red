@@ -1,7 +1,8 @@
 <template>
 <div>
 <leftlayout>
-   <leftmenu slot="left_menu" :data="menus"></leftmenu>
+   <leftmenu slot="left_menu" :data="menus">
+   </leftmenu>
    <router-view slot="left_container" class="view" transition="expand" transition-mode="out-in"></router-view>
 </leftlayout>
 </div>
