@@ -1,4 +1,4 @@
-<template>
+h<template>
     <div>
     <button  @click="showmodal">Show Modal</button>
     <modal :show.sync="showModal">

@@ -4,12 +4,15 @@ import menu from './modules/menu';
 import category from './modules/category';
 import imgblog from './modules/imgblog';
 import card from './modules/card';
+import thumbnail from './modules/thumbnail';
 import createLogger from 'vuex/logger';
-
+import tao from './modules/tao';
 Vue.use(Vuex);
 Vue.config.debug = true;
+
 const debug = process.env.NODE_ENV !== 'production';
-const allModules = [menu, category, imgblog, card];
+const allModules = [menu, category, imgblog, card, thumbnail, tao];
+console.log('allModules', allModules);
 const state = {};
 const mutations = {};
 allModules.forEach((module) => {
@@ -27,6 +30,7 @@ allModules.forEach((module) => {
         }
     });
 });
+
 export default new Vuex.Store({
     state,
     mutations,

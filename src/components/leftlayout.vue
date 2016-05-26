@@ -1,4 +1,5 @@
 <template>
+
 <div class="container-fluid admin-panel">
   <div class="row">
     <div class="col-md-2 leftmenu-borad">

@@ -11,6 +11,15 @@ import admin from './views/admin.vue';
 import table from './views/table.vue';
 import layout from './views/layout.vue';
 import modal from './views/modal.vue';
+import carousel from './views/carousel.vue';
+import thumbnail from './views/thumbnail.vue';
+import tao from './views/tao.vue';
+import progressBa from './views/progressBa.vue';
+import switchs from './views/switchs.vue';
+import scrollmonitor from './views/scrollmonitor.vue';
+import lazyLoad from './views/lazyLoad.vue';
+
+
 window.Vue = Vue;
 Vue.use(Router);
 const router = new Router({
@@ -27,6 +36,8 @@ Object.keys(filters).forEach((k) => {
 Vue.use(require('vue-resource'));
 Vue.http.options.root = '/root';
 Vue.use(require('./ext/vue_ext.js'));
+
+console.log('store', store);
 
 router.map({
 	'/404': {
@@ -52,6 +63,27 @@ router.map({
            },
            '/modal':{
                component:modal
+           },
+           '/carousel':{
+           	component:carousel
+           },
+           '/thumbnail':{
+           	 component:thumbnail
+           },
+           '/tao':{
+           	 component:tao
+           },
+           '/progressBa':{
+           	 component:progressBa
+           },
+           '/switchs':{
+           	 component:switchs
+           },
+           '/scrollmonitor':{
+              component:scrollmonitor
+           },
+           '/lazyLoad':{
+              component:lazyLoad
            }
 		}
 	}

@@ -7,7 +7,8 @@ module.exports = {
     globals:{
         'Vue':true,
         'alert':true,
-        '$':true
+        '$':true,
+        'VerifyCode':true
     },
     rules: {
         'arrow-parens': 0,
