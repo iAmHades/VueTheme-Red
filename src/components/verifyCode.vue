@@ -12,17 +12,16 @@ Taoxin 2016-05-20
 <script>
   module.exports = {
     props:{
-      verifyresult:{
+      verify:{
         type:Boolean,
-        required: true,
+        required: false,
         twoWay:true
       }
     },
     ready(){
+      const self = this;
       const inp = document.getElementById('inputCode');
       const code = document.getElementById('code');
-      const inp2 = document.getElementById('inputCode2');
-      const code2 = document.getElementById('code2');
       const c = new VerifyCode({
         inputArea: inp,
         codeArea: code,
@@ -32,17 +31,11 @@ Taoxin 2016-05-20
         false2refresh: true,
         validateEven: 'blur',
         validateFn(result){
-            this.verifyresult = result;
-            alert(this.verifyresult);
-            // if (!result) {
-            //   alert('验证码输入有误');
-            // }
+          self.verify = result;
         }
       });
     },
     methods: {
-      verify(){
-      }
     }
   };
 </script>
