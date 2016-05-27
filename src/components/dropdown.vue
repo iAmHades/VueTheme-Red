@@ -102,10 +102,10 @@ Taoxin  2016-05-19
 
 .dropdown-nav li:hover ul li {
     opacity:1;
-    -moz-transition-delay:0.5s;
+    /*-moz-transition-delay:0.5s;
     -o-transition-delay:0.5s;
     -webkit-transition-delay:0.5s;
-    transition-delay:0.5s;
+    transition-delay:0.5s;*/
 }
 
 .dropdown-nav ul li a {
@@ -113,10 +113,10 @@ Taoxin  2016-05-19
     /*border-color:#6E67A6;*/
     /*color:#fff;*/
     line-height:1px;
-    -moz-transition:1.5s;
+    /*-moz-transition:1.5s;
     -o-transition:1.5s;
     -webkit-transition:1.5s;
-    transition:1.5s;
+    transition:1.5s;*/
 }
 
 .dropdown-nav li:hover ul li a {

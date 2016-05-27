@@ -70,7 +70,8 @@
     </div>
     <div class="col-lg-12">
 
-    <mdverifycode></mdverifycode>
+    <mdverifycode :verifyresult.sync="result"></mdverifycode>
+    <!-- <button @click="verify">submit</button> -->
     </div>
   </div>
 </template>
@@ -82,7 +83,7 @@
   import mdtextarea from './../components/form/textarea.vue';
   import mdcounter from './../components/form/counter.vue';
   import mdsearch from './../components/form/search.vue';
-  import mdverifycode from './../components/verifyCode.vue';
+  import mdverifycode from './../components/verifycode.vue';
   export default {
     components: {
       mdinput,
@@ -109,12 +110,22 @@
         options: ['foo', 'bar', 'baz'],
         choose:'choosing',
         counter:1,
-        vertial:'vertial'
+        vertial:'vertial',
+        result:false
       };
     },
     watch: {
     },
     compiled(){
+    },
+    methods:{
+      verify(){
+        // const self = this;
+        // alert(self.result);
+      },
+      search(){
+        alert('sss');
+      }
     }
 
   };
