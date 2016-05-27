@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--input-->
-    <div class="col-lg-12">
+    <div class="col-md-12 col-lg-12">
       <h2>Input</h2>
       <mdinput :value.sync="firstName">
         <label slot="input-lable">FirstName</label>
@@ -14,7 +14,7 @@
 
 
     <!--radio-->
-    <div class="col-lg-12">
+    <div class="col-md-12 col-lg-12">
       <h2>Radio</h2>
       <span>Select your like color:['{{radio}}']</span>
       <mdradio :value.sync="radio" radio-value="green" :name.sync="radio"><label slot="radio-text">Green</label>
@@ -23,7 +23,7 @@
       </mdradio>
     </div>
     <!--checkbox-->
-    <div class="col-lg-12">
+    <div class="col-md-12 col-lg-12">
       <h2>CheckBox</h2>
       <div style="text-align: left">
 
@@ -39,37 +39,34 @@
     </div>
 
     <!-- Select -->
-    <div class="col-lg-12">
+    <div class="col-md-12 col-lg-12">
       <h2>Select</h2>
-      <div class="col-lg-3">
       <mdselect :value.sync="selected" :options="options" :multiple=false :placeholder="choose"></mdselect>
-      </div>
     </div>
 
 
     <!-- Textarea -->
-    <div class="col-lg-12">
+    <div class="col-md-12 col-lg-12">
       <h2>Textarea</h2>
       <mdtextarea :value.sync="textarea">
         <label slot="input-lable">Textarea</label>
       </mdtextarea>
     </div>
     <!-- Counter -->
-    <div class="col-lg-12">
+    <div class="col-md-12 col-lg-12">
       <h2>Counter</h2>
-      <mdcounter :counter.sync="counter" >
-      </mdcounter>
+      <mdcounter :counter.sync="counter" ></mdcounter>
       <mdcounter :counter.sync="counter" :type.sync="vertial">
       </mdcounter>
       <span>current Number:{{counter}}</span>
     </div>
 
 
-    <div class="col-lg-12">
+    <div class="col-md-12 col-lg-12">
       <mdsearch :value.sync="searchvalue"></mdsearch>
     </div>
-    <div class="col-lg-12">
-       <button @click="doVerify(result)">submit</button>
+    <div class="col-md-12 col-lg-12">
+       <mdverifycode :verify.sync="result"></mdverifycode>
     </div>
   </div>
 </template>
@@ -109,12 +106,8 @@
         choose:'choosing',
         counter:1,
         vertial:'vertial',
-<<<<<<< HEAD
-        result:false
-=======
         result:false,
         searchvalue:null
->>>>>>> taosin-master
       };
     },
     watch: {
@@ -122,14 +115,6 @@
     compiled(){
     },
     methods:{
-<<<<<<< HEAD
-      verify(){
-        // const self = this;
-        // alert(self.result);
-      },
-      search(){
-        alert('sss');
-=======
       doVerify(d){
         // const self = this;
         // debugger;
@@ -138,7 +123,6 @@
       },
       search(){
         alert(this.searchvalue);
->>>>>>> taosin-master
       }
     }
 
