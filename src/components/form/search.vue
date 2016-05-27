@@ -23,7 +23,7 @@ Taoxin   2016-05-19
       value: {
         type: String,
         required: false,
-        twoWay: false
+        twoWay: true
       },
       placeholder: {
         type: String,
@@ -40,9 +40,7 @@ Taoxin   2016-05-19
     },
     methods: {
       search(){
-        if (this.value){
-          this.$parent.search();
-        }
+         this.$parent.search();
       }
     }
   };

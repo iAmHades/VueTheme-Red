@@ -42,7 +42,7 @@
     <div class="col-lg-12">
       <h2>Select</h2>
       <div class="col-lg-3">
-      <mdselect :value.sync="selected" :options="options" :multiple=true :placeholder="choose"></mdselect>
+      <mdselect :value.sync="selected" :options="options" :multiple=false :placeholder="choose"></mdselect>
       </div>
     </div>
 
@@ -66,12 +66,10 @@
 
 
     <div class="col-lg-12">
-      <mdsearch ></mdsearch>
+      <mdsearch :value.sync="searchvalue"></mdsearch>
     </div>
     <div class="col-lg-12">
-
-    <mdverifycode :verifyresult.sync="result"></mdverifycode>
-    <!-- <button @click="verify">submit</button> -->
+       <button @click="doVerify(result)">submit</button>
     </div>
   </div>
 </template>
@@ -111,7 +109,12 @@
         choose:'choosing',
         counter:1,
         vertial:'vertial',
+<<<<<<< HEAD
         result:false
+=======
+        result:false,
+        searchvalue:null
+>>>>>>> taosin-master
       };
     },
     watch: {
@@ -119,12 +122,23 @@
     compiled(){
     },
     methods:{
+<<<<<<< HEAD
       verify(){
         // const self = this;
         // alert(self.result);
       },
       search(){
         alert('sss');
+=======
+      doVerify(d){
+        // const self = this;
+        // debugger;
+        // // const self = this;
+        alert(d);
+      },
+      search(){
+        alert(this.searchvalue);
+>>>>>>> taosin-master
       }
     }
 
