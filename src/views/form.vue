@@ -42,7 +42,7 @@
     <div class="col-lg-12">
       <h2>Select</h2>
       <div class="col-lg-3">
-      <mdselect :value.sync="selected" :options="options" :multiple=true :placeholder="choose"></mdselect>
+      <mdselect :value.sync="selected" :options="options" :multiple=false :placeholder="choose"></mdselect>
       </div>
     </div>
 
@@ -66,12 +66,12 @@
 
 
     <div class="col-lg-12">
-      <mdsearch ></mdsearch>
+      <mdsearch :value.sync="searchvalue"></mdsearch>
     </div>
     <div class="col-lg-12">
 
-    <mdverifycode :verifyresult.sync="result"></mdverifycode>
-    <!-- <button @click="verify">submit</button> -->
+    <mdverifycode :verify.sync="result"></mdverifycode>
+    <button @click="doVerify(result)">submit</button>
     </div>
   </div>
 </template>
@@ -111,7 +111,8 @@
         choose:'choosing',
         counter:1,
         vertial:'vertial',
-        result:false
+        result:false,
+        searchvalue:null
       };
     },
     watch: {
@@ -119,12 +120,14 @@
     compiled(){
     },
     methods:{
-      verify(){
+      doVerify(d){
         // const self = this;
-        // alert(self.result);
+        // debugger;
+        // // const self = this;
+        alert(d);
       },
       search(){
-        alert('sss');
+        alert(this.searchvalue);
       }
     }
 
