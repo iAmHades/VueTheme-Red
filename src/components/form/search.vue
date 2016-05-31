@@ -4,17 +4,16 @@ Taoxin   2016-05-19
 
  <template>
      <div class="search-bar">
-        <div class="dropdown-search-bar">
-        <nav role="navigation">
-        <ul class="nav nav-tabs">
-          <li role="presentation" class="active"><a tabindex="-1" data-toggle="tab">店铺</a></li>
-          <li role="presentation"><a tabindex="-1" data-toggle="tab">商品</a></li>
-          <!-- <li role="presentation"><a tabindex="-1" data-toggle="tab">shang j</a></li> -->
-        </ul>
-        </nav>
-    </div>
-    <input class="form-control input-search-bar" placeholder="🔍" v-model="value"/>
-    <button class="btn-search-bar" @click="search">搜索</button>
+     <ul class="search-menu">
+        <li >
+        <a>{{queryOne}}</a>
+          <ul class="childs">
+            <li><a @click="choose">{{queryTwo}}</a></li>
+          </ul>
+        </li>
+      </ul>
+      <input class="form-control input-search-bar" :placeholder="placeholder" v-model="value"/>
+      <button class="btn-search-bar" @click="search">搜索</button>
     </div>
  </template>
 <script>
@@ -33,7 +32,11 @@ Taoxin   2016-05-19
     },
     data() {
       return {
-        isactive: false
+        isactive: false,
+        queryOne:'商品',
+        queryTwo:'商家',
+        queryKey:1,
+        placeholder:'请输入商品名称、地址等'
       };
     },
     compiled(){
@@ -41,6 +44,18 @@ Taoxin   2016-05-19
     methods: {
       search(){
          this.$parent.search();
+      },
+      choose(){
+        this.queryKey = this.queryKey * -1;
+        if (this.queryKey === 1) {
+          this.queryOne = '商品';
+          this.queryTwo = '商家';
+          this.placeholder='请输入商品名称、地址等';
+        } else{
+          this.queryOne = '商家';
+          this.queryTwo = '商品';
+          this.placeholder='请输入商家名称、地址等';
+        }
       }
     }
   };
@@ -49,8 +64,8 @@ Taoxin   2016-05-19
  <style type="text/css">
  .search-bar{
     width: 600px;
-    height:200px;
     float: left;
+    border:2px solid red;
  }
  .dropdown-search-bar{
     float: left;
@@ -63,12 +78,16 @@ Taoxin   2016-05-19
 
  }
 .input-search-bar{
-    width: 400px;
+    width: 416px;
     float: left;
     height: 35px;
     border-radius: 0px;
 }
-.nav>li>a:focus, .nav>li>a:hover {
+.input-search-bar:focus{
+    border-radius: 0px;
+    border:none;
+}
+/*.nav>li>a:focus, .nav>li>a:hover {
     text-decoration: none;
     outline: none;
     background-color: #eee;
@@ -82,8 +101,93 @@ Taoxin   2016-05-19
     float: left;
     margin-bottom: 0px;
     height: 28px;
+}*/
+/*.serach-a{
+  float: left;
+  width: 70px;
+  height: 35px;
+  border:1px solid;
+  padding: 4px;
+  font-size: 18px;
+}*/
+
+.search-menu,.search-menu ul {
+    list-style:none;
+    margin:0;
+    padding:0;
 }
 
+.search-menu {
+    position:relative;
+}
+
+.search-menu ul {
+    height:0;
+    left:0;
+    overflow:hidden;
+    position:absolute;
+    top:35px;
+}
+
+.search-menu li {
+    float:left;
+    position:relative;
+}
+
+.search-menu li a {
+    border:1px solid #f3f3f3;
+    color:black;
+    display:block;
+    font-size:18px;
+    line-height:10px;
+    padding:10px;
+    text-decoration:none;
+    width: 80px;
+    height: 35px;
+    background-image: url('../../../static/img/arrow.png');
+    background-repeat:no-repeat;
+    background-position: 60px 10px;
+}
+
+.search-menu li:hover > a {
+    /*background:#8CCA33;*/
+    color:red;
+    border-bottom:1px solid red;
+    background-image: url('../../../static/img/arrow_1.png');
+    background-repeat:no-repeat;
+}
+ul.childs li a{
+  background-image: none;
+  border: 1px solid red;
+} 
+ul.childs li a:hover{
+  background-image: none;
+  border: 1px solid red;
+} 
+
+.search-menu li:hover ul.childs {
+    height:auto;
+}
+
+.search-menu ul li {
+    opacity:0;
+    width:100%;
+}
+.search-menu li:hover ul li {
+    opacity:1;
+}
+
+.search-menu ul li a {
+    line-height:1px;
+}
+
+.search-menu li:hover ul li a {
+    line-height:10px;
+}
+
+.search-menu ul li a:hover {
+    border: 1px solid red;
+}
 
  </style>
 

@@ -62,7 +62,7 @@
     </div>
 
 
-    <div class="col-md-12 col-lg-12">
+    <div class="col-md-12 col-lg-12" style="height:100px">
       <mdsearch :value.sync="searchvalue"></mdsearch>
     </div>
     <div class="col-md-12 col-lg-12">
