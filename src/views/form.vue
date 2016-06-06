@@ -68,6 +68,9 @@
     <div class="col-md-12 col-lg-12">
        <mdverifycode :verify.sync="result"></mdverifycode>
     </div>
+    <div class="col-md-12 col-lg-12">
+      <mdrater :value.sync="data1" slot="value"></mdratestar>
+    </div>
   </div>
 </template>
 <script>
@@ -79,6 +82,7 @@
   import mdcounter from './../components/form/counter.vue';
   import mdsearch from './../components/form/search.vue';
   import mdverifycode from './../components/verifycode.vue';
+  import mdrater from './../components/form/rater.vue';
   export default {
     components: {
       mdinput,
@@ -88,7 +92,8 @@
       mdtextarea,
       mdcounter,
       mdsearch,
-      mdverifycode
+      mdverifycode,
+      mdrater
     },
     data() {
       return {
@@ -107,7 +112,8 @@
         counter:1,
         vertial:'vertial',
         result:false,
-        searchvalue:null
+        searchvalue:null,
+        data1:1
       };
     },
     watch: {
