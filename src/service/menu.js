@@ -91,6 +91,14 @@ const leftmenu = [{
   id: 7,
   text: 'Upload',
   url: '/admin/upload'
+}, {
+  id: 8,
+  text:'List',
+  url:'/admin/list'
+}, {
+  id: 8,
+  text:'Alert',
+  url:'/admin/alert'
 }];
 const custommenu = [{
   id: 1,

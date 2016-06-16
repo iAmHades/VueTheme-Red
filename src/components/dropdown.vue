@@ -118,6 +118,14 @@ Taoxin  2016-05-19
     -webkit-transition:1.5s;
     transition:1.5s;*/
 }
+ul.subs li a{
+  background-image: none;
+  border: 1px solid red;
+} 
+ul.subs li a:hover{
+  background-image: none;
+  border: 1px solid red;
+} 
 
 .dropdown-nav li:hover ul li a {
     line-height:10px;

@@ -16,9 +16,12 @@
 				step:[
 					{ text:'提交订单', img:'http://temp.im/50x50' },
 					{ text:'去支付', img:'http://temp.im/50x50' },
+					{ text:'完成', img:'http://temp.im/50x50' },
+					{ text:'提交订单', img:'http://temp.im/50x50' },
+					{ text:'去支付', img:'http://temp.im/50x50' },
 					{ text:'完成', img:'http://temp.im/50x50' }
 				],
-				complete:1
+				complete:5
 			};
 		},
 		methods:{

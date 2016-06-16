@@ -28,7 +28,6 @@ Taoxin 2016-05-20
         bgColor:'',
         randomBg : true,
         click2refresh: true,
-        false2refresh: true,
         validateEven: 'blur',
         validateFn(result){
           self.verify = result;
