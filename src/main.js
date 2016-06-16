@@ -25,7 +25,6 @@ import form from './views/form.vue';
 import custommenu from './views/custommenu.vue';
 import dropdown from './views/dropdown.vue';
 import upload from './views/upload.vue';
-import list from './views/list.vue';
 import alert from './views/alert.vue';
 
 window.Vue = Vue;
@@ -104,9 +103,6 @@ router.map({
       },
       '/upload': {
         component: upload
-      },
-      '/list': {
-        component: list
       },
       '/alert': {
         component: alert

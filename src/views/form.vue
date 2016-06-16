@@ -34,42 +34,50 @@
       </div>
       <mdcheckbox :value.sync="checkbox.basketball" checkbox-value="green" :name.sync="checkbox1"><label
         slot="checkbox-text">Basketball</label></mdcheckbox>
-      <mdcheckbox :value.sync="checkbox.football" checkbox-value="yellow" :name.sync="checkbox2"><label
-        slot="checkbox-text">Football</label></mdcheckbox>
-    </div>
+        <mdcheckbox :value.sync="checkbox.football" checkbox-value="yellow" :name.sync="checkbox2"><label
+          slot="checkbox-text">Football</label></mdcheckbox>
+        </div>
 
-    <!-- Select -->
-    <div class="col-md-12 col-lg-12">
-      <h2>Select</h2>
-      <mdselect :value.sync="selected" :options="options" :multiple=false :placeholder="choose"></mdselect>
-    </div>
-
-
-    <!-- Textarea -->
-    <div class="col-md-12 col-lg-12">
-      <h2>Textarea</h2>
-      <mdtextarea :value.sync="textarea">
-        <label slot="input-lable">Textarea</label>
-      </mdtextarea>
-    </div>
-    <!-- Counter -->
-    <div class="col-md-12 col-lg-12">
-      <h2>Counter</h2>
-      <mdcounter :counter.sync="counter" ></mdcounter>
-      <mdcounter :counter.sync="counter" :type.sync="vertial">
-      </mdcounter>
-      <span>current Number:{{counter}}</span>
-    </div>
+        <!-- Select -->
+        <div class="col-md-12 col-lg-12">
+          <h2>Select</h2>
+          <mdselect :value.sync="selected" :options="options" :multiple=false :placeholder="choose"></mdselect>
+        </div>
 
 
-    <div class="col-md-12 col-lg-12" style="height:100px">
-      <mdsearch :value.sync="searchvalue"></mdsearch>
-    </div>
-    <div class="col-md-12 col-lg-12">
-       <mdverifycode :verify.sync="result"></mdverifycode>
-    </div>
-    <div class="col-md-12 col-lg-12">
-      <mdrater :value.sync="data1" slot="value"></mdratestar>
+        <!-- Textarea -->
+        <div class="col-md-12 col-lg-12">
+          <h2>Textarea</h2>
+          <mdtextarea :value.sync="textarea">
+            <label slot="input-lable">Textarea</label>
+          </mdtextarea>
+        </div>
+        <!-- Counter -->
+        <div class="col-md-12 col-lg-12">
+          <h2>Counter</h2>
+          <mdcounter :counter.sync="counter" ></mdcounter>
+          <mdcounter :counter.sync="counter" :type.sync="vertial">
+          </mdcounter>
+          <span>current Number:{{counter}}</span>
+        </div>
+
+
+        <div class="col-md-12 col-lg-12" style="height:100px">
+          <mdsearch :value.sync="searchvalue"></mdsearch>
+        </div>
+        <div class="col-md-12 col-lg-12">
+         <mdverifycode :verify.sync="result"></mdverifycode>
+       </div>
+       <div class="col-md-12 col-lg-12">
+        <mdrater :value.sync="star" slot="value"></mdratestar>
+        </div>
+        
+      <div class="col-lg-12 col-md-12">
+        <mdalert :show.sync="showAlert1" :text.sync="title" :type="type1" :hide.sync="showColse"></mdalert>
+        <mdalert :show.sync="showAlert" :text.sync="title" :type="type2" :hide.sync="showColse2"></mdalert>
+        <mdalert :show.sync="showAlert3" :text.sync="title" :type="type3" :hide.sync="showColse"></mdalert>
+        <mdalert :show.sync="showAlert" :text.sync="title" :type="type4" :hide.sync="showColse2"></mdalert>
+      </div>
     </div>
   </div>
 </template>
@@ -83,6 +91,7 @@
   import mdsearch from './../components/form/search.vue';
   import mdverifycode from './../components/verifycode.vue';
   import mdrater from './../components/form/rater.vue';
+  import mdalert from './../components/alert.vue';
   export default {
     components: {
       mdinput,
@@ -93,7 +102,8 @@
       mdcounter,
       mdsearch,
       mdverifycode,
-      mdrater
+      mdrater,
+      mdalert
     },
     data() {
       return {
@@ -113,7 +123,17 @@
         vertial:'vertial',
         result:false,
         searchvalue:null,
-        data1:1
+        star:1,
+        showAlert:true,
+        showAlert1:true,
+        showAlert3:true,
+        title:'Well done! You successfully read this important alert message.',
+        type1:'warning',
+        type2:'info',
+        type3:'success',
+        type4:'danger',
+        showColse:false,
+        showColse2:true
       };
     },
     watch: {
@@ -122,9 +142,6 @@
     },
     methods:{
       doVerify(d){
-        // const self = this;
-        // debugger;
-        // // const self = this;
         alert(d);
       },
       search(){

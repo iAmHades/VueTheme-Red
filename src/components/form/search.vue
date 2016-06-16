@@ -36,7 +36,6 @@ Taoxin   2016-05-19
         queryOne:'商品',
         queryTwo:'商家',
         queryKey:1,
-        placeholder:'请输入商品名称、地址等'
       };
     },
     compiled(){
