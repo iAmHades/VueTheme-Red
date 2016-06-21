@@ -1,37 +1,30 @@
 <!--模态框-->
 <template>
-    <div class="modal-mask" v-show="show" transition="modal">
-        <div class="modal-wrapper">
-            <div class="modal-container">
+    <div class="modal-mask" v-show="show" transition="modal" @click="closemodal">
+       <div class="modal-wrapper">
+        <div class="modal-container">
 
-                <div class="modal-header">
-                    <a class="close" @click="show = false"><span>&times;</span></a>
-                    <slot name="header">
-                        default header
-                    </slot>
-                </div>
+            <div class="modal-header">
+                <a class="close" @click="show = false"><span>&times;</span></a>
+                <slot name="header">
+                </slot>
+            </div>
 
-                <div class="modal-body">
-                    <slot name="body">
-                        default body
-                    </slot>
-                </div>
+            <div class="modal-body">
+                <slot name="body">
+                    default body
+                </slot>
+            </div>
 
-                <div class="modal-footer">
-                    <slot name="footer">
-                        <a class="btn"
-                           @click="handleCancel">
-                            取消
-                        </a>
-                        <a class="btn"
-                           @click="handleSubmit">
-                            确定
-                        </a>
-                    </slot>
-                </div>
+            <div class="modal-footer">
+                <slot name="footer">
+                </slot>
             </div>
         </div>
     </div>
+</div>
+
+</div>
 </template>
 
 <script>
@@ -41,14 +34,39 @@
                 type: Boolean,
                 required: true,
                 twoWay: true
+            },
+            shadow:{
+                type:Boolean,
+                required:false,
+                twoWay:false
             }
         },
         methods: {
-            handleCancel(){
-                this.$parent.handleCancel();
-            },
-            handleSubmit(){
-                this.$parent.handleSubmit();
+
+            // 点击阴影处关闭modal
+            closemodal(e){
+                const classname = e.target.className;
+                debugger;
+                if(e.target.parentNode.className === 'close'){
+                    this.show = false;
+                }
+                if (this.shadow){
+                    if (classname === 'modal-wrapper'){
+                        this.show = false;
+                    } else if(e.target.parentNode.className === 'close'){
+                        this.show = false;
+                    } else{
+                        this.show = true;
+                    }
+                } else{
+                    if(e.target.parentNode.className === 'close'){
+                        this.show = false;
+                    }else{
+
+                        this.show = true;
+                    }
+                }
+                
             }
         }
 
@@ -73,24 +91,36 @@
     }
 
     .modal-container {
-        width: 450px;
+        max-width: 600px;
+        min-width: 500px;
         margin: 0px auto;
-        padding: 20px 30px;
+        /*padding: 20px 30px;*/
         background-color: #fff;
-        border-radius: 5px;
+        border-radius: 0px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
         transition: all .3s ease;
         font-family: Helvetica, Arial, sans-serif;
-        border:1px solid #999999;
+        /*border:5px solid #999999;*/
+        height: 300px;
+        position: relative;
+        z-index: 99999;
     }
-
-    .modal-header h3 {
-        margin-top: 0;
-        color: #42b983;
+    .modal-header {
+        min-height: 16.43px;
+        padding: 0px; 
+        border-bottom: 1px solid #e5e5e5;
+        background: #e5e5e5;
+        text-align: left;
+    }
+    .modal-header p {
+        /*margin-top: 0;*/
+        padding: 8px 0px 0 10px;
+        color: black;
+        font-weight: bolder;
     }
 
     .modal-body {
-        margin: 20px 0;
+        margin: 0;
     }
 
     .modal-default-button {
@@ -106,7 +136,7 @@
      * these styles.
      */
 
-    .modal-enter, .modal-leave {
+     .modal-enter, .modal-leave {
         opacity: 0;
     }
 
@@ -114,5 +144,29 @@
     .modal-leave .modal-container {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
+    }
+    a.btn.btn-cancel{
+        color: #333;
+        background-color: #dedede;
+        border: 1px solid #e3e3e3;
+        border-bottom: 1px solid #aaa;
+        background-size: 100%;
+        border-radius: 0px;
+    }
+    a.btn.btn-submit{
+        color: #ffffff;
+        background-color: #2db3a6;
+        border: 1px solid #e3e3e3;
+        border-bottom: 1px solid #aaa;
+        background-size: 100%;
+        border-radius: 0px;
+    }
+    .modal-header .close {
+        margin: 6px 15px;
+    }
+    .modal-footer {
+        padding: 0 0 15px 0;
+        text-align: justify;
+        border-top: none; 
     }
 </style>
