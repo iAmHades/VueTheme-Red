@@ -105,7 +105,7 @@
     import mdrater from './../components/form/rater.vue';
     import mdalert from './../components/alert.vue';
     import countdown from './../components/form/countdown.vue';
-    import pagination from './../components/form/pagination.vue';
+    import pagination from './../components/pagination.vue';
     export default {
       components: {
         mdinput,
