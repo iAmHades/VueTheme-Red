@@ -85,6 +85,11 @@
           <button @click="startSend" >start</button>
           </div>
         </div>
+        <div class="col-lg-12 col-md-12">
+          <pagination size="lg" variant="primary" :total-rows="100" 
+            :current-page="currentPageVariable" :per-page="10">
+            </pagination>
+        </div>
       </div>
     </div>
   </template>
@@ -100,6 +105,7 @@
     import mdrater from './../components/form/rater.vue';
     import mdalert from './../components/alert.vue';
     import countdown from './../components/form/countdown.vue';
+    import pagination from './../components/form/pagination.vue';
     export default {
       components: {
         mdinput,
@@ -112,7 +118,8 @@
         mdverifycode,
         mdrater,
         mdalert,
-        countdown
+        countdown,
+        pagination
       },
       data() {
         return {
@@ -145,6 +152,7 @@
           showColse2:true,
           time: 60,       // 验证码限制时间
           start: false,     // 验证码限制是否开启
+          currentPageVariable:1
       };
     },
     watch: {
