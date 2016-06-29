@@ -72,73 +72,87 @@
         <mdrater :value.sync="star" slot="value"></mdratestar>
         </div>
         
-      <div class="col-lg-12 col-md-12">
-        <mdalert :show.sync="showAlert1" :text.sync="title" :type="type1" :hide.sync="showColse"></mdalert>
-        <mdalert :show.sync="showAlert" :text.sync="title" :type="type2" :hide.sync="showColse2"></mdalert>
-        <mdalert :show.sync="showAlert3" :text.sync="title" :type="type3" :hide.sync="showColse"></mdalert>
-        <mdalert :show.sync="showAlert" :text.sync="title" :type="type4" :hide.sync="showColse2"></mdalert>
+        <div class="col-lg-12 col-md-12">
+          <mdalert :show.sync="showAlert1" :text.sync="title" :type="type1" :hide.sync="showColse"></mdalert>
+          <mdalert :show.sync="showAlert" :text.sync="title" :type="type2" :hide.sync="showColse2"></mdalert>
+          <mdalert :show.sync="showAlert3" :text.sync="title" :type="type3" :hide.sync="showColse"></mdalert>
+          <mdalert :show.sync="showAlert" :text.sync="title" :type="type4" :hide.sync="showColse2"></mdalert>
+        </div>
+        <div class="col-lg-12 col-md-12"> 
+          <countdown slot="value" :time="time" :start="start" :onfinished="finishSend" v-show="start"></countdown>
+          <button @click="finishSend" v-if="start">stop</button>
+          <div v-else>
+          <button @click="startSend" >start</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</template>
-<script>
-  import mdinput from './../components/form/input.vue';
-  import mdradio from './../components/form/radio.vue';
-  import mdcheckbox from './../components/form/checkbox.vue';
-  import mdselect from './../components/form/select.vue';
-  import mdtextarea from './../components/form/textarea.vue';
-  import mdcounter from './../components/form/counter.vue';
-  import mdsearch from './../components/form/search.vue';
-  import mdverifycode from './../components/verifycode.vue';
-  import mdrater from './../components/form/rater.vue';
-  import mdalert from './../components/alert.vue';
-  export default {
-    components: {
-      mdinput,
-      mdradio,
-      mdcheckbox,
-      mdselect,
-      mdtextarea,
-      mdcounter,
-      mdsearch,
-      mdverifycode,
-      mdrater,
-      mdalert
-    },
-    data() {
-      return {
-        firstName: 'Tao',
-        lastName: '',
-        first: 'FirstName',
-        radio: 'green',
-        textarea:'请输入文本内容',
-        checkbox: {
-          basketball: true,
-          football: false
-        },
-        selected: null,
-        options: ['foo', 'bar', 'baz'],
-        choose:'choosing',
-        counter:1,
-        vertial:'vertial',
-        result:false,
-        searchvalue:null,
-        star:1,
-        showAlert:true,
-        showAlert1:true,
-        showAlert3:true,
-        title:'Well done! You successfully read this important alert message.',
-        type1:'warning',
-        type2:'info',
-        type3:'success',
-        type4:'danger',
-        showColse:false,
-        showColse2:true
+  </template>
+  <script>
+    import mdinput from './../components/form/input.vue';
+    import mdradio from './../components/form/radio.vue';
+    import mdcheckbox from './../components/form/checkbox.vue';
+    import mdselect from './../components/form/select.vue';
+    import mdtextarea from './../components/form/textarea.vue';
+    import mdcounter from './../components/form/counter.vue';
+    import mdsearch from './../components/form/search.vue';
+    import mdverifycode from './../components/verifycode.vue';
+    import mdrater from './../components/form/rater.vue';
+    import mdalert from './../components/alert.vue';
+    import countdown from './../components/form/countdown.vue';
+    export default {
+      components: {
+        mdinput,
+        mdradio,
+        mdcheckbox,
+        mdselect,
+        mdtextarea,
+        mdcounter,
+        mdsearch,
+        mdverifycode,
+        mdrater,
+        mdalert,
+        countdown
+      },
+      data() {
+        return {
+          firstName: 'Tao',
+          lastName: '',
+          first: 'FirstName',
+          radio: 'green',
+          textarea:'请输入文本内容',
+          checkbox: {
+            basketball: true,
+            football: false
+          },
+          selected: null,
+          options: ['foo', 'bar', 'baz'],
+          choose:'choosing',
+          counter:1,
+          vertial:'vertial',
+          result:false,
+          searchvalue:null,
+          star:1,
+          showAlert:true,
+          showAlert1:true,
+          showAlert3:true,
+          title:'Well done! You successfully read this important alert message.',
+          type1:'warning',
+          type2:'info',
+          type3:'success',
+          type4:'danger',
+          showColse:false,
+          showColse2:true,
+          time: 60,       // 验证码限制时间
+          start: false,     // 验证码限制是否开启
       };
     },
     watch: {
     },
     compiled(){
+    },
+    ready(){
+      this.startSend();
     },
     methods:{
       doVerify(d){
@@ -146,7 +160,16 @@
       },
       search(){
         alert(this.searchvalue);
-      }
+      },
+      // 限制时间结束
+      finishSend() {
+        this.start = false;
+        this.time = 60;
+      },
+      // 限制时间开始
+      startSend(){
+        this.start = true;
+      },
     }
 
   };
