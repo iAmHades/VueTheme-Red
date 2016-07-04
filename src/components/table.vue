@@ -1,6 +1,6 @@
 <template>
-    <div class="">
-        <table class="table" id="table">
+    <div>
+        <table class="table" id="tablee">
             <thead>
                 <tr>
                     <th v-for="key in columnsname" class="thead_th" :style="{width:columnswidth[key]}">{{key}}  <i v-show="columnsclickable[key] !== '0'" class="glyphicon" v-bind:class="{ 'glyphicon-sort':issort,'glyphicon-arrow-up':isup,'glyphicon-arrow-down':isdown}" @click="sortby"></i></th>
@@ -17,8 +17,8 @@
         <div>
           <div class="dataTables_info">
             第{{pageCurrent+1}} /{{pageTotal}}页 每页{{pagesize}}条/共{{total?total:0}}条记录
-        </div>
-        <ul class="pagination">
+           </div>
+            <ul class="pagination">
             <li v-on:click="clickToPrev()" v-show="isshow" class="paginate_button previous">
                 <a>上一页</a>
             </li>
@@ -29,7 +29,7 @@
                 </li>
             </ul>
         </div>
-        <div id="table_expand" style="position:absolute;width:97%;display:none">
+        <div id="table_expand" style="position:absolute;width:58%;display:none">
             <slot name="table_expand" >
             </slot>
         </div>
@@ -67,7 +67,7 @@
                 sort:1,
                 isup:false,
                 isdown:false,
-                issort:true,
+                issort:false,
                 isopen:1
             };
         },
@@ -80,10 +80,10 @@
         },
         watch: {
             data(values) {
-             this.newData = Vue.prototype.$deepCopy(values);
-             this.renderHtml(this.newData);
-         },
-         columns(value) {
+               this.newData = Vue.prototype.$deepCopy(values);
+               this.renderHtml(this.newData);
+           },
+           columns(value) {
             const columnObject = this.translateColumns(value);
             this.columnsname = columnObject[0];
             this.columnskey = columnObject[1];
@@ -124,15 +124,15 @@
     },
     methods: {
         renderHtml(values) {
-         values.forEach((value, index) => {
+           values.forEach((value, index) => {
             Object.keys(this.columnsrender).forEach((key) => {
                 if(this.columnsrender[key]){
                   value[key] = this.columnsrender[key](value[key], value, index);
               }
           });
         });
-     },
-     clickToPage(index) {
+       },
+       clickToPage(index) {
         const arr = [];
         this.activePage = index - this.startnums + 1;
         const params = this.$parent.params ? this.$parent.params : {};
@@ -263,22 +263,30 @@
             },
             openRow(index){
                 if (this.$parent.openRow && this.$isFunc(this.$parent.openRow)) {
-                    debugger;
                     if(document.getElementById('tr_'+index).offsetHeight === document.getElementById('table_expand').offsetHeight + 40){
-                        $('tr').removeAttr('style');
-
+                        this.getTableRows();
                         document.getElementById('table_expand').style.display='none';
                     }else{
                         this.$parent.openRow(index);
                         document.getElementById('table_expand').style.display='block';
                         const sheight= document.getElementById('table_expand').offsetHeight;
                         const height= sheight+40;
-                        const height2= (4 * (index+1)) + 120;
-                        $('tr').removeAttr('style');
+                        const height2= (4 * (index+1)) + 380;
+                        document.getElementById('table_expand').childElement;
+                        this.getTableRows();
                         document.getElementById('tr_'+index).style.height=height+'px';
                         document.getElementById('table_expand').style.top=height2+"px";
                     }
                     
+                }
+            },
+
+            // 获取表格行数
+            getTableRows(){
+                const len = document.getElementById('tablee').rows.length;
+                for(let i = 0; i < len-1; i++){
+                    document.getElementById('tr_'+ i).removeAttribute("style");
+
                 }
             }
         }
@@ -286,9 +294,9 @@
 </script>
 <style type="text/css">
     .dataTables_info{
-     margin-top: 20px;
- }
- .thead_th{
+       margin-top: 20px;
+   }
+   .thead_th{
     text-align: center;
 }
 .paginate_active{
