@@ -109,7 +109,6 @@
   .input-lable {
     color: #9e9e9e;
     font-size: 14px;
-    margin-left: -80px;
     transition: .2s;
   }
 
@@ -117,6 +116,5 @@
     color: red;
     transform: translateY(-140%);
     font-size: 10px;
-    margin-left: -80px;
   }
 </style>
