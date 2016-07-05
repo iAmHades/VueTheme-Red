@@ -111,8 +111,8 @@
     directives: {
         gridcell(html) {
             const cell = document.createElement('DIV');
+            cell.style.textAlign = 'center';
             cell.innerHTML = html;
-            console.info(html);
             this.vm.$compile(cell);
             this.el.innerHTML = '';
             this.el.appendChild(cell);
