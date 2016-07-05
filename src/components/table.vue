@@ -11,7 +11,6 @@
                     <td class="grid_td" v-for="key in columnskey" v-gridcell="record[key]">
                     </td>
                 </tr>
-                
             </tbody>
         </table>
         <div>

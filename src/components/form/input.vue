@@ -1,5 +1,5 @@
 <template>
-  <div class="input-field col-lg-3">
+  <div class="input-field">
     <div class="input-lable" v-bind:class="{'activeinput':isactive}">
       <slot name="input-lable"></slot>
     </div>
@@ -89,7 +89,10 @@
   .input-field {
     float: left;
     height: 100px;
-    margin-top: 10px;
+    padding-top: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
   }
 
   .input {
@@ -98,6 +101,7 @@
     background: none;
     position: relative;
     border-bottom: 1px solid red;
+    width:100%;
 
   }
 
@@ -109,6 +113,7 @@
   .input-lable {
     color: #9e9e9e;
     font-size: 14px;
+    /*margin-left: -80px;*/
     transition: .2s;
   }
 
@@ -116,5 +121,6 @@
     color: red;
     transform: translateY(-140%);
     font-size: 10px;
+    /*margin-left: -80px;*/
   }
 </style>
