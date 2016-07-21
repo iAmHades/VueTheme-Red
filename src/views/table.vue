@@ -1,19 +1,20 @@
 <template>
-<div>
-  <!-- <grid :pagesize="pagesize" :data="gridData" :url="url" :columns="columns" :total="total"></grid> -->
-  <modal :show.sync="showModal">
-     <h3 slot="header">提示消息</h3>
-     <h3 slot="body">确定要删除该记录吗?</h3>
-  </modal>
+    <div>
+      <!-- <grid :pagesize="pagesize" :data="gridData" :url="url" :columns="columns" :total="total"></grid> -->
+      <grid :pagesize="pagesize" :data="gridData" :url="url" :columns="columns" :total="total"></grid>
+      <modal :show.sync="showModal">
+       <h3 slot="header">提示消息</h3>
+       <h3 slot="body">确定要删除该记录吗?</h3>
+   </modal>
 </div>
 </template>
 
 <script>
-    // import grid from './../components/table.vue';
+    import grid from './../components/table.vue';
     import modal from './../components/modal.vue';
     export default {
         components: {
-            // grid,
+            grid,
             modal
         },
         data() {
@@ -74,18 +75,18 @@
                     name: '组件名字',
                     remarks: '备注',
                     op: {
-                       text:'查看',
-                       render: (value) => '<button @click.stop="edit">查看</button>'
-                    }
-                },
-                showModal:false
-            };
-        },
-        ready(){
-          
-        },
-        methods: {
-            edit() {
+                     text:'查看',
+                     render: (value) => '<button @click.stop="edit">查看</button>'
+                 }
+             },
+             showModal:false
+         };
+     },
+     ready(){
+      
+     },
+     methods: {
+        edit() {
                 // alert('edit');
                 this.showModal = true;
             },
