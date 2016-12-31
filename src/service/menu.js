@@ -57,6 +57,10 @@ const leftmenu = [{
   text: 'Carousel',
   url: '/admin/carousel'
 }, {
+  id: 5,
+  text: 'Tree',
+  url: '/admin/tree'
+}, {
   id: 6,
   text: 'Thumbnail',
   url: '/admin/thumbnail'
@@ -99,6 +103,10 @@ const leftmenu = [{
   id: 8,
   text:'Alert',
   url:'/admin/alert'
+}, {
+  id: 8,
+  text:'Tab',
+  url:'/admin/tab'
 }];
 const custommenu = [{
   id: 1,

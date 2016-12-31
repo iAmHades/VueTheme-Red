@@ -101,6 +101,34 @@ exports.install = function install(Vue) {
     function getSource(e){
         return e.target||e.srcElement;
     }
+    // 用原声JS实现对象的深度克隆
+    function deepCopy(oldObj) {
+        // 定义一个新的空对象
+        let newObject = {};
+        if(oldObj){
+            
+        if (oldObj.constructor === Object) {
+            newObject = new oldObj.constructor();
+        } else {
+            newObject = new oldObj.constructor(oldObj.valueOf());
+        }
+        // 遍历克隆原对象属性
+        for (const key in oldObj) {
+            if (newObject[key] !== oldObj[key]) {
+                if (typeof(oldObj[key]) === 'object') {
+                    // 对象内部的子对象
+                    newObject[key] = deepCopy(oldObj[key]);
+                } else {
+                    newObject[key] = oldObj[key];
+                }
+            }
+        }
+        // 克隆原对象常用的方法
+        newObject.toString = oldObj.toString;
+        newObject.valueOf = oldObj.valueOf;
+        return newObject;
+        }
+    }
 
     // 添加vue属性
     Object.defineProperties(Vue.prototype, {
@@ -174,6 +202,11 @@ exports.install = function install(Vue) {
         $getSource: {
             get() {
                 return getSource;
+            }
+        },
+        $deepCopy: {
+            get() {
+                return deepCopy;
             }
         }
 

@@ -11,6 +11,7 @@ module.exports = {
         'Draggable':true,
         'VerifyCode':true,
         'Qiniu':true,
+        'wangEditor':true
     },
     rules: {
         'arrow-parens': 0,
@@ -45,6 +46,10 @@ module.exports = {
         'prefer-template':0,
         'max-len':0,
         'keyword-spacing':0,
-        'prefer-rest-params':0
+        'prefer-rest-params':0,
+        'arrow-body-style':0,
+        'comma-spacing':0,
+        'object-curly-spacing':0,
+        'new-cap':0
     }
 }

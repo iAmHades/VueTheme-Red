@@ -26,6 +26,8 @@ import custommenu from './views/custommenu.vue';
 import dropdown from './views/dropdown.vue';
 import upload from './views/upload.vue';
 import alert from './views/alert.vue';
+import tab from './views/tab.vue';
+import tree from './views/tree.vue';
 
 window.Vue = Vue;
 Vue.use(Router);
@@ -64,6 +66,9 @@ router.map({
     subRoutes: {
       '/table': {
         component: table
+      },
+      '/tree': {
+        component: tree
       },
       '/layout': {
         component: layout
@@ -106,6 +111,9 @@ router.map({
       },
       '/alert': {
         component: alert
+      },
+      '/tab': {
+        component: tab
       }
     }
   },
