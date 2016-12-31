@@ -82,93 +82,118 @@
           <countdown slot="value" :time="time" :start="start" :onfinished="finishSend" v-show="start"></countdown>
           <button @click="finishSend" v-if="start">stop</button>
           <div v-else>
-          <button @click="startSend" >start</button>
+            <button @click="startSend" >start</button>
           </div>
         </div>
         <div class="col-lg-12 col-md-12">
           <pagination size="lg" variant="primary" :total-rows="100" 
-            :current-page="currentPageVariable" :per-page="10">
-            </pagination>
-        </div>
+          :current-page="currentPageVariable" :per-page="10">
+        </pagination>
+      </div>
+      <!-- 树状菜单 -->
+      <div>
+        <treemenu :model="treeData"></treemenu>
       </div>
     </div>
-  </template>
-  <script>
-    import mdinput from './../components/form/input.vue';
-    import mdradio from './../components/form/radio.vue';
-    import mdcheckbox from './../components/form/checkbox.vue';
-    import mdselect from './../components/form/select.vue';
-    import mdtextarea from './../components/form/textarea.vue';
-    import mdcounter from './../components/form/counter.vue';
-    import mdsearch from './../components/form/search.vue';
-    import mdverifycode from './../components/verifycode.vue';
-    import mdrater from './../components/form/rater.vue';
-    import mdalert from './../components/alert.vue';
-    import countdown from './../components/form/countdown.vue';
-    import pagination from './../components/pagination.vue';
-    export default {
-      components: {
-        mdinput,
-        mdradio,
-        mdcheckbox,
-        mdselect,
-        mdtextarea,
-        mdcounter,
-        mdsearch,
-        mdverifycode,
-        mdrater,
-        mdalert,
-        countdown,
-        pagination
-      },
-      data() {
-        return {
-          firstName: 'Tao',
-          lastName: '',
-          first: 'FirstName',
-          radio: 'green',
-          textarea:'请输入文本内容',
-          checkbox: {
-            basketball: true,
-            football: false
-          },
-          selected: null,
-          options: ['foo', 'bar', 'baz'],
-          choose:'choosing',
-          counter:1,
-          vertial:'vertial',
-          result:false,
-          searchvalue:null,
-          star:1,
-          showAlert:true,
-          showAlert1:true,
-          showAlert3:true,
-          title:'Well done! You successfully read this important alert message.',
-          type1:'warning',
-          type2:'info',
-          type3:'success',
-          type4:'danger',
-          showColse:false,
-          showColse2:true,
+  </div>
+</template>
+<script>
+  import mdinput from './../components/form/input.vue';
+  import mdradio from './../components/form/radio.vue';
+  import mdcheckbox from './../components/form/checkbox.vue';
+  import mdselect from './../components/form/select.vue';
+  import mdtextarea from './../components/form/textarea.vue';
+  import mdcounter from './../components/form/counter.vue';
+  import mdsearch from './../components/form/search.vue';
+  import mdverifycode from './../components/verifycode.vue';
+  import mdrater from './../components/form/rater.vue';
+  import mdalert from './../components/alert.vue';
+  import countdown from './../components/form/countdown.vue';
+  import pagination from './../components/pagination.vue';
+  import treemenu from './../components/treemenu.vue';
+  export default {
+    components: {
+      mdinput,
+      mdradio,
+      mdcheckbox,
+      mdselect,
+      mdtextarea,
+      mdcounter,
+      mdsearch,
+      mdverifycode,
+      mdrater,
+      mdalert,
+      countdown,
+      pagination,
+      treemenu
+    },
+    data() {
+      return {
+        firstName: 'Tao',
+        lastName: '',
+        first: 'FirstName',
+        radio: 'green',
+        textarea:'请输入文本内容',
+        checkbox: {
+          basketball: true,
+          football: false
+        },
+        selected: null,
+        options: ['foo', 'bar', 'baz'],
+        choose:'choosing',
+        counter:1,
+        vertial:'vertial',
+        result:false,
+        searchvalue:null,
+        star:1,
+        showAlert:true,
+        showAlert1:true,
+        showAlert3:true,
+        title:'Well done! You successfully read this important alert message.',
+        type1:'warning',
+        type2:'info',
+        type3:'success',
+        type4:'danger',
+        showColse:false,
+        showColse2:true,
           time: 60,       // 验证码限制时间
           start: false,     // 验证码限制是否开启
-          currentPageVariable:1
-      };
-    },
-    watch: {
-    },
-    compiled(){
-    },
-    ready(){
-      this.startSend();
-    },
-    methods:{
-      doVerify(d){
-        alert(d);
+          currentPageVariable:1,
+          treeData: [
+          { name:'箱包' },
+          { name:'箱包', 
+          children: [
+          { name:'旅行箱' },
+          { name:'双肩包' },
+          { name:'旅行箱' }
+          ]
+        },
+        { name:'箱包',
+        children: [
+        { name:'旅行箱' },
+        { name:'双肩包' },
+        { name:'旅行箱' }
+        ]
       },
-      search(){
-        alert(this.searchvalue);
-      },
+      { name:'箱包' },
+      { name:'箱包' },
+      ]
+    };
+  },
+  watch: {
+  },
+  compiled(){
+  },
+  ready(){
+    this.startSend();
+  },
+  methods:{
+    doVerify(d){
+      alert(d);
+    },
+    search(){
+      alert(this.searchvalue);
+    },
       // 限制时间结束
       finishSend() {
         this.start = false;

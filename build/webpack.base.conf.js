@@ -65,7 +65,11 @@ module.exports = {
           limit: 10000,
           name: path.join(config.build.assetsSubDirectory, '[name].[hash:7].[ext]')
         }
-      }
+      },
+      { 
+        test: /iview\/.*?js$/,
+        loader: 'babel'
+      },// for Mac
     ]
   },
   vue: {

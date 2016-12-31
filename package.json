@@ -16,6 +16,7 @@
     "aliyunoss-webpack-plugin": "^0.2.0",
     "babel-runtime": "^5.8.0",
     "css-loader": "^0.23.1",
+    "element-ui": "^1.0.0-rc.7",
     "less": "^2.6.1",
     "less-loader": "^2.2.3",
     "lodash": "^4.13.1",
